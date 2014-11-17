@@ -33,6 +33,7 @@
 
     <modules>
         <module>jerry</module>
+        <module>examples</module>
     </modules>
 
     <properties>
@@ -49,7 +50,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <version>6.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
