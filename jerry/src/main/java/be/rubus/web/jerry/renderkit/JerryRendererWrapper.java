@@ -1,11 +1,18 @@
 package be.rubus.web.jerry.renderkit;
 
+import be.rubus.web.jerry.interceptor.RendererInterceptor;
+import be.rubus.web.jerry.interceptor.exception.SkipAfterInterceptorsException;
+import be.rubus.web.jerry.interceptor.exception.SkipBeforeInterceptorsException;
+import be.rubus.web.jerry.interceptor.exception.SkipRendererDelegationException;
+import be.rubus.web.jerry.provider.BeanProvider;
+
 import javax.enterprise.inject.Typed;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -14,23 +21,49 @@ import java.io.IOException;
 public class JerryRendererWrapper extends Renderer {
 
     protected Renderer wrapped;
+    private List<RendererInterceptor> rendererInterceptors;
 
     public JerryRendererWrapper(Renderer renderer) {
         this.wrapped = renderer;
+        // TODO take order into consideration
+        rendererInterceptors = BeanProvider.getContextualReferences(RendererInterceptor.class, true, false);
     }
 
     @Override
     public final void decode(FacesContext facesContext, UIComponent uiComponent) {
         boolean delegateToWrappedRenderer = true;
 
-        // TODO beforeDecode from the RendererInterceptor's
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                try {
+                    interceptor.beforeDecode(facesContext, uiComponent, this.wrapped);
+                } catch (SkipRendererDelegationException e) {
+
+                    delegateToWrappedRenderer = false;
+
+                    if (e.isSkipOtherInterceptors()) {
+                        break;
+                    }
+                }
+            }
+        } catch (SkipBeforeInterceptorsException e) {
+            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+        }
+
         /*
          * delegate
          */
         if (delegateToWrappedRenderer) {
             wrapped.decode(facesContext, uiComponent);
         }
-        // TODO afterDecode from the RendererInterceptor's
+
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                interceptor.afterDecode(facesContext, uiComponent, this.wrapped);
+            }
+        } catch (SkipAfterInterceptorsException e) {
+            // logger.log(Level.FINEST, "afterDecode interceptors canceled", e);
+        }
     }
 
     @Override
@@ -38,7 +71,22 @@ public class JerryRendererWrapper extends Renderer {
             throws IOException {
         boolean delegateToWrappedRenderer = true;
 
-        // TODO beforeEncodeBegin from the RendererInterceptor's
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                try {
+                    interceptor.beforeEncodeBegin(facesContext, uiComponent, this.wrapped);
+                } catch (SkipRendererDelegationException e) {
+
+                    delegateToWrappedRenderer = false;
+
+                    if (e.isSkipOtherInterceptors()) {
+                        break;
+                    }
+                }
+            }
+        } catch (SkipBeforeInterceptorsException e) {
+            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+        }
 
         /*
          * delegate
@@ -47,7 +95,13 @@ public class JerryRendererWrapper extends Renderer {
             wrapped.encodeBegin(facesContext, uiComponent);
         }
 
-        // TODO afterEncodeBegin from the RendererInterceptor's
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                interceptor.afterEncodeBegin(facesContext, uiComponent, this.wrapped);
+            }
+        } catch (SkipAfterInterceptorsException e) {
+            // logger.log(Level.FINEST, "afterEncodeBegin interceptors canceled", e);
+        }
 
     }
 
@@ -56,8 +110,22 @@ public class JerryRendererWrapper extends Renderer {
             throws IOException {
         boolean delegateToWrappedRenderer = true;
 
-        // TODO beforeEncodeChildren from the RendererInterceptor's
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                try {
+                    interceptor.beforeEncodeChildren(facesContext, uiComponent, this.wrapped);
+                } catch (SkipRendererDelegationException e) {
 
+                    delegateToWrappedRenderer = false;
+
+                    if (e.isSkipOtherInterceptors()) {
+                        break;
+                    }
+                }
+            }
+        } catch (SkipBeforeInterceptorsException e) {
+            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+        }
 
         /*
          * delegate
@@ -66,7 +134,13 @@ public class JerryRendererWrapper extends Renderer {
             wrapped.encodeChildren(facesContext, uiComponent);
         }
 
-        // TODO afterEncodeChildren from the RendererInterceptor's
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                interceptor.afterEncodeChildren(facesContext, uiComponent, this.wrapped);
+            }
+        } catch (SkipAfterInterceptorsException e) {
+            // logger.log(Level.FINEST, "afterEncodeChildren interceptors canceled", e);
+        }
 
 
     }
@@ -76,8 +150,22 @@ public class JerryRendererWrapper extends Renderer {
             throws IOException {
         boolean delegateToWrappedRenderer = true;
 
-        // TODO beforeEncodeEnd from the RendererInterceptor's
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                try {
+                    interceptor.beforeEncodeEnd(facesContext, uiComponent, this.wrapped);
+                } catch (SkipRendererDelegationException e) {
 
+                    delegateToWrappedRenderer = false;
+
+                    if (e.isSkipOtherInterceptors()) {
+                        break;
+                    }
+                }
+            }
+        } catch (SkipBeforeInterceptorsException e) {
+            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+        }
 
         /*
          * delegate
@@ -86,7 +174,13 @@ public class JerryRendererWrapper extends Renderer {
             wrapped.encodeEnd(facesContext, uiComponent);
         }
 
-        // TODO afterEncodeEnd from the RendererInterceptor's
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                interceptor.afterEncodeEnd(facesContext, uiComponent, this.wrapped);
+            }
+        } catch (SkipAfterInterceptorsException e) {
+            // logger.log(Level.FINEST, "afterEncodeEnd interceptors canceled", e);
+        }
 
     }
 
@@ -106,10 +200,22 @@ public class JerryRendererWrapper extends Renderer {
         boolean delegateToWrappedRenderer = true;
         Object convertedObject = null;
 
-        // TODO beforeGetConvertedValue from the RendererInterceptor's
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                try {
+                    interceptor.beforeGetConvertedValue(facesContext, uiComponent, o, this.wrapped);
+                } catch (SkipRendererDelegationException e) {
 
+                    delegateToWrappedRenderer = false;
 
-
+                    if (e.isSkipOtherInterceptors()) {
+                        break;
+                    }
+                }
+            }
+        } catch (SkipBeforeInterceptorsException e) {
+            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+        }
             /*
              * delegate
              */
@@ -117,7 +223,13 @@ public class JerryRendererWrapper extends Renderer {
             convertedObject = wrapped.getConvertedValue(facesContext, uiComponent, o);
         }
 
-        // TODO afterGetConvertedValue from the RendererInterceptor's
+        try {
+            for (RendererInterceptor interceptor : rendererInterceptors) {
+                interceptor.afterGetConvertedValue(facesContext, uiComponent, o, this.wrapped);
+            }
+        } catch (SkipAfterInterceptorsException e) {
+            // logger.log(Level.FINEST, "afterGetConvertedValue interceptors canceled", e);
+        }
 
 
         return convertedObject;
