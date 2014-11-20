@@ -18,14 +18,19 @@
  */
 package be.rubus.web.jerry.metadata;
 
+import be.rubus.web.jerry.producer.LogProducer;
+import org.slf4j.Logger;
+
+import javax.enterprise.inject.Typed;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Data holder which stores the meta-data and some information where the meta-data was found.
  */
+@Typed()
 public class MetaDataEntry {
-    //protected final Logger logger = Logger.getLogger(getClass().getName());
+    protected final Logger logger = LogProducer.getLogger(this.getClass());
 
     private String key;
     private Object value;
@@ -47,8 +52,9 @@ public class MetaDataEntry {
      * @param key value identifies the the meta-data stored in the instance.
      */
     public void setKey(String key) {
-        //this.logger.finest("setting meta-data key: " + key);
-
+        if (logger.isTraceEnabled()) {
+            logger.trace("setting meta-data key: " + key);
+        }
         this.key = key;
     }
 
@@ -78,8 +84,9 @@ public class MetaDataEntry {
      * @param value the object which represents the meta-data hold by this instance.
      */
     public void setValue(Object value) {
-        //this.logger.finest("setting meta-data value: " + value);
-
+        if (logger.isTraceEnabled()) {
+            logger.trace("setting meta-data value: " + value);
+        }
         this.value = value;
     }
 
@@ -116,15 +123,16 @@ public class MetaDataEntry {
 
     /**
      * Sets the property-value for the given property-key.
-     * {@link PropertyInformationKeys}
-     * contains the keys used by Valerie.
+     * {@link be.rubus.web.jerry.metadata.CommonMetaDataKeys}
+     * contains the keys used by Jerry/Valerie.
      *
      * @param key   key value used to identify the property value.
      * @param value property value to set.
      */
     public void setProperty(String key, Object value) {
-        //this.logger.finest("new property added key: " + key + " value: " + value + " for metadata-key: " + this.key);
-
+        if (logger.isTraceEnabled()) {
+            logger.trace("new property added key: " + key + " value: " + value + " for metadata-key: " + this.key);
+        }
         this.properties.put(key, value);
     }
 

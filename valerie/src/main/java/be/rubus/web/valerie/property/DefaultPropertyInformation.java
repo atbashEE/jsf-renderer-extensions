@@ -20,7 +20,10 @@ package be.rubus.web.valerie.property;
 
 
 import be.rubus.web.jerry.metadata.MetaDataEntry;
+import be.rubus.web.jerry.producer.LogProducer;
+import org.slf4j.Logger;
 
+import javax.enterprise.inject.Typed;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +32,9 @@ import java.util.Map;
 /**
  *
  */
+@Typed()
 public class DefaultPropertyInformation implements PropertyInformation {
-    //protected final Logger logger = Logger.getLogger(getClass().getName());
+    protected final Logger logger = LogProducer.getLogger(this.getClass());
 
     private Map<String, Object> informationMap = new HashMap<>();
     private List<MetaDataEntry> metaDataList = new ArrayList<>();
@@ -48,8 +52,9 @@ public class DefaultPropertyInformation implements PropertyInformation {
     }
 
     public void setInformation(String key, Object value) {
-        //this.logger.finest("new information added key: " + key + " value: " + value);
-
+        if (logger.isTraceEnabled()) {
+            logger.trace("new information added key: " + key + " value: " + value);
+        }
         informationMap.put(key, value);
     }
 
@@ -62,9 +67,11 @@ public class DefaultPropertyInformation implements PropertyInformation {
         this.metaDataList.add(metaDataEntry);
     }
 
+    // FIXME Is this needed?
     public void resetMetaDataEntries() {
-        //this.logger.finest("resetting meta-data entries");
-
+        if (logger.isTraceEnabled()) {
+            logger.trace("resetting meta-data entries");
+        }
         this.metaDataList.clear();
     }
 

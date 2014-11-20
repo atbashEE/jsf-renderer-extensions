@@ -1,6 +1,8 @@
 package be.rubus.web.valerie.utils;
 
+import be.rubus.web.jerry.producer.LogProducer;
 import be.rubus.web.valerie.storage.PropertyStorage;
+import org.slf4j.Logger;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -16,6 +18,8 @@ import java.util.StringTokenizer;
  */
 // FIXME, use the Java 7 MethodHandler instead of reflection API
 public class ReflectionUtils {
+
+    private static final Logger LOGGER = LogProducer.getLogger(ReflectionUtils.class);
 
     public static Method tryToGetMethod(Class targetClass, String targetMethodName) {
         return tryToGetMethod(targetClass, targetMethodName, null);
@@ -181,8 +185,9 @@ public class ReflectionUtils {
                     }
                 }
             } catch (NoSuchFieldException e1) {
-                // TODO
-                //LOGGER.log(Level.FINEST, "field " + property + " or _" + property + " not found", e1);
+                if (LOGGER.isTraceEnabled()) {
+                    LOGGER.trace("field " + property + " or _" + property + " not found", e1);
+                }
             }
         }
 

@@ -4,7 +4,9 @@ import be.rubus.web.jerry.interceptor.RendererInterceptor;
 import be.rubus.web.jerry.interceptor.exception.SkipAfterInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipBeforeInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipRendererDelegationException;
+import be.rubus.web.jerry.producer.LogProducer;
 import be.rubus.web.jerry.utils.InvocationOrderedArtifactsProvider;
+import org.slf4j.Logger;
 
 import javax.enterprise.inject.Typed;
 import javax.faces.component.UIComponent;
@@ -17,15 +19,14 @@ import java.util.List;
 /**
  *
  */
-@Typed()
 public class JerryRendererWrapper extends Renderer {
+    protected Logger logger = LogProducer.getLogger(this.getClass());
 
     protected Renderer wrapped;
     private List<RendererInterceptor> rendererInterceptors;
 
     public JerryRendererWrapper(Renderer renderer) {
         this.wrapped = renderer;
-        // TODO take order into consideration
         rendererInterceptors = InvocationOrderedArtifactsProvider.getRendererInterceptors();
     }
 
@@ -47,7 +48,9 @@ public class JerryRendererWrapper extends Renderer {
                 }
             }
         } catch (SkipBeforeInterceptorsException e) {
-            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("beforeDecode interceptors canceled", e);
+            }
         }
 
         /*
@@ -62,7 +65,9 @@ public class JerryRendererWrapper extends Renderer {
                 interceptor.afterDecode(facesContext, uiComponent, this.wrapped);
             }
         } catch (SkipAfterInterceptorsException e) {
-            // logger.log(Level.FINEST, "afterDecode interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("afterDecode interceptors canceled", e);
+            }
         }
     }
 
@@ -85,7 +90,9 @@ public class JerryRendererWrapper extends Renderer {
                 }
             }
         } catch (SkipBeforeInterceptorsException e) {
-            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("beforeDecode interceptors canceled", e);
+            }
         }
 
         /*
@@ -100,7 +107,9 @@ public class JerryRendererWrapper extends Renderer {
                 interceptor.afterEncodeBegin(facesContext, uiComponent, this.wrapped);
             }
         } catch (SkipAfterInterceptorsException e) {
-            // logger.log(Level.FINEST, "afterEncodeBegin interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("afterEncodeBegin interceptors canceled", e);
+            }
         }
 
     }
@@ -124,7 +133,9 @@ public class JerryRendererWrapper extends Renderer {
                 }
             }
         } catch (SkipBeforeInterceptorsException e) {
-            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("beforeDecode interceptors canceled", e);
+            }
         }
 
         /*
@@ -139,7 +150,9 @@ public class JerryRendererWrapper extends Renderer {
                 interceptor.afterEncodeChildren(facesContext, uiComponent, this.wrapped);
             }
         } catch (SkipAfterInterceptorsException e) {
-            // logger.log(Level.FINEST, "afterEncodeChildren interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("afterEncodeChildren interceptors canceled", e);
+            }
         }
 
 
@@ -164,7 +177,9 @@ public class JerryRendererWrapper extends Renderer {
                 }
             }
         } catch (SkipBeforeInterceptorsException e) {
-            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("beforeDecode interceptors canceled", e);
+            }
         }
 
         /*
@@ -179,7 +194,9 @@ public class JerryRendererWrapper extends Renderer {
                 interceptor.afterEncodeEnd(facesContext, uiComponent, this.wrapped);
             }
         } catch (SkipAfterInterceptorsException e) {
-            // logger.log(Level.FINEST, "afterEncodeEnd interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("afterEncodeEnd interceptors canceled", e);
+            }
         }
 
     }
@@ -214,7 +231,9 @@ public class JerryRendererWrapper extends Renderer {
                 }
             }
         } catch (SkipBeforeInterceptorsException e) {
-            // logger.log(Level.FINEST, "beforeDecode interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("beforeDecode interceptors canceled", e);
+            }
         }
             /*
              * delegate
@@ -228,7 +247,9 @@ public class JerryRendererWrapper extends Renderer {
                 interceptor.afterGetConvertedValue(facesContext, uiComponent, o, this.wrapped);
             }
         } catch (SkipAfterInterceptorsException e) {
-            // logger.log(Level.FINEST, "afterGetConvertedValue interceptors canceled", e);
+            if (logger.isTraceEnabled()) {
+                logger.trace("afterGetConvertedValue interceptors canceled", e);
+            }
         }
 
 

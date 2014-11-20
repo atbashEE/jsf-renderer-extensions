@@ -18,7 +18,9 @@
  */
 package be.rubus.web.valerie.el;
 
+import be.rubus.web.jerry.producer.LogProducer;
 import be.rubus.web.valerie.utils.ProxyUtils;
+import org.slf4j.Logger;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
@@ -30,10 +32,10 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * @since 1.x.1
+ *
  */
 public class RecordingELResolver extends ELResolver {
-    //protected final Logger logger = Logger.getLogger(getClass().getName());
+    protected final Logger logger = LogProducer.getLogger(RecordingELResolver.class);
 
     private ELResolver wrapped;
 
@@ -59,7 +61,9 @@ public class RecordingELResolver extends ELResolver {
     }
 
     public String getPath() {
-        //this.logger.finest("extracted path: " + this.expression);
+        if (logger.isTraceEnabled()) {
+            logger.trace("extracted path: " + this.expression);
+        }
         return this.expression;
     }
 
@@ -114,11 +118,10 @@ public class RecordingELResolver extends ELResolver {
                         propertyExists = true;
                     }
                 } catch (NoSuchMethodException e1) {
-                    // TODO
-                    /*
-                    this.logger.finest("property: " + property +
-                            " isn't used for path - it isn't a property of " + base.getClass());
-                            */
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("property: " + property +
+                                " isn't used for path - it isn't a property of " + base.getClass());
+                    }
                 }
             }
 
@@ -223,10 +226,9 @@ public class RecordingELResolver extends ELResolver {
     private void logWarningForUnsupportedExpression(Object o1) {
         if (this.projectStageDevelopment) {
             try {
-                // TODO
-                //this.logger.warning(o1 + " is not a valid property for constraint based validation.");
+                logger.warn(o1 + " is not a valid property for constraint based validation.");
             } catch (NullPointerException e) {
-                //this.logger.warning("A property which doesn't support constraint based validation has been detected.");
+                logger.warn("A property which doesn't support constraint based validation has been detected.");
             }
         }
     }

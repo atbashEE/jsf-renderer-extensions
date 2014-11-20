@@ -1,8 +1,10 @@
 package be.rubus.web.valerie.storage;
 
 import be.rubus.web.valerie.utils.ProxyUtils;
+import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -16,12 +18,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @ApplicationScoped
 // FIXME Use the MethodHandles of Java 7
 public class PropertyStorage {
-    //protected final Logger logger = Logger.getLogger(getClass().getName());
+    @Inject
+    protected transient Logger logger;
 
-    private Map<String, Map<String, Field>> fieldMap = new ConcurrentHashMap<String, Map<String, Field>>();
-    private Map<String, Map<String, Method>> methodMap = new ConcurrentHashMap<String, Map<String, Method>>();
-    private Map<String, List<String>> fieldNotAvailableMap = new ConcurrentHashMap<String, List<String>>();
-    private Map<String, List<String>> methodNotAvailableMap = new ConcurrentHashMap<String, List<String>>();
+    private Map<String, Map<String, Field>> fieldMap = new ConcurrentHashMap<>();
+    private Map<String, Map<String, Method>> methodMap = new ConcurrentHashMap<>();
+    private Map<String, List<String>> fieldNotAvailableMap = new ConcurrentHashMap<>();
+    private Map<String, List<String>> methodNotAvailableMap = new ConcurrentHashMap<>();
 
     public void storeField(Class targetClass, String property, Field field) {
         if (field != null) {

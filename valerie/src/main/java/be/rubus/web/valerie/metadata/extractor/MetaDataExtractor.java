@@ -27,6 +27,7 @@ import be.rubus.web.valerie.property.PropertyInformationKeys;
 import be.rubus.web.valerie.storage.MetaDataStorage;
 import be.rubus.web.valerie.utils.AnnotationUtils;
 import be.rubus.web.valerie.utils.ProxyUtils;
+import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -48,22 +49,24 @@ public class MetaDataExtractor  {
     @Inject
     private MetaDataStorage storage;
 
-    // TODO
-    //protected final Logger logger = Logger.getLogger(getClass().getName());
+    @Inject
+    protected transient Logger logger;
 
 
     public PropertyInformation extract(FacesContext facesContext, Object object) {
         //should never occur
         if (!(object instanceof UIComponent)) {
             if (object != null) {
-                //this.logger.warning(object.getClass() + " is no valid component");
+                logger.warn(object.getClass() + " is no valid component");
             }
             return null;
         }
 
         UIComponent uiComponent = (UIComponent) object;
 
-        //logger.finest("start extracting meta-data of " + uiComponent.getClass().getName());
+        if (logger.isTraceEnabled()) {
+            logger.trace("start extracting meta-data of " + uiComponent.getClass().getName());
+        }
 
         PropertyDetails propertyDetails = elHelper.getPropertyDetailsOfValueBinding(uiComponent);
 
@@ -78,7 +81,9 @@ public class MetaDataExtractor  {
 
         PropertyInformation propertyInformation = getPropertyInformation(entityClass, propertyDetails);
 
-        //logger.finest("extract finished");
+        if (logger.isTraceEnabled()) {
+            logger.trace("extract finished");
+        }
 
         return propertyInformation;
     }

@@ -19,7 +19,9 @@
 package be.rubus.web.jerry.provider;
 
 
+import be.rubus.web.jerry.producer.LogProducer;
 import be.rubus.web.jerry.utils.ClassUtils;
+import org.slf4j.Logger;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.*;
@@ -28,8 +30,6 @@ import javax.naming.NamingException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -56,7 +56,7 @@ import java.util.logging.Logger;
  */
 // Copied from DeltaSpike project
 public class BeanManagerProvider implements Extension {
-    private static final Logger LOG = Logger.getLogger(BeanManagerProvider.class.getName());
+    private static final Logger LOG = LogProducer.getLogger(BeanManagerProvider.class);
 
     //for CDI 1.1+ delegation
     private static final Method CDI_CURRENT_METHOD;
@@ -77,7 +77,7 @@ public class BeanManagerProvider implements Extension {
                 resolvedCdiCurrentMethod = cdiClass.getDeclaredMethod("current");
                 resolvedCdiBeanManagerMethod = cdiClass.getDeclaredMethod("getBeanManager");
             } catch (Exception e) {
-                LOG.log(Level.SEVERE, "Couldn't get method from " + cdiClass.getName(), e);
+                LOG.error("Couldn't get method from " + cdiClass.getName(), e);
             }
         }
 
@@ -183,9 +183,10 @@ public class BeanManagerProvider implements Extension {
         // warn the user if he tries to use the BeanManager before container startup
         if (!bmi.booted) {
             if (!isParentBeanManagerBooted()) {
-                LOG.warning("When using the BeanManager to retrieve Beans before the Container is started," +
-                        " non-portable behaviour results!");
-
+                if (LOG.isWarnEnabled()) {
+                    LOG.warn("When using the BeanManager to retrieve Beans before the Container is started," +
+                            " non-portable behaviour results!");
+                }
                 // reset the flag to only issue the warning once.
                 // this is a workaround for some containers which mess up EAR handling.
                 bmi.booted = true;
@@ -285,7 +286,10 @@ public class BeanManagerProvider implements Extension {
                 Object cdiCurrentObject = CDI_CURRENT_METHOD.invoke(null);
                 return (BeanManager) CDI_CURRENT_BEAN_MANAGER_METHOD.invoke(cdiCurrentObject);
             } catch (Throwable t) {
-                LOG.log(Level.FINEST, "failed to delegate bean-manager lookup -> fallback to default.", t);
+                if (LOG.isTraceEnabled()) {
+
+                    LOG.trace("failed to delegate bean-manager lookup -> fallback to default.", t);
+                }
             }
         }
         return null;

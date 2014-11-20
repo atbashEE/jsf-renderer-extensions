@@ -20,6 +20,8 @@ package be.rubus.web.jerry.provider;
 
 
 import be.rubus.web.jerry.literal.AnyLiteral;
+import be.rubus.web.jerry.producer.LogProducer;
+import org.slf4j.Logger;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.spi.CreationalContext;
@@ -30,8 +32,6 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.InjectionTarget;
 import java.lang.annotation.Annotation;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class contains utility methods for resolution of contextual references in situations where no injection is
@@ -50,7 +50,7 @@ import java.util.logging.Logger;
 // Copied from DeltaSpike project
 @Typed()
 public final class BeanProvider {
-    private static final Logger LOG = Logger.getLogger(BeanProvider.class.getName());
+    private static final Logger LOG = LogProducer.getLogger(BeanProvider.class);
 
     private BeanProvider() {
         // this is a utility class which doesn't get instantiated.
@@ -431,8 +431,10 @@ public final class BeanProvider {
      */
     private static void logWarningIfDependent(Bean<?> bean) {
         if (bean.getScope().equals(Dependent.class)) {
-            LOG.log(Level.WARNING, "BeanProvider shall not be used to create @Dependent scoped beans. "
-                    + "Bean: " + bean.toString());
+            if (LOG.isWarnEnabled()) {
+                LOG.warn("BeanProvider shall not be used to create @Dependent scoped beans. "
+                        + "Bean: " + bean.toString());
+            }
         }
     }
 

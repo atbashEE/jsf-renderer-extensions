@@ -1,5 +1,6 @@
 package be.rubus.web.valerie.utils;
 
+import be.rubus.web.jerry.producer.LogProducer;
 import be.rubus.web.jerry.provider.BeanProvider;
 import be.rubus.web.jerry.metadata.MetaDataEntry;
 import be.rubus.web.valerie.property.DefaultPropertyInformation;
@@ -7,6 +8,7 @@ import be.rubus.web.valerie.property.PropertyDetails;
 import be.rubus.web.valerie.property.PropertyInformation;
 import be.rubus.web.valerie.property.PropertyInformationKeys;
 import be.rubus.web.valerie.storage.PropertyStorage;
+import org.slf4j.Logger;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Annotation;
@@ -19,6 +21,8 @@ import java.util.List;
  *
  */
 public final class AnnotationUtils {
+
+    private static final Logger LOGGER = LogProducer.getLogger(AnnotationUtils.class);
 
     private AnnotationUtils() {
     }
@@ -105,7 +109,9 @@ public final class AnnotationUtils {
         for (Annotation annotation : annotations) {
             propertyInformation.addMetaDataEntry(createMetaDataEntryForAnnotation(annotation));
 
-            //LOGGER.finest(annotation.getClass().getName() + " found");
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace(annotation.getClass().getName() + " found");
+            }
         }
     }
 
