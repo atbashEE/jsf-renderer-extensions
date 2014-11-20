@@ -20,16 +20,17 @@
 
     <parent>
         <groupId>be.rubus.web</groupId>
-        <artifactId>examples</artifactId>
+        <artifactId>plugins</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>metadata-example</artifactId>
-    <packaging>war</packaging>
-    <name>The metadata example directory</name>
+    <groupId>be.rubus.web.valerie</groupId>
+    <artifactId>primefaces</artifactId>
+    <packaging>jar</packaging>
+    <name>PrimeFaces specific extension to Valerie</name>
     <description>
         TODO
     </description>
@@ -39,10 +40,12 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
+            <version>5.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>be.rubus.web.valerie</groupId>
-            <artifactId>primefaces</artifactId>
+            <groupId>be.rubus.web</groupId>
+            <artifactId>valerie</artifactId>
             <version>${project.version}</version>
         </dependency>
 

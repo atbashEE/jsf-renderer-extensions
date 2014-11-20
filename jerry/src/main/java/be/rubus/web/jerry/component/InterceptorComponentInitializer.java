@@ -25,28 +25,14 @@ import java.util.Map;
 @InvocationOrder(100)
 public class InterceptorComponentInitializer extends AbstractRendererInterceptor {
 
-    private List<ComponentInitializer> initializers;
-
     @Inject
-    private ComponentStorage componentStorage;
-
-
-    @PostConstruct
-    public void init() {
-        initializers = InvocationOrderedArtifactsProvider.getComponentInitializers();
-    }
+    private ComponentInitializerManager manager;
 
     @Override
     public void beforeEncodeBegin(FacesContext facesContext, UIComponent uiComponent,
                                   Renderer wrapped) throws IOException, SkipBeforeInterceptorsException, SkipRendererDelegationException {
-        String viewId = facesContext.getViewRoot().getViewId();
-        String clientId = uiComponent.getClientId(facesContext);
-
-        Map<String, Object> componentInfo = componentStorage.getComponentInfo(viewId, clientId);
-
-        for (ComponentInitializer initializer : initializers) {
-            initializer.configureComponent(facesContext, uiComponent, componentInfo);
-        }
+        manager.performInitialization(facesContext, uiComponent);
 
     }
+
 }

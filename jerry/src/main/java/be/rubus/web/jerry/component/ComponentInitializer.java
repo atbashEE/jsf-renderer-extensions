@@ -50,4 +50,12 @@ public interface ComponentInitializer {
      *                     in an abstract form (independent of the concrete constraint implementations).
      */
     void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData);
+
+    /**
+     * Determine if a certain JSF component needs to be treated by the @{link ComponentInitializer}.
+     *
+     * @param uiComponent The component to test.
+     * @return true when configureComponent method should be called.
+     */
+    boolean isSupportedComponent(UIComponent uiComponent);
 }

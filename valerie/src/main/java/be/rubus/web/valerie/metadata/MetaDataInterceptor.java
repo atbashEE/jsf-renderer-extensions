@@ -7,6 +7,7 @@ import be.rubus.web.jerry.ordering.InvocationOrder;
 import be.rubus.web.jerry.storage.ComponentStorage;
 import be.rubus.web.valerie.metadata.extractor.MetaDataExtractor;
 import be.rubus.web.valerie.property.PropertyInformation;
+import be.rubus.web.valerie.property.PropertyInformationManager;
 import be.rubus.web.valerie.storage.MetaDataStorage;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -24,13 +25,7 @@ import java.io.IOException;
 public class MetaDataInterceptor extends AbstractRendererInterceptor {
 
     @Inject
-    private MetaDataExtractor extractor;
-
-    @Inject
-    private MetaDataStorage metaDataStorage;
-
-    @Inject
-    private ComponentStorage componentStorage;
+    private PropertyInformationManager manager;
 
     @Override
     public void beforeDecode(FacesContext facesContext, UIComponent uiComponent, Renderer wrapped) throws SkipBeforeInterceptorsException, SkipRendererDelegationException {
@@ -41,21 +36,7 @@ public class MetaDataInterceptor extends AbstractRendererInterceptor {
                                   Renderer wrapped) throws IOException, SkipBeforeInterceptorsException, SkipRendererDelegationException {
 
 
-        String viewId = facesContext.getViewRoot().getViewId();
-        String clientId = uiComponent.getClientId(facesContext);
-
-        if (componentStorage.isEntryPossibleFor(viewId, clientId, PropertyInformation.class)) {
-
-            if (!componentStorage.containsEntry(viewId, clientId, PropertyInformation.class)) {
-
-
-                PropertyInformation info = extractor.extract(facesContext, uiComponent);
-                if (info != null) {
-                    componentStorage.storeEntry(viewId, clientId, info);
-                } else {
-                    componentStorage.setNotAvailable(viewId, clientId, PropertyInformation.class);
-                }
-            }
-        }
+        manager.determineInformation(facesContext, uiComponent);
     }
+
 }
