@@ -3,6 +3,7 @@ package be.rubus.web.jerry.interceptor;
 import be.rubus.web.jerry.interceptor.exception.SkipAfterInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipBeforeInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipRendererDelegationException;
+import be.rubus.web.jerry.ordering.InvocationOrderSupport;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -15,10 +16,10 @@ import java.io.IOException;
  * It's the base mechanism of Jerry which enables most of the concepts provided by the framework.
  * Furthermore, it allows to add custom concepts.
  */
+@InvocationOrderSupport
 public interface RendererInterceptor {
+
     String getInterceptorId();
-
-
 
     /*
      * before
@@ -90,7 +91,7 @@ public interface RendererInterceptor {
      * @throws javax.faces.convert.ConverterException Jerry validation strategies can throw
      *                                                {@link javax.faces.validator.ValidatorException}s.
      *                                                Due to the trick used by Jerry it has to be converted to a {@link javax.faces.convert.ConverterException}
-     *                                                (see {@link AbstractValidationInterceptor}).
+     *                                                (see {@link AbstractValidationInterceptor}).  TODO
      * @throws SkipBeforeInterceptorsException        can be thrown to stop the execution of the subsequent interceptors
      * @throws SkipRendererDelegationException        can be thrown to skip the invocation of the intercepted renderer method.
      */
@@ -164,7 +165,7 @@ public interface RendererInterceptor {
      * @throws ConverterException             Jerry validation strategies can throw
      *                                        {@link javax.faces.validator.ValidatorException}s.
      *                                        Due to the trick used by Jerry it has to be converted to a {@link ConverterException}
-     *                                        (see {@link AbstractValidationInterceptor}).
+     *                                        (see {@link AbstractValidationInterceptor}). TODO
      * @throws SkipAfterInterceptorsException Can be thrown to stop the execution of the subsequent interceptors.
      */
     void afterGetConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object submittedValue, Renderer

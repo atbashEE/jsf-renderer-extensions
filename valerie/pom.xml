@@ -20,16 +20,16 @@
 
     <parent>
         <groupId>be.rubus.web</groupId>
-        <artifactId>examples</artifactId>
+        <artifactId>renderer-wrapper</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>metadata-example</artifactId>
-    <packaging>war</packaging>
-    <name>The metadata example directory</name>
+    <artifactId>valerie</artifactId>
+    <packaging>jar</packaging>
+    <name>The validation extension of Jerry</name>
     <description>
         TODO
     </description>
@@ -37,17 +37,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-        </dependency>
-        <dependency>
             <groupId>be.rubus.web</groupId>
-            <artifactId>valerie</artifactId>
+            <artifactId>jerry</artifactId>
             <version>${project.version}</version>
         </dependency>
-
     </dependencies>
-    <build>
-        <finalName>${project.artifactId}</finalName>
-    </build>
+
+
 </project>

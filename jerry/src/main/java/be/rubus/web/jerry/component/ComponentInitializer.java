@@ -18,6 +18,8 @@
  */
 package be.rubus.web.jerry.component;
 
+import be.rubus.web.jerry.ordering.InvocationOrderSupport;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.Map;
@@ -26,24 +28,25 @@ import java.util.Map;
  * Allows to initialize components before
  * {@link javax.faces.component.UIComponent#encodeBegin(javax.faces.context.FacesContext)}.<br/>
  * e.g.: you can add information for client-side validation mechanisms,...
- * {@link org.apache.myfaces.extensions.validator.core.metadata.transformer.MetaDataTransformer MetaDataTransformers}
+ * {@link be.rubus.web.jerry.metadata.MetaDataTransformer MetaDataTransformers}
  * are used to convert specific information of constraints to a generic representation.
- * A {@link org.apache.myfaces.extensions.validator.core.initializer.component.ComponentInitializer} is just aware of
+ * A {@link ComponentInitializer} is just aware of
  * the generic data. E.g. a
- * {@link org.apache.myfaces.extensions.validator.core.initializer.component.ComponentInitializer} doesn't have to care
+ * {@link ComponentInitializer} doesn't have to care
  * if the information was provided by @Length or @Size. But a
- * {@link org.apache.myfaces.extensions.validator.core.initializer.component.ComponentInitializer} has to be aware of
+ * {@link ComponentInitializer} has to be aware of
  * specific JSF component types. Typically there is one
- * {@link org.apache.myfaces.extensions.validator.core.initializer.component.ComponentInitializer}
+ * {@link ComponentInitializer}
  * per JSF component lib.
  */
+@InvocationOrderSupport
 public interface ComponentInitializer {
     /**
      * Initialize components with information from the meta-data.
      *
      * @param facesContext The JSF Context
      * @param uiComponent  The component that should be initialized
-     * @param metaData     Information from the {@link org.apache.myfaces.extensions.validator.core.metadata.MetaDataEntry}
+     * @param metaData     Information from the {@link be.rubus.web.jerry.metadata.MetaDataEntry}
      *                     in an abstract form (independent of the concrete constraint implementations).
      */
     void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData);

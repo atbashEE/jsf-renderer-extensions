@@ -1,6 +1,7 @@
 package be.rubus.web.jerry.example.interceptor;
 
 import be.rubus.web.jerry.component.ComponentInitializer;
+import be.rubus.web.jerry.metadata.CommonMetaDataKeys;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.outputlabel.OutputLabel;
 
@@ -24,6 +25,15 @@ public class DummyInitializer implements ComponentInitializer {
         if (uiComponent instanceof InputText) {
             InputText inputText = (InputText) uiComponent;
             inputText.setPlaceholder("Interceptor :)");
+        }
+
+        if (metaData.containsKey(CommonMetaDataKeys.REQUIRED.getKey())) {
+            InputText outputLabel = (InputText) uiComponent;
+            String style = outputLabel.getStyle();
+            if (style == null) {
+                style = "";
+            }
+            outputLabel.setStyle(style + " background-color: red;");
         }
     }
 }

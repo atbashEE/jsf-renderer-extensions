@@ -33,6 +33,7 @@
 
     <modules>
         <module>jerry</module>
+        <module>valerie</module>
         <module>examples</module>
     </modules>
 

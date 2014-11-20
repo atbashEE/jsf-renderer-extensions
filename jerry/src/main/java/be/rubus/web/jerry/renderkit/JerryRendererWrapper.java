@@ -4,7 +4,7 @@ import be.rubus.web.jerry.interceptor.RendererInterceptor;
 import be.rubus.web.jerry.interceptor.exception.SkipAfterInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipBeforeInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipRendererDelegationException;
-import be.rubus.web.jerry.provider.BeanProvider;
+import be.rubus.web.jerry.utils.InvocationOrderedArtifactsProvider;
 
 import javax.enterprise.inject.Typed;
 import javax.faces.component.UIComponent;
@@ -26,7 +26,7 @@ public class JerryRendererWrapper extends Renderer {
     public JerryRendererWrapper(Renderer renderer) {
         this.wrapped = renderer;
         // TODO take order into consideration
-        rendererInterceptors = BeanProvider.getContextualReferences(RendererInterceptor.class, true, false);
+        rendererInterceptors = InvocationOrderedArtifactsProvider.getRendererInterceptors();
     }
 
     @Override

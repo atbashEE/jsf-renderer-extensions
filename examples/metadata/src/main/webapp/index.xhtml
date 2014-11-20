@@ -11,6 +11,9 @@
     <h:form id="frm">
         <p:outputLabel value="Name " for="name" />
         <p:inputText id="name" value="#{person.name}"/> <br/>
+
+        <p:outputLabel value="Age " for="age" />
+        <p:inputText id="age" value="#{person.age}"/> <br/>
         <p:commandButton value="Send" actionListener="#{person.save}" ajax="false"/>
     </h:form>
 </h:body>
