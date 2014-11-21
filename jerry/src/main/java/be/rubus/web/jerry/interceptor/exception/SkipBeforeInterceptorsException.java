@@ -20,10 +20,9 @@ package be.rubus.web.jerry.interceptor.exception;
 
 /**
  * Marker exception that can be thrown by a before-method
- * ({@link org.apache.myfaces.extensions.validator.core.interceptor.RendererInterceptor})
+ * ({@link be.rubus.web.jerry.interceptor.RendererInterceptor})
  * to stop the execution of the subsequent interceptors.
  *
- * @since 1.x.1
  */
 public class SkipBeforeInterceptorsException extends Exception {
     private static final long serialVersionUID = -418424051464814888L;

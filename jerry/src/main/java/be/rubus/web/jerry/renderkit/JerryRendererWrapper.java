@@ -8,7 +8,6 @@ import be.rubus.web.jerry.producer.LogProducer;
 import be.rubus.web.jerry.utils.InvocationOrderedArtifactsProvider;
 import org.slf4j.Logger;
 
-import javax.enterprise.inject.Typed;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;

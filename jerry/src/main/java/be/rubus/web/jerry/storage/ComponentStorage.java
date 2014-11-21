@@ -103,11 +103,8 @@ public class ComponentStorage {
             if (!clientId.equals(that.clientId)) {
                 return false;
             }
-            if (!viewId.equals(that.viewId)) {
-                return false;
-            }
+            return viewId.equals(that.viewId);
 
-            return true;
         }
 
         @Override
@@ -145,11 +142,8 @@ public class ComponentStorage {
 
             StorageKey that = (StorageKey) o;
 
-            if (!key.equals(that.key)) {
-                return false;
-            }
+            return key.equals(that.key);
 
-            return true;
         }
 
         @Override

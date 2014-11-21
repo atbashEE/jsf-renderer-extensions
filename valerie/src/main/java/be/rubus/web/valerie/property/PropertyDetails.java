@@ -73,11 +73,8 @@ public class PropertyDetails {
         if (key != null ? !key.equals(that.key) : that.key != null) {
             return false;
         }
-        if (property != null ? !property.equals(that.property) : that.property != null) {
-            return false;
-        }
+        return !(property != null ? !property.equals(that.property) : that.property != null);
 
-        return true;
     }
 
     @Override

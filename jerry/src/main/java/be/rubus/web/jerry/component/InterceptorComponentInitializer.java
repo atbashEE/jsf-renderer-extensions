@@ -4,18 +4,13 @@ import be.rubus.web.jerry.interceptor.AbstractRendererInterceptor;
 import be.rubus.web.jerry.interceptor.exception.SkipBeforeInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipRendererDelegationException;
 import be.rubus.web.jerry.ordering.InvocationOrder;
-import be.rubus.web.jerry.storage.ComponentStorage;
-import be.rubus.web.jerry.utils.InvocationOrderedArtifactsProvider;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * An instance of a {@link be.rubus.web.jerry.interceptor.RendererInterceptor} which executes all know

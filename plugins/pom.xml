@@ -39,13 +39,6 @@
         <module>primefaces</module>
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>be.rubus.web</groupId>
-            <artifactId>jerry</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
 
 
 </project>

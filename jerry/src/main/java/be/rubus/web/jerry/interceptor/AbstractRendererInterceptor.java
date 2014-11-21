@@ -70,7 +70,7 @@ public abstract class AbstractRendererInterceptor implements RendererInterceptor
      * {@inheritDoc}
      */
     public void afterDecode(FacesContext facesContext, UIComponent uiComponent, Renderer wrapped)
-            throws SkipAfterInterceptorsException, SkipAfterInterceptorsException {
+            throws SkipAfterInterceptorsException {
     }
 
     /**

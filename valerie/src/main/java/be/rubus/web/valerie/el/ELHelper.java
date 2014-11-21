@@ -44,25 +44,19 @@ public class ELHelper {
     //protected final boolean projectStageDevelopment = JsfProjectStage.is(JsfProjectStage.Development);
 
     public PropertyDetails getPropertyDetailsOfValueBinding(UIComponent uiComponent) {
-        // TODO check
-        /*
-        if (DEACTIVATE_EL_RESOLVER) {
-            return getPropertyDetailsViaReflectionFallback(uiComponent);
-        }
-        */
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
         RecordingELResolver elResolver =
                 new RecordingELResolver(facesContext.getApplication().getELResolver(), true /* TODO this.projectStageDevelopment */);
 
-        ELContext elContext = RecordingELResolver.createContextWrapper(facesContext.getELContext(), elResolver);
-
         ValueExpression valueExpression = uiComponent.getValueExpression("value");
 
         if (valueExpression == null) {
             return null;
         }
+
+        ELContext elContext = RecordingELResolver.createContextWrapper(facesContext.getELContext(), elResolver);
 
         try {
             valueExpression.setValue(elContext, null);
@@ -78,13 +72,5 @@ public class ELHelper {
 
         return new PropertyDetails(elResolver.getPath(), elResolver.getBaseObject(), elResolver.getProperty());
     }
-
-
-    static String getOriginalValueBindingExpression(UIComponent uiComponent) {
-        ValueExpression valueExpression = uiComponent.getValueExpression("value");
-
-        return (valueExpression != null) ? valueExpression.getExpressionString() : null;
-    }
-
 
 }

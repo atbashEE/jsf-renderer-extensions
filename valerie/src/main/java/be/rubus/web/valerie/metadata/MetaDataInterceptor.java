@@ -24,13 +24,8 @@ public class MetaDataInterceptor extends AbstractRendererInterceptor {
     private PropertyInformationManager manager;
 
     @Override
-    public void beforeDecode(FacesContext facesContext, UIComponent uiComponent, Renderer wrapped) throws SkipBeforeInterceptorsException, SkipRendererDelegationException {
-    }
-
-    @Override
     public void beforeEncodeBegin(FacesContext facesContext, UIComponent uiComponent,
                                   Renderer wrapped) throws IOException, SkipBeforeInterceptorsException, SkipRendererDelegationException {
-
 
         manager.determineInformation(facesContext, uiComponent);
     }

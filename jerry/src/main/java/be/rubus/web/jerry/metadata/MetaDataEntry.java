@@ -34,7 +34,7 @@ public class MetaDataEntry {
 
     private String key;
     private Object value;
-    private Map<String, Object> properties = new HashMap<String, Object>();
+    private Map<String, Object> properties = new HashMap<>();
 
     /**
      * Returns the key which identifies the meta-data.
@@ -153,11 +153,8 @@ public class MetaDataEntry {
         if (properties != null ? !properties.equals(that.properties) : that.properties != null) {
             return false;
         }
-        if (value != null ? !value.equals(that.value) : that.value != null) {
-            return false;
-        }
+        return !(value != null ? !value.equals(that.value) : that.value != null);
 
-        return true;
     }
 
     @Override

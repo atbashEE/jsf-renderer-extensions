@@ -145,9 +145,7 @@ public abstract class ClassUtils {
     public static <T> T tryToInstantiateClass(Class<T> targetClass) {
         try {
             return targetClass.newInstance();
-        } catch (InstantiationException e) {
-            //do nothing - it was just a try
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             //do nothing - it was just a try
         }
         return null;

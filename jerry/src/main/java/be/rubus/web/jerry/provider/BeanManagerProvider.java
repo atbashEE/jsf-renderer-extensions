@@ -114,7 +114,7 @@ public class BeanManagerProvider implements Extension {
      * <p/>
      * <p><b>Attention:</b> This instance must only be used through the {@link #bmpSingleton} singleton!</p>
      */
-    private volatile Map<ClassLoader, BeanManagerInfo> bmInfos = new ConcurrentHashMap<ClassLoader, BeanManagerInfo>();
+    private volatile Map<ClassLoader, BeanManagerInfo> bmInfos = new ConcurrentHashMap<>();
 
     /**
      * Indicates whether the {@link BeanManagerProvider} has been initialized. Usually it's not necessary to call this
@@ -136,17 +136,6 @@ public class BeanManagerProvider implements Extension {
      *                               hasn't been called before this method gets called.
      */
     public static BeanManagerProvider getInstance() {
-        /*X TODO Java-EE5 support needs to be discussed
-        if (bmpSingleton == null)
-        {
-            // workaround for some Java-EE5 environments in combination with a special
-            // StartupBroadcaster for bootstrapping CDI
-
-            // CodiStartupBroadcaster.broadcastStartup();
-            // here bmp might not be null (depends on the broadcasters)
-        }
-        */
-
         if (bmpSingleton == null) {
             throw new IllegalStateException("No " + BeanManagerProvider.class.getName() + " in place! " +
                     "Please ensure that you configured the CDI implementation of your choice properly. " +

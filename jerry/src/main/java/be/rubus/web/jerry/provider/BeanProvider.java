@@ -282,7 +282,7 @@ public final class BeanProvider {
 
         Set<Bean<T>> beans = getBeanDefinitions(type, optional, includeDefaultScopedBeans, beanManager);
 
-        List<T> result = new ArrayList<T>(beans.size());
+        List<T> result = new ArrayList<>(beans.size());
 
         for (Bean<?> bean : beans) {
             //noinspection unchecked
@@ -316,7 +316,7 @@ public final class BeanProvider {
         @SuppressWarnings("unchecked")
         T instance = (T) beanManager.getReference(bean, type, cc);
 
-        return new DependentProvider<T>(bean, cc, instance);
+        return new DependentProvider<>(bean, cc, instance);
     }
 
     /**
@@ -355,7 +355,7 @@ public final class BeanProvider {
             beans = filterDefaultScopedBeans(beans);
         }
 
-        Set<Bean<T>> result = new HashSet<Bean<T>>();
+        Set<Bean<T>> result = new HashSet<>();
 
         for (Bean<?> bean : beans) {
             //noinspection unchecked
@@ -394,7 +394,7 @@ public final class BeanProvider {
     }
 
     private static Set<Bean<?>> filterDefaultScopedBeans(Set<Bean<?>> beans) {
-        Set<Bean<?>> result = new HashSet<Bean<?>>(beans.size());
+        Set<Bean<?>> result = new HashSet<>(beans.size());
 
         for (Bean<?> currentBean : beans) {
             if (!Dependent.class.isAssignableFrom(currentBean.getScope())) {

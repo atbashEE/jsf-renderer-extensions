@@ -77,11 +77,10 @@ public class ReflectionUtils {
             try {
                 return entity.getDeclaredMethod("get" + property);
             } catch (NoSuchMethodException e1) {
-                // TODO
-
-                //LOGGER.finest("method not found - class: " + entity.getName()
-                //        + " - methods: " + "get" + property + " " + "is" + property);
-
+                if (LOGGER.isTraceEnabled()) {
+                    LOGGER.trace("method not found - class: " + entity.getName()
+                            + " - methods: " + "get" + property + " " + "is" + property);
+                }
                 return null;
             }
         }

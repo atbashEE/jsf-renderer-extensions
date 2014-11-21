@@ -67,14 +67,6 @@ public class DefaultPropertyInformation implements PropertyInformation {
         this.metaDataList.add(metaDataEntry);
     }
 
-    // FIXME Is this needed?
-    public void resetMetaDataEntries() {
-        if (logger.isTraceEnabled()) {
-            logger.trace("resetting meta-data entries");
-        }
-        this.metaDataList.clear();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -89,11 +81,8 @@ public class DefaultPropertyInformation implements PropertyInformation {
         if (!informationMap.equals(that.informationMap)) {
             return false;
         }
-        if (!metaDataList.equals(that.metaDataList)) {
-            return false;
-        }
+        return metaDataList.equals(that.metaDataList);
 
-        return true;
     }
 
     @Override
