@@ -2,7 +2,6 @@ package be.rubus.web.valerie.property;
 
 import be.rubus.web.jerry.storage.ComponentStorage;
 import be.rubus.web.valerie.metadata.extractor.MetaDataExtractor;
-import be.rubus.web.valerie.storage.MetaDataStorage;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -17,9 +16,6 @@ public class PropertyInformationManager {
 
     @Inject
     private MetaDataExtractor extractor;
-
-    @Inject
-    private MetaDataStorage metaDataStorage;
 
     @Inject
     private ComponentStorage componentStorage;

@@ -19,12 +19,8 @@
 package be.rubus.web.valerie.metadata.extractor;
 
 import be.rubus.web.valerie.el.ELHelper;
-import be.rubus.web.jerry.metadata.MetaDataEntry;
-import be.rubus.web.valerie.property.DefaultPropertyInformation;
 import be.rubus.web.valerie.property.PropertyDetails;
 import be.rubus.web.valerie.property.PropertyInformation;
-import be.rubus.web.valerie.property.PropertyInformationKeys;
-import be.rubus.web.valerie.storage.MetaDataStorage;
 import be.rubus.web.valerie.utils.AnnotationUtils;
 import be.rubus.web.valerie.utils.ProxyUtils;
 import org.slf4j.Logger;
@@ -41,13 +37,10 @@ import javax.inject.Inject;
  * (Also the annotations of super classes and interfaces.)
  */
 @ApplicationScoped
-public class MetaDataExtractor  {
+public class MetaDataExtractor {
 
     @Inject
     private ELHelper elHelper;
-
-    @Inject
-    private MetaDataStorage storage;
 
     @Inject
     protected transient Logger logger;
@@ -90,32 +83,8 @@ public class MetaDataExtractor  {
 
     protected PropertyInformation getPropertyInformation(Class entityClass, PropertyDetails propertyDetails) {
 
-        PropertyInformation propertyInformation = new DefaultPropertyInformation();
+        return AnnotationUtils.extractAnnotations(entityClass, propertyDetails);
 
-        if (isCached(storage, entityClass, propertyDetails.getProperty())) {
-            //create
-            propertyInformation.setInformation(PropertyInformationKeys.PROPERTY_DETAILS, propertyDetails);
-
-            for (MetaDataEntry metaDataEntry : getCachedMetaData(storage, entityClass, propertyDetails.getProperty())) {
-                propertyInformation.addMetaDataEntry(metaDataEntry);
-            }
-        } else {
-            propertyInformation = AnnotationUtils.extractAnnotations(entityClass, propertyDetails);
-            cacheMetaData(storage, propertyInformation);
-        }
-        return propertyInformation;
-    }
-
-    protected boolean isCached(MetaDataStorage storage, Class entityClass, String property) {
-        return storage.containsMetaDataFor(entityClass, property);
-    }
-
-    protected void cacheMetaData(MetaDataStorage storage, PropertyInformation propertyInformation) {
-        storage.storeMetaDataOf(propertyInformation);
-    }
-
-    protected MetaDataEntry[] getCachedMetaData(MetaDataStorage storage, Class entityClass, String property) {
-        return storage.getMetaData(entityClass, property);
     }
 
 }

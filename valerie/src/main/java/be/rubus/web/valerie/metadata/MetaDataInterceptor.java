@@ -4,11 +4,7 @@ import be.rubus.web.jerry.interceptor.AbstractRendererInterceptor;
 import be.rubus.web.jerry.interceptor.exception.SkipBeforeInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipRendererDelegationException;
 import be.rubus.web.jerry.ordering.InvocationOrder;
-import be.rubus.web.jerry.storage.ComponentStorage;
-import be.rubus.web.valerie.metadata.extractor.MetaDataExtractor;
-import be.rubus.web.valerie.property.PropertyInformation;
 import be.rubus.web.valerie.property.PropertyInformationManager;
-import be.rubus.web.valerie.storage.MetaDataStorage;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
