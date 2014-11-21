@@ -16,7 +16,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  */
 @ApplicationScoped
-// FIXME Use the MethodHandles of Java 7
 public class PropertyStorage {
     @Inject
     protected transient Logger logger;

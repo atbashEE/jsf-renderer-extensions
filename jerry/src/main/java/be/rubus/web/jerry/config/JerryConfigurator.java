@@ -14,4 +14,8 @@ public class JerryConfigurator {
     public JerryRenderKit getRenderKitWrapper(RenderKit renderKit) {
         return new JerryRenderKit(renderKit);
     }
+
+    public boolean useBeanInfo() {
+        return true;
+    }
 }
