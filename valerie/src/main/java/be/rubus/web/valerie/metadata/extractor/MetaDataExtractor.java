@@ -18,11 +18,11 @@
  */
 package be.rubus.web.valerie.metadata.extractor;
 
+import be.rubus.web.jerry.utils.ProxyUtils;
 import be.rubus.web.valerie.el.ELHelper;
 import be.rubus.web.valerie.property.PropertyDetails;
 import be.rubus.web.valerie.property.PropertyInformation;
 import be.rubus.web.valerie.utils.AnnotationUtils;
-import be.rubus.web.valerie.utils.ProxyUtils;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;

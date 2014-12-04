@@ -1,6 +1,6 @@
 package be.rubus.web.valerie.storage;
 
-import be.rubus.web.valerie.utils.ProxyUtils;
+import be.rubus.web.jerry.utils.ProxyUtils;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;

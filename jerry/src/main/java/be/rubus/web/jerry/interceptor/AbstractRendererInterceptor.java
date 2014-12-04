@@ -18,7 +18,7 @@ public abstract class AbstractRendererInterceptor implements RendererInterceptor
     protected AbstractRendererInterceptor() {
     }
 
-    public final String getInterceptorId() {
+    public String getInterceptorId() {
         return getClass().getName();
     }
 

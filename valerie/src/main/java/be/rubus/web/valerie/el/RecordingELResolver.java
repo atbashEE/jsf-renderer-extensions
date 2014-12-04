@@ -19,7 +19,7 @@
 package be.rubus.web.valerie.el;
 
 import be.rubus.web.jerry.producer.LogProducer;
-import be.rubus.web.valerie.utils.ProxyUtils;
+import be.rubus.web.jerry.utils.ProxyUtils;
 import org.slf4j.Logger;
 
 import javax.el.ELContext;

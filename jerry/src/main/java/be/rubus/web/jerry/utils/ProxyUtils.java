@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package be.rubus.web.valerie.utils;
+package be.rubus.web.jerry.utils;
 
 
 /**

@@ -26,4 +26,13 @@
     <factory>
         <render-kit-factory>be.rubus.web.jerry.renderkit.JerryRenderKitFactory</render-kit-factory>
     </factory>
+
+    <application>
+        <!-- Application is started -->
+        <system-event-listener>
+            <system-event-listener-class>be.rubus.web.jerry.startup.SystemStartup</system-event-listener-class>
+            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+        </system-event-listener>
+    </application>
+
 </faces-config>
