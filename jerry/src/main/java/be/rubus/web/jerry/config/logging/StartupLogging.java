@@ -3,6 +3,8 @@ package be.rubus.web.jerry.config.logging;
 import be.rubus.web.jerry.provider.BeanProvider;
 import be.rubus.web.jerry.startup.StartupEvent;
 import be.rubus.web.jerry.utils.ProxyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.event.Observes;
 import java.lang.reflect.InvocationTargetException;
@@ -16,6 +18,8 @@ import java.util.List;
  */
 public class StartupLogging {
 
+    private Logger logger = LoggerFactory.getLogger(StartupLogging.class);
+
     protected String separator = System.getProperty("line.separator");
 
     public void logAtStartApplication(@Observes StartupEvent event) {
@@ -24,7 +28,7 @@ public class StartupLogging {
         for (ModuleConfig config : configs) {
             configInfo.append(getConfigInfo(config));
         }
-        System.out.println(configInfo.toString());
+        logger.info(configInfo.toString());
     }
 
     //generic alternative to #toString to avoid an overriden #toString at custom implementations
