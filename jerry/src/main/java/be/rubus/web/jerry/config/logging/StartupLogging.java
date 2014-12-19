@@ -25,6 +25,7 @@ public class StartupLogging {
     public void logAtStartApplication(@Observes StartupEvent event) {
         List<ModuleConfig> configs = BeanProvider.getContextualReferences(ModuleConfig.class, false);
         StringBuilder configInfo = new StringBuilder();
+        configInfo.append('\n');
         for (ModuleConfig config : configs) {
             configInfo.append(getConfigInfo(config));
         }
