@@ -18,8 +18,6 @@
  */
 package be.rubus.web.jerry.component;
 
-import be.rubus.web.jerry.ordering.InvocationOrderSupport;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.Map;
@@ -39,7 +37,6 @@ import java.util.Map;
  * {@link ComponentInitializer}
  * per JSF component lib.
  */
-@InvocationOrderSupport
 public interface ComponentInitializer {
     /**
      * Initialize components with information from the meta-data.

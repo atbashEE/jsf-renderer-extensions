@@ -3,7 +3,6 @@ package be.rubus.web.jerry.interceptor;
 import be.rubus.web.jerry.interceptor.exception.SkipAfterInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipBeforeInterceptorsException;
 import be.rubus.web.jerry.interceptor.exception.SkipRendererDelegationException;
-import be.rubus.web.jerry.ordering.InvocationOrderSupport;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -16,7 +15,6 @@ import java.io.IOException;
  * It's the base mechanism of Jerry which enables most of the concepts provided by the framework.
  * Furthermore, it allows to add custom concepts.
  */
-@InvocationOrderSupport
 public interface RendererInterceptor {
 
     String getInterceptorId();
