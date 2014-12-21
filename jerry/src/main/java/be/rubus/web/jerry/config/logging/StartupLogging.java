@@ -80,18 +80,31 @@ public class StartupLogging {
                 info.append("   value:\t").append(Arrays.toString(configEntry.value()));
             } else {
                 // TODO Verify it is a no-arg method
-                Object value;
-                try {
-                    value = currentMethod.invoke(config);
-                    info.append("   value:\t").append(value.toString());
-                } catch (IllegalAccessException e) {
-                    info.append("   value:\t[unknown]");
-                } catch (InvocationTargetException e) {
-                    info.append("   value: [unknown]");
+                if (currentMethod.getParameterTypes().length == 0) {
+                    if (void.class.equals(currentMethod.getReturnType())) {
+                        info.append("   value:\tunknown - Method has no return value");
+                    } else {
+
+                        executeMethodForConfigRetrieval(config, info, currentMethod);
+                    }
+                } else {
+                    info.append("   value:\tunknown - Method has a parameter");
                 }
             }
         }
 
 
+    }
+
+    private void executeMethodForConfigRetrieval(ModuleConfig config, StringBuilder info, Method currentMethod) {
+        Object value;
+        try {
+            value = currentMethod.invoke(config);
+            info.append("   value:\t").append(value == null ? "null" : value.toString());
+        } catch (IllegalAccessException e) {
+            info.append("   value:\t[unknown]");
+        } catch (InvocationTargetException e) {
+            info.append("   value: [unknown]");
+        }
     }
 }

@@ -23,7 +23,8 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * @since x.x.3
+ * Comparator which order instances according to the info specified in {see InvocationOrder}.
+ * Ordening is done from low value to high value and those instances that doesn't have the annotation are placed at the end.
  */
 public class InvocationOrderComparator<T> implements Comparator<T>, Serializable {
     private static final long serialVersionUID = 2287258656373616584L;
