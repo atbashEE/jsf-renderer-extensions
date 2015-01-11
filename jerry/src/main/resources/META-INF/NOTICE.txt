@@ -1,5 +1,5 @@
 Jerry, a generic JSF renderer interceptor
-Copyright 2014 Rudy De Busscher
+Copyright 2014-2015 Rudy De Busscher
 
 This product includes software developed by
 The Apache Software Foundation (http://www.apache.org/).
