@@ -23,14 +23,26 @@
 </h:head>
 
 <h:body>
+    TODO Better examples, more split up for each feature.
     <p:messages/>
     <h:form id="frm">
-        <p:outputLabel value="Name " for="name" />
+        <p:outputLabel value="Name " for="name"/>
         <p:inputText id="name" value="#{person.name}"/> <br/>
 
-        <p:outputLabel value="Age " for="age" />
+        <p:outputLabel value="Age " for="age"/>
         <p:inputText id="age" value="#{person.age}"/> <br/>
         <p:commandButton value="Send" actionListener="#{person.save}" ajax="false"/>
+    </h:form>
+
+    <h:form id="frm2">
+        <p:outputLabel value="First Name " for="firstName"/>
+        <p:inputText id="firstName" value="#{employee.name}"/> <br/>
+
+        <p:outputLabel value="Last Name" for="lastName"/>
+        <p:inputText id="lastName" value="#{employee.lastName}"/> <br/>
+
+        <p:outputLabel value="Email" for="email"/>
+        <p:inputText id="email" value="#{employee.email}"/> <br/>
     </h:form>
 </h:body>
 

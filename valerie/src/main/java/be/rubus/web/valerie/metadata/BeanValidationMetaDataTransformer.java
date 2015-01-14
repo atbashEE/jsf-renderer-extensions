@@ -16,10 +16,13 @@
  */
 package be.rubus.web.valerie.metadata;
 
-import be.rubus.web.jerry.metadata.*;
+import be.rubus.web.jerry.metadata.CommonMetaDataKeys;
+import be.rubus.web.jerry.metadata.MetaDataEntry;
+import be.rubus.web.jerry.metadata.MetaDataTransformer;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +36,15 @@ public class BeanValidationMetaDataTransformer implements MetaDataTransformer {
         Map<String, Object> result = new HashMap<>();
         if (NotNull.class.getName().equals(metaData.getKey())) {
             result.put(CommonMetaDataKeys.REQUIRED.getKey(), Boolean.TRUE);
+        }
+        if (Size.class.getName().equals(metaData.getKey())) {
+            Size size = (Size) metaData.getValue();
+            if (size.min() > 0) {
+                result.put(CommonMetaDataKeys.REQUIRED.getKey(), Boolean.TRUE);
+            }
+            if (size.max() < 2147483647) {
+                result.put(CommonMetaDataKeys.SIZE.getKey(), size.max());
+            }
         }
         return result;
     }

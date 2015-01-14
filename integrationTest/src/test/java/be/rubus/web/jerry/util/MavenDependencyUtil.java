@@ -28,6 +28,7 @@ import java.io.File;
 public final class MavenDependencyUtil {
 
     private static final String JERRY_CANONICAL_FORM = "be.rubus.web:jerry";
+    private static final String VALERIE_CANONICAL_FORM = "be.rubus.web:valerie";
     private static final String ASSERTJ_CANONICAL_FORM = "org.assertj:assertj-core";
 
     private MavenDependencyUtil() {
@@ -36,6 +37,12 @@ public final class MavenDependencyUtil {
     public static File[] jerryFiles() {
         PomEquippedResolveStage pomEquippedResolveStage = getResolveStageFromPom();
         return pomEquippedResolveStage.resolve(JERRY_CANONICAL_FORM).withoutTransitivity().asFile();
+
+    }
+
+    public static File[] valerieFiles() {
+        PomEquippedResolveStage pomEquippedResolveStage = getResolveStageFromPom();
+        return pomEquippedResolveStage.resolve(VALERIE_CANONICAL_FORM).withoutTransitivity().asFile();
 
     }
 

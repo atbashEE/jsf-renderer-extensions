@@ -29,9 +29,9 @@
 
     <artifactId>valerie</artifactId>
     <packaging>jar</packaging>
-    <name>The validation extension of Jerry</name>
+    <name>Valerie - The validation extension for Jerry</name>
     <description>
-        TODO
+        Transfers Bean Validation constraints to the JSF components.
     </description>
     <url></url>
 

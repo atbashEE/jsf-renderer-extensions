@@ -70,8 +70,21 @@
     <dependencies>
 
         <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>be.rubus.web</groupId>
             <artifactId>jerry</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>be.rubus.web</groupId>
+            <artifactId>valerie</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 

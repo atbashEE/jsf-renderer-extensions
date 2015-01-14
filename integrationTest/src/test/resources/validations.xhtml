@@ -1,4 +1,5 @@
-/*
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
  * Copyright 2014-2015 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,22 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- */
-package be.rubus.web.jerry.metadata;
+-->
 
-/**
- *
- */
-public enum CommonMetaDataKeys {
-    REQUIRED("required"), SIZE("size");
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+        >
 
-    private String key;
-
-    CommonMetaDataKeys(String key) {
-        this.key = key;
-    }
-
-    public String getKey() {
-        return key;
-    }
-}
+<body>
+<div>
+    <h:messages id="messages"/>
+    <h:form id="test">
+        <h:inputText id="valueInput" value="#{valerieBean.valueRequired}"/>
+        <h:commandButton id="submit" value="Submit"/>
+    </h:form>
+</div>
+</body>
+</html>

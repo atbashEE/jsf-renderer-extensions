@@ -38,7 +38,7 @@ public interface MetaDataTransformer {
      * Converts the information of a {@link MetaDataEntry} into an independent format.
      *
      * @param metaData The meta-data which should be converted.
-     * @return Map with the converted information.
+     * @return Map with the converted information. Return an empty map and not null.
      */
     Map<String, Object> convertMetaData(MetaDataEntry metaData);
 }
