@@ -21,7 +21,9 @@ import be.rubus.web.jerry.metadata.MetaDataEntry;
 import be.rubus.web.jerry.metadata.MetaDataTransformer;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +49,12 @@ public class BeanValidationMetaDataTransformer implements MetaDataTransformer {
             if (size.max() < 2147483647) {
                 result.put(CommonMetaDataKeys.SIZE.getKey(), size.max());
             }
+        }
+        if (Past.class.getName().equals(metaData.getKey())) {
+            result.put(CommonMetaDataKeys.PAST.getKey(), Boolean.TRUE);
+        }
+        if (Future.class.getName().equals(metaData.getKey())) {
+            result.put(CommonMetaDataKeys.FUTURE.getKey(), Boolean.TRUE);
         }
         return result;
     }

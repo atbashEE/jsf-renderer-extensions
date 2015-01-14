@@ -20,7 +20,7 @@ package be.rubus.web.jerry.metadata;
  *
  */
 public enum CommonMetaDataKeys {
-    REQUIRED("required"), SIZE("size");
+    REQUIRED("required"), SIZE("size"), PAST("past"), FUTURE("future");
 
     private String key;
 

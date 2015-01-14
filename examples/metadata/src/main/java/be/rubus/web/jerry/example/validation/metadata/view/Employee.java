@@ -18,7 +18,9 @@ package be.rubus.web.jerry.example.validation.metadata.view;
 
 import javax.enterprise.inject.Model;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 /**
  *
@@ -35,6 +37,9 @@ public class Employee {
     @NotNull
     @Size(max = 50)
     private String email;
+
+    @Past
+    private Date hireDate;
 
     public String getName() {
         return name;
@@ -58,5 +63,13 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
     }
 }

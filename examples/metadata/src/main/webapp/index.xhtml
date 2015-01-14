@@ -15,7 +15,8 @@
  *
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -31,6 +32,7 @@
 
         <p:outputLabel value="Age " for="age"/>
         <p:inputText id="age" value="#{person.age}"/> <br/>
+
         <p:commandButton value="Send" actionListener="#{person.save}" ajax="false"/>
     </h:form>
 
@@ -43,6 +45,14 @@
 
         <p:outputLabel value="Email" for="email"/>
         <p:inputText id="email" value="#{employee.email}"/> <br/>
+
+
+        <p:outputLabel value="HireDate" for="hireDate"/>
+        <p:calendar id="hireDate" value="#{employee.hireDate}" mode="popup" showOn="button" pattern="dd/MM/yyyy">
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </p:calendar><br/>
+
+        <p:commandButton value="Send" ajax="false"/>
     </h:form>
 </h:body>
 
