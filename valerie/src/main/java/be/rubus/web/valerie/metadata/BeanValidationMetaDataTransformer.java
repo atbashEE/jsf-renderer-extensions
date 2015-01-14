@@ -39,6 +39,8 @@ public class BeanValidationMetaDataTransformer implements MetaDataTransformer {
         }
         if (Size.class.getName().equals(metaData.getKey())) {
             Size size = (Size) metaData.getValue();
+            // FIXME This is confusing to whom knows the spec very well.
+            // TODO We can provide our own implementation.
             if (size.min() > 0) {
                 result.put(CommonMetaDataKeys.REQUIRED.getKey(), Boolean.TRUE);
             }

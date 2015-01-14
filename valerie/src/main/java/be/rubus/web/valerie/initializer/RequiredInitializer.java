@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
 import java.util.Map;
 
 /**
- *
+ * FIXME: This is something we don't need I guess.
  */
 @ApplicationScoped
 @InvocationOrder(value = 25)
