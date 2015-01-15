@@ -46,7 +46,7 @@ public class BeanValidationMetaDataTransformer implements MetaDataTransformer {
             if (size.min() > 0) {
                 result.put(CommonMetaDataKeys.REQUIRED.getKey(), Boolean.TRUE);
             }
-            if (size.max() < 2147483647) {
+            if (size.max() < Integer.MAX_VALUE) {
                 result.put(CommonMetaDataKeys.SIZE.getKey(), size.max());
             }
         }
