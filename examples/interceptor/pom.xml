@@ -20,41 +20,34 @@
 
     <parent>
         <groupId>be.rubus.web</groupId>
-        <artifactId>renderer-wrapper</artifactId>
+        <artifactId>examples</artifactId>
         <version>0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>examples</artifactId>
-    <packaging>pom</packaging>
-    <name>The example directory</name>
+    <artifactId>interceptor-example</artifactId>
+    <packaging>war</packaging>
+    <name>The interceptor example directory</name>
     <description>
         TODO
     </description>
     <url></url>
 
-    <modules>
-        <module>interceptor</module>
-        <module>metadata</module>
-    </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.primefaces</groupId>
-                <artifactId>primefaces</artifactId>
-                <version>5.1</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>6.0</version>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
         </dependency>
+        <dependency>
+            <groupId>be.rubus.web</groupId>
+            <artifactId>jerry</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+    </build>
 </project>

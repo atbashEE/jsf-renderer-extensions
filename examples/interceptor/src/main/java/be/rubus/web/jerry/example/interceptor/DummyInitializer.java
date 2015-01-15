@@ -41,16 +41,17 @@ public class DummyInitializer implements ComponentInitializer {
         if (uiComponent instanceof InputText) {
             InputText inputText = (InputText) uiComponent;
             inputText.setPlaceholder("Interceptor :)");
+
+            if (inputText.isRequired()) {
+                String style = inputText.getStyle();
+                if (style == null) {
+                    style = "";
+                }
+                inputText.setStyle(style + " background-color: #B04A4A;");
+
+            }
         }
 
-        if (metaData.containsKey(CommonMetaDataKeys.REQUIRED.getKey())) {
-            InputText outputLabel = (InputText) uiComponent;
-            String style = outputLabel.getStyle();
-            if (style == null) {
-                style = "";
-            }
-            outputLabel.setStyle(style + " background-color: red;");
-        }
     }
 
     @Override

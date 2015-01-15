@@ -14,22 +14,35 @@
  * limitations under the License.
  *
  */
-package be.rubus.web.jerry.example.validation.metadata.jerry;
+package be.rubus.web.jerry.example.view;
 
-import be.rubus.web.jerry.config.JerryConfigurator;
-import be.rubus.web.jerry.renderkit.JerryRenderKit;
 
-import javax.enterprise.inject.Specializes;
-import javax.faces.render.RenderKit;
+import javax.enterprise.inject.Model;
 
 /**
- * // TODO This was a test, but we have now an integration test. NO more needed.
+ *
  */
-@Specializes
-public class CustomConfigurator extends JerryConfigurator {
-    @Override
-    public JerryRenderKit getRenderKitWrapper(RenderKit renderKit) {
-        // We can here return our custom implementation"
-        return super.getRenderKitWrapper(renderKit);
+@Model
+public class Person {
+
+    private String name;
+
+    private Integer age;
+
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
 }
