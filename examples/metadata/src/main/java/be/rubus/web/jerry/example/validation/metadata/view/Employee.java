@@ -16,6 +16,9 @@
  */
 package be.rubus.web.jerry.example.validation.metadata.view;
 
+import be.rubus.web.valerie.custom.ValPast;
+import be.rubus.web.valerie.custom.ValSize;
+
 import javax.enterprise.inject.Model;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -40,6 +43,12 @@ public class Employee {
 
     @Past
     private Date hireDate;
+
+    @ValSize(max = 50)
+    private String email2;
+
+    @ValPast
+    private Date hireDate2;
 
     public String getName() {
         return name;
@@ -71,5 +80,21 @@ public class Employee {
 
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
+    }
+
+    public Date getHireDate2() {
+        return hireDate2;
+    }
+
+    public void setHireDate2(Date hireDate2) {
+        this.hireDate2 = hireDate2;
     }
 }

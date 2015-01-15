@@ -49,9 +49,16 @@
         <p:outputLabel value="Email" for="email"/>
         <p:inputText id="email" value="#{employee.email}"/> <br/>
 
+        <p:outputLabel value="Email2" for="email2"/>
+        <p:inputText id="email2" value="#{employee.email2}"/> <br/>
 
         <p:outputLabel value="HireDate" for="hireDate"/>
         <p:calendar id="hireDate" value="#{employee.hireDate}" mode="popup" showOn="button" pattern="dd/MM/yyyy">
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </p:calendar><br/>
+
+        <p:outputLabel value="HireDate2 (thinks we are 01/01/2000)" for="hireDate2"/>
+        <p:calendar id="hireDate2" value="#{employee.hireDate2}" mode="popup" showOn="button" pattern="dd/MM/yyyy">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </p:calendar><br/>
 
