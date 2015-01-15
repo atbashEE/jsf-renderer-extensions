@@ -16,9 +16,9 @@
  */
 package be.rubus.web.valerie.utils;
 
+import be.rubus.web.jerry.metadata.MetaDataEntry;
 import be.rubus.web.jerry.producer.LogProducer;
 import be.rubus.web.jerry.provider.BeanProvider;
-import be.rubus.web.jerry.metadata.MetaDataEntry;
 import be.rubus.web.valerie.property.DefaultPropertyInformation;
 import be.rubus.web.valerie.property.PropertyDetails;
 import be.rubus.web.valerie.property.PropertyInformation;
@@ -28,8 +28,12 @@ import org.slf4j.Logger;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,6 +43,14 @@ import java.util.List;
 public final class AnnotationUtils {
 
     private static final Logger LOGGER = LogProducer.getLogger(AnnotationUtils.class);
+
+    private static List<Class<?>> excludedAnnotations = new ArrayList<>();
+
+    static {
+        excludedAnnotations.add(Documented.class);
+        excludedAnnotations.add(Retention.class);
+        excludedAnnotations.add(Target.class);
+    }
 
     private AnnotationUtils() {
     }
@@ -125,10 +137,25 @@ public final class AnnotationUtils {
         for (Annotation annotation : annotations) {
             propertyInformation.addMetaDataEntry(createMetaDataEntryForAnnotation(annotation));
 
+            addCombinedConstraints(propertyInformation, annotation);
+
             if (LOGGER.isTraceEnabled()) {
                 LOGGER.trace(annotation.getClass().getName() + " found");
             }
         }
+    }
+
+    private static void addCombinedConstraints(PropertyInformation propertyInformation, Annotation annotation) {
+        Annotation[] declaredAnnotations = annotation.annotationType().getDeclaredAnnotations();
+        List<Annotation> annotations = new ArrayList<>();
+
+        for (Annotation foundAnnotation : declaredAnnotations) {
+            if (!excludedAnnotations.contains(foundAnnotation.annotationType())) {
+                annotations.add(foundAnnotation);
+            }
+        }
+
+        addAnnotationToAnnotationEntries(annotations, propertyInformation);
     }
 
     private static MetaDataEntry createMetaDataEntryForAnnotation(Annotation foundAnnotation) {

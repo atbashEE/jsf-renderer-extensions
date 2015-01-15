@@ -16,6 +16,8 @@
  */
 package be.rubus.web.jerry.example.validation.metadata.view;
 
+import be.rubus.web.jerry.example.validation.metadata.validation.CombinedValidation;
+
 import javax.enterprise.inject.Model;
 import javax.validation.constraints.NotNull;
 
@@ -27,6 +29,10 @@ public class Person {
 
     @NotNull
     private String name;
+
+    @CombinedValidation
+    private String lastName;
+
     private Integer age;
 
     public String getName() {
@@ -45,9 +51,17 @@ public class Person {
         this.age = age;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public void save() {
-        System.out.println("name "+name);
-        System.out.println("age "+age);
+        System.out.println("name " + name);
+        System.out.println("age " + age);
 
     }
 }
