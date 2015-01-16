@@ -20,7 +20,6 @@ package be.rubus.web.jerry.interceptor.exception;
  * Marker exception that can be thrown by a before-method
  * ({@link be.rubus.web.jerry.interceptor.RendererInterceptor})
  * to stop the execution of the subsequent interceptors.
- *
  */
 public class SkipBeforeInterceptorsException extends Exception {
     private static final long serialVersionUID = -418424051464814888L;

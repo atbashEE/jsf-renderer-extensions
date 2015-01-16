@@ -17,10 +17,7 @@
 package be.rubus.web.jerry.example.view;
 
 
-import org.slf4j.Logger;
-
 import javax.enterprise.inject.Model;
-import javax.inject.Inject;
 
 /**
  *

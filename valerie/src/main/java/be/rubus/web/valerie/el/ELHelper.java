@@ -29,8 +29,8 @@ import javax.faces.context.FacesContext;
  * in order to centralize the jsf version dependency within the core
  * <p/>
  * this el-helper supports jsp and facelets (tested with 1.1.14)
- *
- *
+ * <p/>
+ * <p/>
  * there is a special facelets workaround for el-expressions of custom components
  * it's pluggable in order to support special mechanisms of different technologies (than jsp and facelets)
  * so you can plug in your own impl. which implements a custom workaround (like the facelets workaround of this impl.)

@@ -23,7 +23,6 @@ import be.rubus.web.jerry.metadata.MetaDataHolder;
  * Contains all the information of a property
  * (e.g. {@link be.rubus.web.valerie.property.PropertyDetails})
  * MetaDataEntry's are considered as a special kind of information and separate methods are created for them.
- *
  */
 public interface PropertyInformation extends MetaDataHolder {
     /**

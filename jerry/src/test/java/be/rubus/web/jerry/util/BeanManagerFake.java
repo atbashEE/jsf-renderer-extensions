@@ -37,7 +37,6 @@ public class BeanManagerFake {
     private BeanManager beanManagerMock;
 
     private Map<Class<?>, List<Object>> registeredObjects;
-    private Map<Class<?>, Set<Bean<?>>> registeredBeans;
 
     public BeanManagerFake() {
         beanManagerMock = mock(BeanManager.class);
@@ -46,7 +45,6 @@ public class BeanManagerFake {
         provider.setBeanManager(null, beanManagerMock);
 
         registeredObjects = new HashMap<>();
-        registeredBeans = new HashMap<>();
     }
 
     public void registerBean(Object instance, Class<?> typeToRegister) {
@@ -62,7 +60,7 @@ public class BeanManagerFake {
         for (Map.Entry<Class<?>, List<Object>> entry : registeredObjects.entrySet()) {
             Set<Bean<?>> beans = new HashSet<>();
             for (Object obj : entry.getValue()) {
-                beans.add(new FakeBean<Object>(obj));
+                beans.add(new FakeBean<>(obj));
             }
             when(beanManagerMock.getBeans(entry.getKey(), new AnyLiteral())).thenReturn(beans);
 
@@ -88,7 +86,7 @@ public class BeanManagerFake {
         try {
             Field field = BeanManagerProvider.class.getDeclaredField("bmpSingleton");
             field.setAccessible(true);
-            field.set(null, null); // set nnull to the static field (instance == null)
+            field.set(null, null); // set null to the static field (instance == null)
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }

@@ -13,15 +13,21 @@
     <xsl:import href="urn:docbkx:stylesheet/highlight.xsl"/>
 
     <xsl:template match='xslthl:keyword' mode="xslthl">
-        <fo:inline font-weight="bold" color="blue"><xsl:apply-templates/></fo:inline>
+        <fo:inline font-weight="bold" color="blue">
+            <xsl:apply-templates/>
+        </fo:inline>
     </xsl:template>
 
     <xsl:template match='xslthl:tag' mode="xslthl">
-        <fo:inline font-weight="bold" color="darkblue"><xsl:apply-templates /></fo:inline>
+        <fo:inline font-weight="bold" color="darkblue">
+            <xsl:apply-templates/>
+        </fo:inline>
     </xsl:template>
 
     <xsl:template match='xslthl:attribute' mode="xslthl">
-        <fo:inline  font-style="italic"><xsl:apply-templates /></fo:inline>
+        <fo:inline font-style="italic">
+            <xsl:apply-templates/>
+        </fo:inline>
     </xsl:template>
 
     <!-- Customized titlepage -->

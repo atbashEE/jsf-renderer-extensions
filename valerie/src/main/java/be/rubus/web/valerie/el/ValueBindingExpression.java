@@ -19,7 +19,6 @@ package be.rubus.web.valerie.el;
 /**
  * An instance of this class stores the different parts of an expression string and
  * allows an easier usage of value-bindings.
- *
  */
 public class ValueBindingExpression {
     private ValueBindingExpression base;

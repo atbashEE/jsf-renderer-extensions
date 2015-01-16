@@ -17,7 +17,6 @@
 package be.rubus.web.jerry.example.interceptor;
 
 import be.rubus.web.jerry.component.ComponentInitializer;
-import be.rubus.web.jerry.metadata.CommonMetaDataKeys;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.outputlabel.OutputLabel;
 

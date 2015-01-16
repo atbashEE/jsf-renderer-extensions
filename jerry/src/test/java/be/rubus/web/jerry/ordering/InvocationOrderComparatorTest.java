@@ -37,7 +37,7 @@ public class InvocationOrderComparatorTest {
         d.add(new OrderDefault());
         d.add(new Order100());
 
-        Collections.sort(d, new InvocationOrderComparator<Object>());
+        Collections.sort(d, new InvocationOrderComparator<>());
         assertThat(d.get(0)).isExactlyInstanceOf(Order100.class);
         assertThat(d.get(1)).isExactlyInstanceOf(OrderDefault.class);
         assertThat(d.get(2)).isExactlyInstanceOf(Order10000.class);
@@ -49,7 +49,7 @@ public class InvocationOrderComparatorTest {
         d.add(new NoOrder(ID_X));
         d.add(new Order10000());
 
-        Collections.sort(d, new InvocationOrderComparator<Object>());
+        Collections.sort(d, new InvocationOrderComparator<>());
         assertThat(d.get(0)).isExactlyInstanceOf(Order10000.class);
         assertThat(d.get(1)).isExactlyInstanceOf(NoOrder.class);
 

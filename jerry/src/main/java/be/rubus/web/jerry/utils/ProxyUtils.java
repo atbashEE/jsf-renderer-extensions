@@ -24,10 +24,6 @@ public final class ProxyUtils {
     private ProxyUtils() {
     }
 
-    public static <T> Class<T> getUnproxiedClass(Class currentClass, Class<T> targetType) {
-        return (Class<T>) getUnproxiedClass(currentClass);
-    }
-
     public static Class getUnproxiedClass(Class currentClass) {
         if (isProxiedClass(currentClass)) {
             return currentClass.getSuperclass();
@@ -42,23 +38,11 @@ public final class ProxyUtils {
         return currentClass.getName();
     }
 
-    public static String getClassNameOfObject(Object proxiedObject) {
-        if (proxiedObject != null) {
-            return getClassName(proxiedObject.getClass());
-        }
-        return null;
-    }
-
     public static boolean isProxiedClass(Class currentClass) {
         return currentClass.getName().contains("$$EnhancerByCGLIB$$") ||
                 currentClass.getName().contains("$$FastClassByCGLIB$$") ||
                 currentClass.getName().contains("_$$_javassist") ||
                 currentClass.getName().contains("$Proxy$_$$_Weld");
     }
-
-    public static boolean isProxiedObject(Object proxiedObject) {
-        return proxiedObject != null && isProxiedClass(proxiedObject.getClass());
-    }
-
 
 }
