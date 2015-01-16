@@ -23,7 +23,9 @@ import javax.enterprise.inject.Typed;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -34,8 +36,11 @@ public class JerryRenderKitFactory extends RenderKitFactory {
 
     private JerryConfigurator configurator;
 
+    private Map<String, RenderKit> renderKitMap;
+
     public JerryRenderKitFactory(RenderKitFactory wrapped) {
         this.wrapped = wrapped;
+        renderKitMap = new HashMap<>();
         configurator = BeanProvider.getContextualReference(JerryConfigurator.class);
     }
 
@@ -46,14 +51,26 @@ public class JerryRenderKitFactory extends RenderKitFactory {
 
     @Override
     public RenderKit getRenderKit(FacesContext context, String renderKitId) {
-        RenderKit renderKit = wrapped.getRenderKit(context, renderKitId);
-        // TODO Is caching allowed here ? method is executed several times and thus each time a new wrapper is created.
-
-        return configurator.getRenderKitWrapper(renderKit);
+        RenderKit result = null;
+        // We shouldn't cache when JSF is still settings thing up.  It will result in Exceptions.
+        if (configurator.isJsfReady()) {
+            result = renderKitMap.get(renderKitId);
+        }
+        if (result == null) {
+            RenderKit renderKit = wrapped.getRenderKit(context, renderKitId);
+            result = configurator.getRenderKitWrapper(renderKit);
+            renderKitMap.put(renderKitId, result);
+        }
+        return result;
     }
 
     @Override
     public Iterator<String> getRenderKitIds() {
         return wrapped.getRenderKitIds();
+    }
+
+    @Override
+    public RenderKitFactory getWrapped() {
+        return wrapped;
     }
 }

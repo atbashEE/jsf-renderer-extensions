@@ -19,8 +19,10 @@ package be.rubus.web.jerry.config;
 import be.rubus.web.jerry.config.logging.ConfigEntry;
 import be.rubus.web.jerry.config.logging.ModuleConfig;
 import be.rubus.web.jerry.renderkit.JerryRenderKit;
+import be.rubus.web.jerry.startup.StartupEvent;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
 import javax.faces.render.RenderKit;
 
 /**
@@ -29,6 +31,11 @@ import javax.faces.render.RenderKit;
 @ApplicationScoped
 public class JerryConfigurator implements ModuleConfig {
 
+    private boolean jsfReady = false;
+
+    public void onStartup(@Observes StartupEvent startupEvent) {
+        jsfReady = true;
+    }
 
     @ConfigEntry(classResult = JerryRenderKit.class)
     public JerryRenderKit getRenderKitWrapper(RenderKit renderKit) {
@@ -39,5 +46,9 @@ public class JerryConfigurator implements ModuleConfig {
     @ConfigEntry
     public boolean useBeanInfo() {
         return true;
+    }
+
+    public boolean isJsfReady() {
+        return jsfReady;
     }
 }
