@@ -183,7 +183,14 @@
             </modules>
         </profile>
 
+        <profile>
+            <id>documentation</id>
+            <modules>
+                <module>documentation</module>
+            </modules>
+        </profile>
     </profiles>
+
 
 
     <repositories>

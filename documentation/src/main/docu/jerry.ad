@@ -1,0 +1,197 @@
+= JSF Renderer Interceptor (Jerry)
+Rudy De Busscher <rdebusscher@gmail.com>
+v0.2, 16/01/2015
+
+== Introduction
+
+=== Origin
+
+On various occasions, I needed the #RendererInterceptor# concept of Apache MyFaces extensions Validation framework. I didn't need the great validation features of the framework, so I found it an overhead, in terms of performance and memory consumption.
+
+So I extracted that interface and the required classes and transformed it to use CDI to have to benefits of it.  That is how Jerry (JSF Renderer Interceptor, JRI) was started.
+Jerry is the basis for http://javaeesquad.blogspot.be/2014/03/octopus-framework.html[Octopus] from version 0.9.5 on but has also some usage scenarios on his own.
+
+Since there are a lot of lookups done into the CDI bean management system, I copied some classes from https://deltaspike.apache.org[*Apache DeltaSpike*] (the https://deltaspike.apache.org/documentation/core.html#_beanprovider[BeanProvider]) to make it easier to lookup the beans.
+
+=== Features
+
+. RendererInterceptor
++
+With the RendererInterceptor you have a before and after method for every major method in a Renderer which is `decode`, `encodeBegin`, `encodeChildren`, `encodeEnd` and `getConvertedValue`.
+
+. ComponentInitializer
++
+With ComponentInitializer it becomes easier to adjust the JSF components. They use a RendererInterceptor in the background and work is done in the `beforeEncodeBegin` phase.
+
+There are some other small CDI features which are useful in any project
+
+. StartupEvent
++
+CDI event when the application is ready (JSF subsystem is ready)
+
+. Injectable Logger
++
+You can inject SLF4J Logger.
+
+. BeanProvider from Apache DeltaSpike
++
+Easier programmatically retrieval of CDI beans in code.
+
+== Configure your project
+
+In case you don't use maven, you can just download the jar file and put in the `lib` folder of your project.
+
+. Open the project `pom.xml` file for editing.
+. Add the JavaEESquad Maven repository where the dependency can be found.
++
+[source,xml]
+----
+<repository>
+   <id>JavaEESquad-mvn-repo</id>
+   <url>https://raw.github.com/JavaEESquad/Octopus_mvn/mvn-repo/</url>
+   <snapshots>
+      <enabled>true</enabled>
+      <updatePolicy>always</updatePolicy>
+   </snapshots>
+</repository>
+----
+
+. Add the Jerry module to the list of dependencies.
++
+[source,xml]
+----
+<dependency>
+    <groupId>be.rubus.web</groupId>
+    <artifactId>jerry</artifactId>
+    <version>0.2</version>
+</dependency>
+
+----
+
+. You are ready to use Jerry.
+
+== Usage scenarios
+
+=== Component Initializer
+
+Jerry can initialize any JSF component just before it will be rendered.
+
+As example, the code is shown for setting the background color of required fields.
+
+.ComponentInitializer which makes each PrimeFaces InputText component with a reddish background color when it is required.
+[source,java]
+----
+@ApplicationScoped
+public class RequiredInitializer implements ComponentInitializer {
+    @Override
+    public void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData) {
+        InputText inputText = (InputText) uiComponent;
+        if (inputText.isRequired()) {
+            String style = inputText.getStyle();
+            if (style == null) {
+                style = "";
+            }
+            inputText.setStyle(style + " background-color: #B04A4A;");
+        }
+    }
+
+    @Override
+    public boolean isSupportedComponent(UIComponent uiComponent) {
+        return uiComponent instanceof InputText;
+    }
+}
+----
+
+This are the important aspects of the code.
+
+. Implement the `ComponentInitializer` interface.
+. Annotate the class with `@ApplicationScoped` CDI scope.
+. Define in the `isSupportedComponent` method if this ComponentInitializer should handle the component.
+. Perform the required functionality in the `configureComponent` method.
+
+The metaData parameter is filled up by Valerie, the (Bean) validation companion of Jerry.  In the advanced use case scenarios, there is also an example how you can use it using only Jerry features.
+ 
+
+=== Startup Event
+
+You can use the CDI event StartupEvent to perform any initialization when your application is deployed and ready on the server.
+
+<<<
+
+.Log some message when application is ready
+[source,java]
+----
+
+    public void onStartup(@Observes StartupEvent startupEvent) {
+       System.out.println("Ready to roll"); // Please use logger !
+    }
+
+----
+
+TIP: You can also using the startup EJB singleton beans to perform some initialization. This is preferred if the initialization does some database actions.
+
+=== Injectable Logger
+
+Jerry uses SLF4J as logging facade. You can inject such loggers by creating a simple Producer method.  That method is available within Jerry and thus injectable loggers can be used.
+
+.Usage of injectable logger.
+[source,java]
+----
+
+  @Inject
+  private Logger logger;
+
+  public void doSomething() {
+     logger.info("Performed the doSomething");
+  }
+
+----
+
+The type of logger is `org.slf4j.Logger`.
+
+=== BeanProvider
+
+The BeanProvider class, copied from Apache DeltaSpike, makes it very easy to retrieve a CDI Bean.
+
+If your project isn't using DeltaSpike, but is using Jerry (or Octopus), you can use the `BeanProvider` which is provided with it.
+
+
+.Examples of BeanProvider.
+[source,java]
+----
+
+  BeanProvider.getContextualReference(DateProvider.class, true);
+
+  BeanProvider.getContextualReferences(ComponentInitializer.class, true, false);
+
+----
+
+The first statement retrieve the CDI bean implementing the DateProvider interface.  The second parameter indicates that the bean can be optional and thus when no bean is found, null is returned (An exception will be thrown in the case when no bean was found and false was specified as value).
+
+The second statement retrieves all CDI beans, as a list, that implement the ComponentInitializer interface.  The true indicate the optionality again (empty list when no beans found). The second boolean is used to indicate if default scoped beans (beans without an annotation) should be included.
+
+IMPORTANT: Methods work also with a concrete class, not only with interfaces. And it will honour all CDI rules like for instance @Specializes and @Alternative.
+
+== Advanced usages
+
+=== RendererInterceptor
+
+TODO
+
+=== Override configuration
+
+TODO
+
+== Technical aspects
+
+=== How RendererInterceptor is applied
+
+TODO
+
+=== Ordering of RendererInterceptors
+
+TODO
+
+=== ComponentStorage, MetaDataHolder, MetaDataEntry and MetaDataTransformer
+
+TODO
