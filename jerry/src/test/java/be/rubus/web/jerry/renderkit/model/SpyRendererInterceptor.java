@@ -58,11 +58,6 @@ public class SpyRendererInterceptor implements RendererInterceptor {
     }
 
     @Override
-    public String getInterceptorId() {
-        return null;
-    }
-
-    @Override
     public void beforeDecode(FacesContext facesContext, UIComponent uiComponent, Renderer renderer) throws SkipBeforeInterceptorsException, SkipRendererDelegationException {
         callsPerformed.add(InterceptorCalls.BEFORE_DECODE);
         if (throwRendererException.contains(InterceptorCalls.BEFORE_DECODE)) {

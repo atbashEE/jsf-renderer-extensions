@@ -16,5 +16,4 @@
 #
 #####################################################################################
 
-be.rubus.web.jerry.extension.JerryExtension
 be.rubus.web.jerry.provider.BeanManagerProvider

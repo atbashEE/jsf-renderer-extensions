@@ -33,9 +33,6 @@ import java.io.IOException;
  */
 public interface RendererInterceptor {
 
-    // TODO Seems we don't use this. remove?
-    String getInterceptorId();
-
     /*
      * before
      */
