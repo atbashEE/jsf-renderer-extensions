@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -53,6 +54,10 @@ public class MetaDataExtractor {
             return null;
         }
 
+        // TODO EXPERIMENTAL : Is it ok only descendants of this type to process
+        if (!(object instanceof UIInput)) {
+            return null;
+        }
         UIComponent uiComponent = (UIComponent) object;
 
         if (logger.isTraceEnabled()) {
