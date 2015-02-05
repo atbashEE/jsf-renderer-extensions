@@ -45,15 +45,6 @@ public class MaximumSizeInitializer implements ComponentInitializer {
 
     @Override
     public void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData) {
-        if (uiComponent instanceof OutputLabel) {
-            OutputLabel label = (OutputLabel) uiComponent;
-            UIComponent targetComponent = label.findComponent(label.getFor());
-
-            informationManager.determineInformation(facesContext, targetComponent);
-            initializerManager.performInitialization(facesContext, targetComponent);
-
-        }
-
         if (uiComponent instanceof InputText) {
             InputText inputText = (InputText) uiComponent;
 
@@ -67,6 +58,6 @@ public class MaximumSizeInitializer implements ComponentInitializer {
 
     @Override
     public boolean isSupportedComponent(UIComponent uiComponent) {
-        return uiComponent instanceof OutputLabel || uiComponent instanceof InputText;
+        return uiComponent instanceof InputText;
     }
 }
