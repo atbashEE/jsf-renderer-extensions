@@ -17,6 +17,8 @@
 package be.rubus.web.jerry.ordering;
 
 
+import be.rubus.web.jerry.utils.ProxyUtils;
+
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -29,8 +31,9 @@ public class InvocationOrderComparator<T> implements Comparator<T>, Serializable
 
     public int compare(T nm1, T nm2) {
         if (hasPriority(nm1) && hasPriority(nm2)) {
-            return isPriorityHigher(nm1.getClass().getAnnotation(InvocationOrder.class),
-                    nm2.getClass().getAnnotation(InvocationOrder.class));
+            InvocationOrder priority1 = (InvocationOrder) getUnproxiedClass(nm1).getAnnotation(InvocationOrder.class);
+            InvocationOrder priority2 = (InvocationOrder) getUnproxiedClass(nm2).getAnnotation(InvocationOrder.class);
+            return isPriorityHigher(priority1, priority2);
         }
         if (!hasPriority(nm1) && !hasPriority(nm2)) {
             return 0;
@@ -47,6 +50,10 @@ public class InvocationOrderComparator<T> implements Comparator<T>, Serializable
     }
 
     private boolean hasPriority(Object nm) {
-        return nm.getClass().isAnnotationPresent(InvocationOrder.class);
+        return getUnproxiedClass(nm).isAnnotationPresent(InvocationOrder.class);
+    }
+
+    private Class getUnproxiedClass(Object nm) {
+        return ProxyUtils.getUnproxiedClass(nm.getClass());
     }
 }
