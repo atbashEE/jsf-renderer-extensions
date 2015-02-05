@@ -41,18 +41,29 @@ public class ELHelper {
 
     //protected final boolean projectStageDevelopment = JsfProjectStage.is(JsfProjectStage.Development);
 
-    public PropertyDetails getPropertyDetailsOfValueBinding(UIComponent uiComponent) {
-
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-
-        RecordingELResolver elResolver =
-                new RecordingELResolver(facesContext.getApplication().getELResolver(), true /* TODO this.projectStageDevelopment */);
+    public PropertyDetails getPropertyDetailsOfValueBinding(FacesContext facesContext, UIComponent uiComponent) {
 
         ValueExpression valueExpression = uiComponent.getValueExpression("value");
 
         if (valueExpression == null) {
             return null;
         }
+
+        return buildPropertyDetails(facesContext, valueExpression);
+    }
+
+    public PropertyDetails getPropertyDetailsOfExpression(FacesContext facesContext, ValueExpression valueExpression) {
+
+        if (valueExpression == null) {
+            return null;
+        }
+
+        return buildPropertyDetails(facesContext, valueExpression);
+    }
+
+    private PropertyDetails buildPropertyDetails(FacesContext facesContext, ValueExpression valueExpression) {
+        RecordingELResolver elResolver =
+                new RecordingELResolver(facesContext.getApplication().getELResolver(), true /* TODO this.projectStageDevelopment */);
 
         ELContext elContext = RecordingELResolver.createContextWrapper(facesContext.getELContext(), elResolver);
 

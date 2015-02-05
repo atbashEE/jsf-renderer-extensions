@@ -23,6 +23,7 @@ import be.rubus.web.valerie.property.PropertyInformation;
 import be.rubus.web.valerie.utils.AnnotationUtils;
 import org.slf4j.Logger;
 
+import javax.el.ValueExpression;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -64,7 +65,17 @@ public class MetaDataExtractor {
             logger.trace("start extracting meta-data of " + uiComponent.getClass().getName());
         }
 
-        PropertyDetails propertyDetails = elHelper.getPropertyDetailsOfValueBinding(uiComponent);
+        PropertyDetails propertyDetails = null;
+
+        UIComponent compositeParent = findCompositeParent(uiComponent);
+        if (compositeParent != null) {
+            ValueExpression expression = (ValueExpression) compositeParent.getAttributes().get("Valerie" + uiComponent.getId());
+            propertyDetails = elHelper.getPropertyDetailsOfExpression(facesContext, expression);
+
+        } else {
+
+            propertyDetails = elHelper.getPropertyDetailsOfValueBinding(facesContext, uiComponent);
+        }
 
         if (propertyDetails == null) {
             return null;
@@ -82,6 +93,18 @@ public class MetaDataExtractor {
         }
 
         return propertyInformation;
+    }
+
+    private UIComponent findCompositeParent(UIComponent uiComponent) {
+        UIComponent result = null;
+        UIComponent parent = uiComponent;
+        do {
+            parent = parent.getParent();
+            if (parent != null && UIComponent.isCompositeComponent(parent)) {
+                result = parent;
+            }
+        } while (parent != null && result == null);
+        return result;
     }
 
     protected PropertyInformation getPropertyInformation(Class entityClass, PropertyDetails propertyDetails) {
