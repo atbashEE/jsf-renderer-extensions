@@ -49,16 +49,20 @@ public class ELHelper {
             return null;
         }
 
-        return buildPropertyDetails(facesContext, valueExpression);
-    }
+        PropertyDetails propertyDetails = null;
 
-    public PropertyDetails getPropertyDetailsOfExpression(FacesContext facesContext, ValueExpression valueExpression) {
+        String expressionString = valueExpression.getExpressionString();
+        if (expressionString.startsWith("#{cc.attrs")) {
+            UIComponent compositeParent = findCompositeParent(uiComponent);
+            ValueExpression validationExpression = (ValueExpression) compositeParent.getAttributes().get("Valerie" + uiComponent.getId());
+            if (validationExpression != null) {
+                propertyDetails = buildPropertyDetails(facesContext, validationExpression);
+            }
+        } else {
 
-        if (valueExpression == null) {
-            return null;
+            propertyDetails = buildPropertyDetails(facesContext, valueExpression);
         }
-
-        return buildPropertyDetails(facesContext, valueExpression);
+        return propertyDetails;
     }
 
     private PropertyDetails buildPropertyDetails(FacesContext facesContext, ValueExpression valueExpression) {
@@ -80,6 +84,18 @@ public class ELHelper {
         }
 
         return new PropertyDetails(elResolver.getPath(), elResolver.getBaseObject(), elResolver.getProperty());
+    }
+
+    private UIComponent findCompositeParent(UIComponent uiComponent) {
+        UIComponent result = null;
+        UIComponent parent = uiComponent;
+        do {
+            parent = parent.getParent();
+            if (parent != null && UIComponent.isCompositeComponent(parent)) {
+                result = parent;
+            }
+        } while (parent != null && result == null);
+        return result;
     }
 
 }
