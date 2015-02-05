@@ -17,17 +17,14 @@
 package be.rubus.web.valerie.primefaces;
 
 import be.rubus.web.jerry.component.ComponentInitializer;
-import be.rubus.web.jerry.component.ComponentInitializerManager;
 import be.rubus.web.jerry.metadata.CommonMetaDataKeys;
 import be.rubus.web.jerry.ordering.InvocationOrder;
-import be.rubus.web.valerie.property.PropertyInformationManager;
 import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.outputlabel.OutputLabel;
+import org.primefaces.component.inputtextarea.InputTextarea;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import java.util.Map;
 
 /**
@@ -37,20 +34,20 @@ import java.util.Map;
 @InvocationOrder(61)
 public class MaximumSizeInitializer implements ComponentInitializer {
 
-    @Inject
-    private ComponentInitializerManager initializerManager;
-
-    @Inject
-    private PropertyInformationManager informationManager;
-
     @Override
     public void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData) {
-        if (uiComponent instanceof InputText) {
-            InputText inputText = (InputText) uiComponent;
 
-            if (metaData.containsKey(CommonMetaDataKeys.SIZE.getKey())) {
-                Integer maxSize = (Integer) metaData.get(CommonMetaDataKeys.SIZE.getKey());
+        if (metaData.containsKey(CommonMetaDataKeys.SIZE.getKey())) {
+            Integer maxSize = (Integer) metaData.get(CommonMetaDataKeys.SIZE.getKey());
+            if (uiComponent instanceof InputText) {
+                InputText inputText = (InputText) uiComponent;
+
                 inputText.setMaxlength(maxSize);
+            }
+            if (uiComponent instanceof InputTextarea) {
+                InputTextarea inputArea = (InputTextarea) uiComponent;
+
+                inputArea.setMaxlength(maxSize);
             }
         }
 
@@ -58,6 +55,6 @@ public class MaximumSizeInitializer implements ComponentInitializer {
 
     @Override
     public boolean isSupportedComponent(UIComponent uiComponent) {
-        return uiComponent instanceof InputText;
+        return uiComponent instanceof InputText || uiComponent instanceof InputTextarea;
     }
 }

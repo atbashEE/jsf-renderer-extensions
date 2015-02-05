@@ -26,6 +26,7 @@ import org.primefaces.component.outputlabel.OutputLabel;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.Map;
@@ -54,12 +55,12 @@ public class RequiredMarkerInitializer implements ComponentInitializer {
 
         }
 
-        if (uiComponent instanceof InputText) {
-            InputText inputText = (InputText) uiComponent;
+        if (uiComponent instanceof UIInput) {
+            UIInput input = (UIInput) uiComponent;
 
 
             if (metaData.containsKey(CommonMetaDataKeys.REQUIRED.getKey())) {
-                inputText.setRequired(true);
+                input.setRequired(true);
             }
         }
 
@@ -67,6 +68,6 @@ public class RequiredMarkerInitializer implements ComponentInitializer {
 
     @Override
     public boolean isSupportedComponent(UIComponent uiComponent) {
-        return uiComponent instanceof OutputLabel || uiComponent instanceof InputText;
+        return uiComponent instanceof OutputLabel || uiComponent instanceof UIInput;
     }
 }
