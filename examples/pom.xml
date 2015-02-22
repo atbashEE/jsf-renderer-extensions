@@ -20,7 +20,7 @@
 
     <parent>
         <groupId>be.rubus.web</groupId>
-        <artifactId>renderer-wrapper</artifactId>
+        <artifactId>renderer-extensions</artifactId>
         <version>0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -31,9 +31,9 @@
     <packaging>pom</packaging>
     <name>The example directory</name>
     <description>
-        TODO
+        Examples for Jerry and valerie
     </description>
-    <url></url>
+    <url>https://github.com/rdebusscher/jsf-renderer-extensions</url>
 
     <modules>
         <module>interceptor</module>

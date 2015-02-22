@@ -30,11 +30,11 @@
     <groupId>be.rubus.web.valerie</groupId>
     <artifactId>primefaces</artifactId>
     <packaging>jar</packaging>
-    <name>PrimeFaces specific extension to Valerie</name>
+    <name>PrimeFaces specific extension for Valerie</name>
     <description>
-        TODO
+        PrimeFaces extension for some PrimeFaces components like InputText and Calendar.
     </description>
-    <url></url>
+    <url>https://github.com/rdebusscher/jsf-renderer-extensions</url>
 
     <dependencies>
         <dependency>

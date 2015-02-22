@@ -31,9 +31,9 @@
     <packaging>war</packaging>
     <name>The interceptor example directory</name>
     <description>
-        TODO
+        Examples for Jerry
     </description>
-    <url></url>
+    <url>https://github.com/rdebusscher/jsf-renderer-extensions</url>
 
     <dependencies>
         <dependency>

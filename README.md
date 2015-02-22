@@ -1,7 +1,7 @@
 jsf-renderer-extensions
 =======================
 
-Extensions on the JSF renderer to have security advanced validation.
+Extensions on the JSF renderer to have security and advanced validation.
 
 * Targeted at Java EE 6 / 7
 * Centered around CDI
