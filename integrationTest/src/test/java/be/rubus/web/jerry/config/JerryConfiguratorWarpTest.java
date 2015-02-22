@@ -40,6 +40,9 @@ import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Jerry Test
+ */
 @WarpTest
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -58,7 +61,7 @@ public class JerryConfiguratorWarpTest {
         return ShrinkWrap
                 .create(WebArchive.class, ARCHIVE_NAME + ".war")
                 .addAsLibraries(MavenDependencyUtil.jerryFiles())
-                .addAsLibraries(MavenDependencyUtil.assetJFiles())
+                .addAsLibraries(MavenDependencyUtil.assertJFiles())
                 .addClass(CustomJerryConfigurator.class)
                 .addAsWebInfResource("default/WEB-INF/web.xml", "web.xml")
                 .addAsWebResource("page.xhtml", "page.xhtml")

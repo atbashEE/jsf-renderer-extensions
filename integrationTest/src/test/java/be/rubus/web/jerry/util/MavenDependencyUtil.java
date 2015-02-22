@@ -29,7 +29,9 @@ public final class MavenDependencyUtil {
 
     private static final String JERRY_CANONICAL_FORM = "be.rubus.web:jerry";
     private static final String VALERIE_CANONICAL_FORM = "be.rubus.web:valerie";
+    private static final String VALERIE_PRIMEFACES_CANONICAL_FORM = "be.rubus.web.valerie:primefaces";
     private static final String ASSERTJ_CANONICAL_FORM = "org.assertj:assertj-core";
+    private static final String PRIMEFACES_CANONICAL_FORM = "org.primefaces:primefaces";
 
     private MavenDependencyUtil() {
     }
@@ -46,9 +48,19 @@ public final class MavenDependencyUtil {
 
     }
 
-    public static File[] assetJFiles() {
+    public static File[] valeriePrimeFacesFiles() {
+        PomEquippedResolveStage pomEquippedResolveStage = getResolveStageFromPom();
+        return pomEquippedResolveStage.resolve(VALERIE_PRIMEFACES_CANONICAL_FORM).withoutTransitivity().asFile();
+    }
+
+    public static File[] assertJFiles() {
         PomEquippedResolveStage pomEquippedResolveStage = getResolveStageFromPom();
         return pomEquippedResolveStage.resolve(ASSERTJ_CANONICAL_FORM).withoutTransitivity().asFile();
+    }
+
+    public static File[] primeFacesFiles() {
+        PomEquippedResolveStage pomEquippedResolveStage = getResolveStageFromPom();
+        return pomEquippedResolveStage.resolve(PRIMEFACES_CANONICAL_FORM).withoutTransitivity().asFile();
 
     }
 

@@ -16,6 +16,7 @@
  */
 package be.rubus.web.jerry.interceptor;
 
+import be.rubus.web.jerry.util.MavenDependencyUtil;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -24,9 +25,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.Resolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.ConfigurableMavenResolverSystem;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenStrategyStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -38,7 +36,7 @@ import java.net.URL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * -Darquillian.jboss_home=/usr/local/opt/wildfly-as/libexec
+ * Jerry Test
  */
 @RunWith(Arquillian.class)
 public class RendererInterceptorTest {
@@ -52,11 +50,11 @@ public class RendererInterceptorTest {
 
     @Deployment
     public static WebArchive deploy() {
-        MavenStrategyStage jerryDependency = Resolvers.use(ConfigurableMavenResolverSystem.class).loadPomFromFile("pom.xml").resolve("be.rubus.web:jerry");
 
         return ShrinkWrap
                 .create(WebArchive.class, ARCHIVE_NAME + ".war")
-                .addAsLibraries(jerryDependency.withoutTransitivity().asFile())
+                .addAsLibraries(MavenDependencyUtil.jerryFiles())
+                .addAsLibraries(MavenDependencyUtil.assertJFiles())
                 .addClass(MarkerRendererInterceptor.class)
                 .addAsWebInfResource("default/WEB-INF/web.xml", "web.xml")
                 .addAsWebResource("page.xhtml", "page.xhtml")

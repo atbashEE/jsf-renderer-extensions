@@ -27,6 +27,9 @@ import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Jerry Test
+ */
 @RunWith(Arquillian.class)
 public class SystemStartupTest {
 
@@ -38,7 +41,7 @@ public class SystemStartupTest {
         return ShrinkWrap
                 .create(WebArchive.class, ARCHIVE_NAME + ".war")
                 .addAsLibraries(MavenDependencyUtil.jerryFiles())
-                .addAsLibraries(MavenDependencyUtil.assetJFiles())
+                .addAsLibraries(MavenDependencyUtil.assertJFiles())
                 .addClass(StartupListener.class)
                 .addAsWebInfResource("default/WEB-INF/web.xml", "web.xml")
                 .addAsWebResource("page.xhtml", "page.xhtml")
