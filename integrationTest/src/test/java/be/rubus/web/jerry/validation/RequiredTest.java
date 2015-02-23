@@ -14,10 +14,10 @@
  * limitations under the License.
  *
  */
-package be.rubus.web.jerry.initializer;
+package be.rubus.web.jerry.validation;
 
 import be.rubus.web.jerry.util.MavenDependencyUtil;
-import be.rubus.web.jerry.view.ValerieBean;
+import be.rubus.web.jerry.view.RequiredBean;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -33,17 +33,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.net.URL;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- *  Valerie Test
+ * Valerie test
  */
 @RunWith(Arquillian.class)
-public class RequiredInitializerTest {
+public class RequiredTest {
 
-    private static final String ARCHIVE_NAME = "requiredInitializerTest";
+    private static final String ARCHIVE_NAME = "requiredTest";
     @Drone
     private WebDriver driver;
 
@@ -54,32 +53,39 @@ public class RequiredInitializerTest {
     @Deployment
     public static WebArchive deploy() {
 
-
         return ShrinkWrap
                 .create(WebArchive.class, ARCHIVE_NAME + ".war")
+                        // We don't do transitive dependencies, so manually adding them
                 .addAsLibraries(MavenDependencyUtil.valerieFiles())
+                .addAsLibraries(MavenDependencyUtil.valeriePrimeFacesFiles())
                 .addAsLibraries(MavenDependencyUtil.jerryFiles())
-                .addClass(ValerieBean.class)
+                .addAsLibraries(MavenDependencyUtil.primeFacesFiles())
+                .addClass(RequiredBean.class)
                 .addAsWebInfResource("default/WEB-INF/web.xml", "web.xml")
-                .addAsWebResource("validations.xhtml", "validations.xhtml")
+                .addAsWebResource("required.xhtml", "required.xhtml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Test
     @RunAsClient
     public void testRequired() throws Exception {
-        driver.get(new URL(contextPath, "validations.xhtml").toString());
+        driver.get(new URL(contextPath, "required.xhtml").toString());
 
-        WebElement submitButton = driver.findElement(By.id("test:submit"));
-        submitButton.click();
+        WebElement element = driver.findElement(By.id("test:notRequiredLabel"));
+        String text = element.getText();
+        assertThat(text).isEqualTo("notRequired");
 
-        Thread.sleep(1000);
+        element = driver.findElement(By.id("test:requiredLabel"));
+        text = element.getText();
+        assertThat(text).isEqualTo("required*");
 
-        WebElement messages = driver.findElement(By.id("messages"));
-        List<WebElement> errorElements = messages.findElements(By.tagName("li"));
-        assertThat(errorElements).hasSize(1);
+        element = driver.findElement(By.id("test:sizeLabel"));
+        text = element.getText();
+        assertThat(text).isEqualTo("size");
 
-        assertThat(errorElements.get(0).getText()).contains("Validation Error: Value is required.");
+        element = driver.findElement(By.id("test:specialLabel"));
+        text = element.getText();
+        assertThat(text).isEqualTo("special*");
 
     }
 

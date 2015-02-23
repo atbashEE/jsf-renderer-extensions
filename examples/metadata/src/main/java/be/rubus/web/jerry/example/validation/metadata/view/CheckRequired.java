@@ -16,52 +16,58 @@
  */
 package be.rubus.web.jerry.example.validation.metadata.view;
 
-import be.rubus.web.jerry.example.validation.metadata.validation.CombinedValidation;
+import be.rubus.web.valerie.custom.ValSize;
 
 import javax.enterprise.inject.Model;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
  */
 @Model
-public class Person {
+public class CheckRequired {
+
+    private String value1;
 
     @NotNull
-    private String name;
+    private String value2;
 
-    @CombinedValidation
-    private String lastName;
+    @Size(min = 1)
+    private String value3;
 
-    private Integer age;
+    @ValSize
+    private String value4;
 
-    public String getName() {
-        return name;
+    public String getValue1() {
+        return value1;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setValue1(String value1) {
+        this.value1 = value1;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getValue2() {
+        return value2;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setValue2(String value2) {
+        this.value2 = value2;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getValue3() {
+        return value3;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setValue3(String value3) {
+        this.value3 = value3;
     }
 
-    public void save() {
-        System.out.println("name " + name);
-        System.out.println("age " + age);
+    public String getValue4() {
+        return value4;
+    }
 
+    public void setValue4(String value4) {
+        this.value4 = value4;
     }
 }

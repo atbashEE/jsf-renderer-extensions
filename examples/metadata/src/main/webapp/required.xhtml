@@ -1,0 +1,52 @@
+<!--
+ * Copyright 2014-2015 Rudy De Busscher
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Metadata example</title>
+</h:head>
+
+<h:body>
+    <h2>Required metadata</h2>
+    <p:messages/>
+    <h:form id="frm">
+        <p:outputLabel value="Value 1 " for="value1"/>
+        <p:inputText id="value1" value="#{checkRequired.value1}"/> <br/>
+
+        <p:outputLabel value="Value 2 " for="value2"/>
+        <p:inputText id="value2" value="#{checkRequired.value2}"/>@NotNull <br/>
+
+        <p:outputLabel value="Value 3 " for="value3"/>
+        <p:inputText id="value3" value="#{checkRequired.value3}"/>@Size(min=1) <br/>
+
+        <p:outputLabel value="Value 4 " for="value4"/>
+        <p:inputText id="value4" value="#{checkRequired.value4}"/>@ValSize <br/>
+
+
+        <p:commandButton value="Send" ajax="false"/>
+    </h:form>
+
+    Annotations (@NotNull, @ValSize) are defined on Model properties but Required indicator of primeFaces shows up label, without any additional specification on JSF component.
+    <br/>
+    @Size(min=1) -> is not required as it indicates that it is an optional value.
+    <br/>
+    <a href="index.xhtml">Back</a>
+</h:body>
+
+</html>

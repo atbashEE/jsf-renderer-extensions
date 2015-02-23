@@ -19,18 +19,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-        >
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <title>Arquillian test for Standard Required metadata</title>
+    <title>Arquillian test for Required metadata</title>
 </h:head>
 
 
 <h:body>
-    <h:messages id="messages"/>
     <h:form id="test">
-        <h:inputText id="valueInput" value="#{valerieBean.valueRequired}"/>
-        <h:commandButton id="submit" value="Submit"/>
+        <p:outputLabel id="notRequiredLabel" value="notRequired" for="notRequired"/> <p:inputText id="notRequired" value="#{requiredBean.notRequired}"/>
+        <p:outputLabel id="requiredLabel" value="required" for="required"/> <p:inputText id="required" value="#{requiredBean.required}"/>
+        <p:outputLabel id="sizeLabel" value="size" for="size"/> <p:inputText id="size" value="#{requiredBean.defaultSize}"/>
+        <p:outputLabel id="specialLabel" value="special" for="special"/> <p:inputText id="special" value="#{requiredBean.special}"/>
     </h:form>
 </h:body>
 </html>
