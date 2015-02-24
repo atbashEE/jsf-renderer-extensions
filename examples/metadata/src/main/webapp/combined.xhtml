@@ -23,21 +23,27 @@
 </h:head>
 
 <h:body>
-    <h2>Max Size metadata</h2>
+    <h2>New bean Validation Annotation as combination</h2>
     <p:messages/>
     <h:form id="frm">
         <p:outputLabel value="Value 1 " for="value1"/>
-        <p:inputText id="value1" value="#{maxSize.value1}"/> <br/>
+        <p:inputText id="value1" value="#{combined.value}"/> <br/>
 
         <p:outputLabel value="Value 2 " for="value2"/>
-        <p:inputText id="value2" value="#{maxSize.value2}"/> @Size(max = 5)<br/>
+        <p:inputText id="value2" value="#{combined.required}"/>@NotNull <br/>
 
         <p:outputLabel value="Value 3 " for="value3"/>
-        <p:inputText id="value3" value="#{maxSize.value3}"/> @ValSize(max = 7)<br/>
+        <p:inputText id="value3" value="#{combined.maxLength}"/>@Size(max = 14) <br/>
+
+        <p:outputLabel value="Value 4 " for="value4"/>
+        <p:inputText id="value4" value="#{combined.combined}"/>@CombinedValidation <br/>
+
 
         <p:commandButton value="Send" ajax="false"/>
     </h:form>
-    @ValSize has by defaut min() = 1. That is way the field is also required.
+    @CombinedValidation has the following constraints defined. <br/>
+    @NotNull<br/>
+    @Size(min = 2, max = 14)
     <br/>
     <a href="index.xhtml">Back</a>
 </h:body>
