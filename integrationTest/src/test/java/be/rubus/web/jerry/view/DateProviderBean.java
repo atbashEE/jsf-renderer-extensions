@@ -1,4 +1,4 @@
-<!--
+/*
  * Copyright 2014-2015 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,21 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
--->
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-        >
+ */
+package be.rubus.web.jerry.view;
 
-<h:head>
-    <title>Metadata example</title>
-</h:head>
+import be.rubus.web.valerie.provider.DateProvider;
 
-<h:body>
-    <a href="required.xhtml">Required indication</a> <br/>
-    <a href="maxSize.xhtml">MaxSize usage</a> <br/>
-    <a href="combined.xhtml">Combined Validation Annotation</a> <br/>
-    <a href="dateProvider.xhtml">Date Validations with customized system date</a> <br/>
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+import java.util.Date;
 
-</h:body>
+/**
+ *
+ */
+@ApplicationScoped
+@Named
+public class DateProviderBean implements DateProvider {
 
-</html>
+    private Date fixedNow = new Date(); // default is equal to system date.
+
+    public Date getFixedNow() {
+        return fixedNow;
+    }
+
+    public void setFixedNow(Date fixedNow) {
+        this.fixedNow = fixedNow;
+    }
+
+    @Override
+    public Date now() {
+        return fixedNow;
+    }
+
+}

@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = {})
+@Constraint(validatedBy = {ValFutureValidator.class})
 public @interface ValFuture {
     String message() default "{javax.validation.constraints.Future.message}";
 

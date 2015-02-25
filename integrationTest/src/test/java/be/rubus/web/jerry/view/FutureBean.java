@@ -1,4 +1,4 @@
-<!--
+/*
  * Copyright 2014-2015 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,21 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
--->
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-        >
+ */
+package be.rubus.web.jerry.view;
 
-<h:head>
-    <title>Metadata example</title>
-</h:head>
+import be.rubus.web.valerie.custom.ValFuture;
 
-<h:body>
-    <a href="required.xhtml">Required indication</a> <br/>
-    <a href="maxSize.xhtml">MaxSize usage</a> <br/>
-    <a href="combined.xhtml">Combined Validation Annotation</a> <br/>
-    <a href="dateProvider.xhtml">Date Validations with customized system date</a> <br/>
+import javax.enterprise.inject.Model;
+import javax.validation.constraints.Future;
+import java.util.Date;
 
-</h:body>
+/**
+ *
+ */
+@Model
+public class FutureBean {
 
-</html>
+    @Future
+    private Date date1;
+
+    @ValFuture
+    private Date date2;
+
+    public Date getDate1() {
+        return date1;
+    }
+
+    public void setDate1(Date date1) {
+        this.date1 = date1;
+    }
+
+    public Date getDate2() {
+        return date2;
+    }
+
+    public void setDate2(Date date2) {
+        this.date2 = date2;
+    }
+}
