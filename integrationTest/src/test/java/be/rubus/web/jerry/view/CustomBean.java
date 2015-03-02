@@ -1,4 +1,4 @@
-<!--
+/*
  * Copyright 2014-2015 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,22 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
--->
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-        >
+ */
+package be.rubus.web.jerry.view;
 
-<h:head>
-    <title>Metadata example</title>
-</h:head>
 
-<h:body>
-    <a href="required.xhtml">Required indication</a> <br/>
-    <a href="maxSize.xhtml">MaxSize usage</a> <br/>
-    <a href="combined.xhtml">Combined Validation Annotation</a> <br/>
-    <a href="dateProvider.xhtml">Date Validations with customized system date</a> <br/>
-    <a href="zipCode.xhtml">Custom Validation</a> <br/>
+import be.rubus.web.jerry.validation.custom.ZipCode;
 
-</h:body>
+import javax.enterprise.inject.Model;
 
-</html>
+/**
+ *
+ */
+@Model
+public class CustomBean {
+
+    @ZipCode
+    private String zipCode;
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+}

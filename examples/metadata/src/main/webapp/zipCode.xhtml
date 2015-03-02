@@ -16,19 +16,29 @@
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-        >
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <title>Metadata example</title>
+    <title>Example with Custom Validation annotation</title>
 </h:head>
 
 <h:body>
-    <a href="required.xhtml">Required indication</a> <br/>
-    <a href="maxSize.xhtml">MaxSize usage</a> <br/>
-    <a href="combined.xhtml">Combined Validation Annotation</a> <br/>
-    <a href="dateProvider.xhtml">Date Validations with customized system date</a> <br/>
-    <a href="zipCode.xhtml">Custom Validation</a> <br/>
+    <h2>ZipCode</h2>
+    <p:messages/>
+    <h:form id="frm">
+        <p:outputLabel value="Zip code" for="zipCode"/>
+        <p:inputText value="#{custom.zipCode}" id="zipCode"/> (@ZipCode)
+        <br/>
 
+        <p:outputLabel value="Zip code (mask)" for="zipCodeMask"/>
+        <p:inputMask value="#{custom.zipCode}" id="zipCodeMask" mask=""/> (@ZipCode)
+        <br/>
+
+        <p:commandButton value="Send" ajax="false"/>
+    </h:form>
+
+    <br/>
+    <a href="index.xhtml">Back</a>
 </h:body>
 
 </html>
