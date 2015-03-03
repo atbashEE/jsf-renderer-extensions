@@ -3,8 +3,10 @@ package be.rubus.web.valerie.custom;
 import be.rubus.web.jerry.metadata.CommonMetaDataKeys;
 import be.rubus.web.jerry.metadata.MetaDataEntry;
 import be.rubus.web.jerry.metadata.MetaDataTransformer;
+import be.rubus.web.valerie.validation.BeanValidationMetaDataFilter;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,10 +15,22 @@ import java.util.Map;
  */
 @ApplicationScoped
 public class CustomValidationMetaDataTransformer implements MetaDataTransformer {
+
+    @Inject
+    private BeanValidationMetaDataFilter beanValidationMetaDataFilter;
+
     @Override
     public Map<String, Object> convertMetaData(MetaDataEntry metaData) {
         Map<String, Object> result = new HashMap<>();
 
+        if (beanValidationMetaDataFilter.isBeanValidationConstraint(metaData)) {
+            convert(metaData, result);
+        }
+        return result;
+
+    }
+
+    private void convert(MetaDataEntry metaData, Map<String, Object> result) {
         if (ValSize.class.getName().equals(metaData.getKey())) {
             ValSize size = (ValSize) metaData.getValue();
             if (size.min() > 0) {
@@ -35,7 +49,5 @@ public class CustomValidationMetaDataTransformer implements MetaDataTransformer 
             result.put(CommonMetaDataKeys.FUTURE.getKey(), Boolean.TRUE);
             result.put(CommonMetaDataKeys.REQUIRED.getKey(), Boolean.TRUE);
         }
-        return result;
-
     }
 }

@@ -19,8 +19,10 @@ package be.rubus.web.valerie.metadata;
 import be.rubus.web.jerry.metadata.CommonMetaDataKeys;
 import be.rubus.web.jerry.metadata.MetaDataEntry;
 import be.rubus.web.jerry.metadata.MetaDataTransformer;
+import be.rubus.web.valerie.validation.BeanValidationMetaDataFilter;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -33,9 +35,20 @@ import java.util.Map;
  */
 @ApplicationScoped
 public class BeanValidationMetaDataTransformer implements MetaDataTransformer {
+
+    @Inject
+    private BeanValidationMetaDataFilter beanValidationMetaDataFilter;
+
     @Override
     public Map<String, Object> convertMetaData(MetaDataEntry metaData) {
         Map<String, Object> result = new HashMap<>();
+        if (beanValidationMetaDataFilter.isBeanValidationConstraint(metaData)) {
+            convert(metaData, result);
+        }
+        return result;
+    }
+
+    private void convert(MetaDataEntry metaData, Map<String, Object> result) {
         if (NotNull.class.getName().equals(metaData.getKey())) {
             result.put(CommonMetaDataKeys.REQUIRED.getKey(), Boolean.TRUE);
         }
@@ -51,6 +64,5 @@ public class BeanValidationMetaDataTransformer implements MetaDataTransformer {
         if (Future.class.getName().equals(metaData.getKey())) {
             result.put(CommonMetaDataKeys.FUTURE.getKey(), Boolean.TRUE);
         }
-        return result;
     }
 }
