@@ -259,7 +259,7 @@ public class JerryRendererWrapper extends Renderer {
 
         try {
             for (RendererInterceptor interceptor : rendererInterceptors) {
-                interceptor.afterGetConvertedValue(facesContext, uiComponent, o, this.wrapped);
+                interceptor.afterGetConvertedValue(facesContext, uiComponent, o, convertedObject, this.wrapped);
             }
         } catch (SkipAfterInterceptorsException e) {
             if (logger.isTraceEnabled()) {

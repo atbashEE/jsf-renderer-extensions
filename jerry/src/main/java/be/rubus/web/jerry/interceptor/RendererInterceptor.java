@@ -173,6 +173,7 @@ public interface RendererInterceptor {
      * @param facesContext   The JSF Context
      * @param uiComponent    The current component
      * @param submittedValue The submitted value
+     * @param convertedValue The converted value
      * @param renderer       The intercepted renderer
      * @throws ConverterException             Jerry validation strategies can throw
      *                                        {@link javax.faces.validator.ValidatorException}s.
@@ -180,7 +181,7 @@ public interface RendererInterceptor {
      *                                        (see {@link AbstractValidationInterceptor}). TODO
      * @throws SkipAfterInterceptorsException Can be thrown to stop the execution of the subsequent interceptors.
      */
-    void afterGetConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object submittedValue, Renderer
-            renderer)
+    void afterGetConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object submittedValue, Object convertedValue,
+                                Renderer renderer)
             throws ConverterException, SkipAfterInterceptorsException;
 }

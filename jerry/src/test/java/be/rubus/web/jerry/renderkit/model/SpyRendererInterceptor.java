@@ -157,7 +157,7 @@ public class SpyRendererInterceptor implements RendererInterceptor {
     }
 
     @Override
-    public void afterGetConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object submittedValue,
+    public void afterGetConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object submittedValue, Object convertedValue,
                                        Renderer renderer) throws ConverterException, SkipAfterInterceptorsException {
         callsPerformed.add(InterceptorCalls.AFTER_CONVERTED_VALUE);
         if (throwException.contains(InterceptorCalls.AFTER_CONVERTED_VALUE)) {

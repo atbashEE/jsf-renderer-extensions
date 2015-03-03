@@ -34,11 +34,6 @@ public abstract class AbstractRendererInterceptor implements RendererInterceptor
     protected AbstractRendererInterceptor() {
     }
 
-    public String getInterceptorId() {
-        return getClass().getName();
-    }
-
-
     /*
     * before
     */
@@ -113,7 +108,8 @@ public abstract class AbstractRendererInterceptor implements RendererInterceptor
     /**
      * {@inheritDoc}
      */
-    public void afterGetConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object o, Renderer wrapped)
+    public void afterGetConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object submittedValue, Object convertedValue,
+                                       Renderer wrapped)
             throws ConverterException, SkipAfterInterceptorsException {
     }
 }
