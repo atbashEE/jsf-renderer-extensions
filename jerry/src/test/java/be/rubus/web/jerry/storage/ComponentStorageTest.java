@@ -48,11 +48,20 @@ public class ComponentStorageTest {
 
     @Test
     public void testContainsEntry() {
+        // So that enhancers get initialized with empty list
+        initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
 
+
         assertThat(componentStorage.containsEntry(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
+    }
+
+    private void initializeEmptyBeanManager() {
+        beanManagerFake = new BeanManagerFake();
+        beanManagerFake.endRegistration();
+        componentStorage.init();
     }
 
     @Test
@@ -63,6 +72,8 @@ public class ComponentStorageTest {
 
     @Test
     public void testContainsEntry_OtherViewId() {
+        // So that enhancers get initialized with empty list
+        initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
@@ -72,6 +83,8 @@ public class ComponentStorageTest {
 
     @Test
     public void testContainsEntry_OtherClientId() {
+        // So that enhancers get initialized with empty list
+        initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
@@ -81,6 +94,8 @@ public class ComponentStorageTest {
 
     @Test
     public void testContainsEntry_OtherViewAndClientId() {
+        // So that enhancers get initialized with empty list
+        initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
@@ -90,6 +105,8 @@ public class ComponentStorageTest {
 
     @Test
     public void testContainsEntry_OtherMetaData() {
+        // So that enhancers get initialized with empty list
+        initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);

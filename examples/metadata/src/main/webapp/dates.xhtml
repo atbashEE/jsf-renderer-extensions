@@ -16,20 +16,33 @@
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-        >
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-    <title>Metadata example</title>
+    <title>DateRange example</title>
 </h:head>
 
 <h:body>
-    <a href="required.xhtml">Required indication</a> <br/>
-    <a href="maxSize.xhtml">MaxSize usage</a> <br/>
-    <a href="combined.xhtml">Combined Validation Annotation</a> <br/>
-    <a href="dateProvider.xhtml">Date Validations with customized system date</a> <br/>
-    <a href="zipCode.xhtml">Custom Validation</a> <br/>
-    <a href="dates.xhtml">DateRange validation</a> <br/>
+    <h2>DateRange validation</h2>
+    <p:messages/>
+    <h:form id="frm">
+        <p:outputLabel value="begin" for="beginDate"/>
+        <p:inputMask value="#{datesBean.startDate}" mask="99/99/9999" id="beginDate">
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </p:inputMask> <br/>
 
+        <p:outputLabel value="end" for="endDate"/>
+        <p:inputMask value="#{datesBean.endDate}" mask="99/99/9999" id="endDate">
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </p:inputMask> <br/>
+
+
+        <p:commandButton value="Send" ajax="false"/>
+    </h:form>
+
+
+    <a href="index.xhtml">Back</a>
 </h:body>
 
 </html>

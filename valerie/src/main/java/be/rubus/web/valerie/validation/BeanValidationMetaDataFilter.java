@@ -20,7 +20,9 @@ import be.rubus.web.jerry.metadata.MetaDataEntry;
 import be.rubus.web.valerie.utils.AnnotationUtils;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.validation.ConstraintValidator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,7 +38,7 @@ public class BeanValidationMetaDataFilter {
         if (cache.containsKey(entry.getKey())) {
             result = cache.get(entry.getKey());
         } else {
-            result = AnnotationUtils.isBeanValidationConstraint(entry.getKey());
+            result = AnnotationUtils.isBeanConstraint(entry.getKey());
             cache.put(entry.getKey(), result);
         }
         return result;

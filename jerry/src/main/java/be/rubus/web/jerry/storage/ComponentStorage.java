@@ -16,9 +16,7 @@
  */
 package be.rubus.web.jerry.storage;
 
-import be.rubus.web.jerry.metadata.MetaDataEntry;
-import be.rubus.web.jerry.metadata.MetaDataHolder;
-import be.rubus.web.jerry.metadata.MetaDataTransformer;
+import be.rubus.web.jerry.metadata.*;
 import be.rubus.web.jerry.provider.BeanProvider;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +29,7 @@ import java.util.*;
 @ApplicationScoped
 public class ComponentStorage {
 
+    private List<MetaDataEnhancer> enhancers;
     private List<MetaDataTransformer> transformers;
 
     private Map<StorageKey, MetaDataHolder> cache = new HashMap<>();
@@ -40,6 +39,7 @@ public class ComponentStorage {
     @PostConstruct
     public void init() {
         transformers = BeanProvider.getContextualReferences(MetaDataTransformer.class, true, false);
+        enhancers = BeanProvider.getContextualReferences(MetaDataEnhancer.class, true, false);
     }
 
     public boolean containsEntry(String viewId, String clientId, Class<? extends MetaDataHolder> key) {
@@ -47,6 +47,9 @@ public class ComponentStorage {
     }
 
     public void storeEntry(String viewId, String clientId, MetaDataHolder value) {
+        for (MetaDataEnhancer enhancer : enhancers) {
+            enhancer.enhanceData(value);
+        }
         cache.put(new StorageKey(viewId, clientId, value.getClass()), value);
     }
 
@@ -91,6 +94,21 @@ public class ComponentStorage {
         for (Map.Entry<StorageKey, MetaDataHolder> entry : cache.entrySet()) {
             if (entry.getKey().isMatchingComponentKey(key)) {
                 result.add(entry.getValue());
+            }
+        }
+        return result;
+    }
+
+    public List<?> getRecordingInformation(String viewId, String clientId) {
+        List<?> result = new ArrayList<>();
+        ComponentKey key = new ComponentKey(viewId, clientId);
+        List<MetaDataHolder> allMetaDataHolders = getAllMetaDataHolders(key);
+        for (MetaDataHolder holder : allMetaDataHolders) {
+            for (MetaDataEntry entry : holder.getMetaDataEntries()) {
+                List property = entry.getProperty(PropertyInformationKeys.RECORDING_INFORMATION, List.class);
+                if (property != null) {
+                    result.addAll(property);
+                }
             }
         }
         return result;

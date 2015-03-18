@@ -27,7 +27,7 @@ import be.rubus.web.jerry.metadata.MetaDataHolder;
 public interface PropertyInformation extends MetaDataHolder {
     /**
      * Verifies if we have information for the given key.
-     * Some predefined keys are defined in {@link PropertyInformationKeys}.
+     * Some predefined keys are defined in {@link be.rubus.web.jerry.metadata.PropertyInformationKeys}.
      *
      * @param key key of the information.
      * @return true if the instance is aware of an information which is linked to the given key

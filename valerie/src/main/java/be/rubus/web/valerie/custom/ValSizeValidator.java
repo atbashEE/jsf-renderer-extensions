@@ -17,12 +17,14 @@ public class ValSizeValidator implements ConstraintValidator<ValSize, Object> {
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        boolean result = value != null;
+        boolean result = value != null || sizeAnnotation.min() == 0;
         if (result) {
-            String data = value.toString();
-            int length = data.length();
-            if (length < sizeAnnotation.min() || length > sizeAnnotation.max()) {
-                result = false;
+            if (sizeAnnotation.min() > 0) {
+                String data = value.toString();
+                int length = data.length();
+                if (length < sizeAnnotation.min() || length > sizeAnnotation.max()) {
+                    result = false;
+                }
             }
         }
         return result;

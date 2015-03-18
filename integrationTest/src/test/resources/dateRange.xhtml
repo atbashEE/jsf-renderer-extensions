@@ -16,20 +16,31 @@
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-        >
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-    <title>Metadata example</title>
+    <title>Arquillian test for @RecordValue and @DateRange</title>
 </h:head>
 
 <h:body>
-    <a href="required.xhtml">Required indication</a> <br/>
-    <a href="maxSize.xhtml">MaxSize usage</a> <br/>
-    <a href="combined.xhtml">Combined Validation Annotation</a> <br/>
-    <a href="dateProvider.xhtml">Date Validations with customized system date</a> <br/>
-    <a href="zipCode.xhtml">Custom Validation</a> <br/>
-    <a href="dates.xhtml">DateRange validation</a> <br/>
+    <h:messages id="errors"/>
+    <h:form id="test">
+        <h:inputText value="#{dateRangeBean.startDate}" id="beginDate">
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </h:inputText>
 
+        <p:outputLabel value="end" for="endDate"/>
+        <h:inputText value="#{dateRangeBean.endDate}" id="endDate">
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </h:inputText>
+
+
+        <h:commandButton value="Send" id="submit"/>
+    </h:form>
+
+
+    <a href="index.xhtml">Back</a>
 </h:body>
 
 </html>

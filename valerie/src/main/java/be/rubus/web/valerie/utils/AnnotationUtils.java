@@ -17,16 +17,18 @@
 package be.rubus.web.valerie.utils;
 
 import be.rubus.web.jerry.metadata.MetaDataEntry;
+import be.rubus.web.jerry.metadata.PropertyInformationKeys;
 import be.rubus.web.jerry.producer.LogProducer;
 import be.rubus.web.jerry.provider.BeanProvider;
 import be.rubus.web.valerie.property.DefaultPropertyInformation;
 import be.rubus.web.valerie.property.PropertyDetails;
 import be.rubus.web.valerie.property.PropertyInformation;
-import be.rubus.web.valerie.property.PropertyInformationKeys;
+import be.rubus.web.valerie.recording.RecordValueInfo;
 import be.rubus.web.valerie.storage.PropertyStorage;
 import org.slf4j.Logger;
 
 import javax.validation.Constraint;
+import javax.validation.ConstraintValidator;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -167,6 +169,7 @@ public final class AnnotationUtils {
         return entry;
     }
 
+    // TODO Remove as it is not used
     /**
      * Extracts the value of the given annotation.
      *
@@ -190,15 +193,55 @@ public final class AnnotationUtils {
         return null;
     }
 
-    public static boolean isBeanValidationConstraint(String annotationName) {
-        boolean result;
+    public static boolean isBeanConstraint(String annotationName) {
+        boolean result = false;
         try {
             Class<?> annotationClass = Class.forName(annotationName);
             result = annotationClass.getAnnotation(Constraint.class) != null;
+
         } catch (ClassNotFoundException e) {
-            result = false;
+            ; // TODO At least log this, probably some class loading issue that we have to solve
         }
         return result;
 
+    }
+    public static List<Class<? extends ConstraintValidator<?, ?>>> getBeanConstraintValidator(String annotationName) {
+        List<Class<? extends ConstraintValidator<?, ?>>> result = new ArrayList<>();
+        try {
+            Class<?> annotationClass = Class.forName(annotationName);
+            result = getBeanConstraintValidator(annotationClass);
+        } catch (ClassNotFoundException e) {
+            ; // TODO At least log this, probably some class loading issue that we have to solve
+        }
+        return result;
+
+    }
+
+    private static List<Class<? extends ConstraintValidator<?, ?>>> getBeanConstraintValidator(Class annotationClass) {
+        Constraint annotation = (Constraint) annotationClass.getAnnotation(Constraint.class);
+
+        List<Class<? extends ConstraintValidator<?, ?>>> result = new ArrayList<>();
+        if (annotation != null) {
+            result = Arrays.asList(annotation.validatedBy());
+        }
+
+        return result;
+
+    }
+
+    public static List<RecordValueInfo> getClassLevelBeanValidationInfo(Class clazz) {
+        List<RecordValueInfo> result = new ArrayList<>();
+
+        for (Annotation annotation : clazz.getDeclaredAnnotations()) {
+            List<Class<? extends ConstraintValidator<?, ?>>> beanValidationConstraints = getBeanConstraintValidator(annotation.annotationType());
+            for (Class<? extends ConstraintValidator<?, ?>> validationConstraint : beanValidationConstraints) {
+                result.add(new RecordValueInfo(clazz, validationConstraint));
+            }
+        }
+
+        if (!Object.class.equals(clazz.getSuperclass())) {
+            result.addAll(getClassLevelBeanValidationInfo(clazz.getSuperclass()));
+        }
+        return result;
     }
 }

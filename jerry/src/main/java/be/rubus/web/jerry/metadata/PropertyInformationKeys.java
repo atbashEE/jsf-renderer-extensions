@@ -14,14 +14,12 @@
  * limitations under the License.
  *
  */
-package be.rubus.web.valerie.property;
+package be.rubus.web.jerry.metadata;
 
 /**
  *
  */
 public interface PropertyInformationKeys {
     static final String PROPERTY_DETAILS = "property_details";
-    //static final String SKIP_VALIDATION = "skip_validation";
-    //static final String LABEL = "label";
-    //static final String CUSTOM_PROPERTIES = "custom_properties";
+    static final String RECORDING_INFORMATION = "recording_information";
 }
