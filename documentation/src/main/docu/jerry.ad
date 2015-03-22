@@ -1,6 +1,6 @@
 = JSF Renderer Interceptor (Jerry)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.2, 16/01/2015
+v0.2, 23/03/2015
 
 == Introduction
 
@@ -8,8 +8,8 @@ v0.2, 16/01/2015
 
 On various occasions, I needed the #RendererInterceptor# concept of Apache MyFaces extensions Validation framework. I didn't need the great validation features of the framework, so I found it an overhead, in terms of performance and memory consumption.
 
-So I extracted that interface and the required classes and transformed it to use CDI to have to benefits of it.  That is how Jerry (JSF Renderer Interceptor, JRI) was started.
-Jerry is the basis for http://javaeesquad.blogspot.be/2014/03/octopus-framework.html[Octopus] from version 0.9.5 on but has also some usage scenarios on his own.
+So I extracted that interface and the required classes and transformed it to use CDI to have the benefits of it.  That is how Jerry (JSF Renderer Interceptor, JRI) was started.
+Jerry is the basis for http://javaeesquad.blogspot.be/2014/03/octopus-framework.html[*Octopus*] from version 0.9.5 on but has also some usage scenarios on his own.
 
 Since there are a lot of lookups done into the CDI bean management system, I copied some classes from https://deltaspike.apache.org[*Apache DeltaSpike*] (the https://deltaspike.apache.org/documentation/core.html#_beanprovider[BeanProvider]) to make it easier to lookup the beans.
 
@@ -17,11 +17,11 @@ Since there are a lot of lookups done into the CDI bean management system, I cop
 
 . RendererInterceptor
 +
-With the RendererInterceptor you have a before and after method for every major method in a Renderer which is `decode`, `encodeBegin`, `encodeChildren`, `encodeEnd` and `getConvertedValue`.
+With the #RendererInterceptor# you have a before and after method for every major method in a Renderer which is `decode`, `encodeBegin`, `encodeChildren`, `encodeEnd` and `getConvertedValue`.
 
 . ComponentInitializer
 +
-With ComponentInitializer it becomes easier to adjust the JSF components. They use a RendererInterceptor in the background and work is done in the `beforeEncodeBegin` phase.
+With #ComponentInitializer# it becomes easier to adjust the JSF components. They use a RendererInterceptor in the background and work is done in the `beforeEncodeBegin` phase.
 
 There are some other small CDI features which are useful in any project
 
@@ -42,17 +42,13 @@ Easier programmatically retrieval of CDI beans in code.
 In case you don't use maven, you can just download the jar file and put in the `lib` folder of your project.
 
 . Open the project `pom.xml` file for editing.
-. Add the JavaEESquad Maven repository where the dependency can be found.
+. Add the C4J/JavaEESquad Maven repository where the dependency can be found.
 +
 [source,xml]
 ----
 <repository>
-   <id>JavaEESquad-mvn-repo</id>
-   <url>https://raw.github.com/JavaEESquad/Octopus_mvn/mvn-repo/</url>
-   <snapshots>
-      <enabled>true</enabled>
-      <updatePolicy>always</updatePolicy>
-   </snapshots>
+       <id>nexus_C4J</id>
+       <url>http://nexus-osc4j.rhcloud.com/content/groups/public/</url>
 </repository>
 ----
 
