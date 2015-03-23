@@ -61,7 +61,7 @@ In case you don't use maven, you can just download the jar file and put in the `
 <dependency>
     <groupId>be.rubus.web</groupId>
     <artifactId>valerie</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 </dependency>
 
 ----
@@ -77,7 +77,7 @@ There is a plugin of Valerie which supports the PrimeFaces components.  You only
 <dependency>
     <groupId>be.rubus.web.valerie</groupId>
     <artifactId>primefaces</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 </dependency>
 
 ----
