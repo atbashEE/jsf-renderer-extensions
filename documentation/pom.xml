@@ -84,6 +84,21 @@
                             <goal>process-asciidoc</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>output-html</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceHighlighter>coderay</sourceHighlighter>
+                            <backend>html</backend>
+                            <attributes>
+                                <toc/>
+                                <embedAssets>true</embedAssets>
+                            </attributes>
+                        </configuration>
+                    </execution>
                 </executions>
                 <configuration>
                     <sourceDirectory>src/main/docu</sourceDirectory>
