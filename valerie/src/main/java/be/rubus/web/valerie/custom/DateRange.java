@@ -42,6 +42,8 @@ public @interface DateRange {
 
     String end();
 
+    boolean equalsAllowed() default false;
+
     String message() default "{end} should be later than {start}";
 
     Class[] groups() default {};

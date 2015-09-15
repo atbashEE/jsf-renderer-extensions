@@ -32,10 +32,12 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
 
     private String start;
     private String end;
+    private boolean equalsAllowed;
 
     public void initialize(DateRange dateRange) {
         start = dateRange.start();
         end = dateRange.end();
+        equalsAllowed = dateRange.equalsAllowed();
     }
 
     public boolean isValid(Object object,
@@ -50,9 +52,14 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
             Date endDate = (Date) handleEnd.invokeWithArguments(object);
             if (startDate != null && endDate != null) {
                 result = endDate.after(startDate);
+                if (!result && equalsAllowed) {
+                    result = endDate.equals(startDate);
+                }
             }
         } catch (Throwable throwable) {
+            // TODO proper logging
             throwable.printStackTrace();
+            result = false;
         }
 
 
@@ -70,9 +77,8 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
 
         try {
             return MethodHandles.lookup().findVirtual(target, getAccessorMethodName(property), DATE_GETTER);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            // TODO proper logging
             e.printStackTrace();
         }
         return null;
