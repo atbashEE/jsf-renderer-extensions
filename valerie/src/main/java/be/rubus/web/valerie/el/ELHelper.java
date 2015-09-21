@@ -17,6 +17,7 @@
 package be.rubus.web.valerie.el;
 
 
+import be.rubus.web.valerie.metadata.ValerieHandler;
 import be.rubus.web.valerie.property.PropertyDetails;
 
 import javax.el.ELContext;
@@ -54,7 +55,7 @@ public class ELHelper {
         String expressionString = valueExpression.getExpressionString();
         if (expressionString.startsWith("#{cc.attrs")) {
             UIComponent compositeParent = findCompositeParent(uiComponent);
-            ValueExpression validationExpression = (ValueExpression) compositeParent.getAttributes().get("Valerie" + uiComponent.getId());
+            ValueExpression validationExpression = (ValueExpression) compositeParent.getAttributes().get(ValerieHandler.VALERIE + uiComponent.getId());
             if (validationExpression != null) {
                 propertyDetails = buildPropertyDetails(facesContext, validationExpression);
             }

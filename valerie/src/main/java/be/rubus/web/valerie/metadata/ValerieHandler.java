@@ -28,15 +28,16 @@ import java.io.IOException;
  */
 public class ValerieHandler extends TagHandler {
 
+    public static final String VALERIE = "Valerie";
+
     public ValerieHandler(TagConfig config) {
         super(config);
     }
 
     @Override
     public void apply(FaceletContext ctx, UIComponent parent) throws IOException {
-        // TODO Valerie must be constant
         ValueExpression value = getAttribute("value").getValueExpression(ctx, Object.class);
-        String attributeName = "Valerie" + getAttribute("for").getValue();
+        String attributeName = VALERIE + getAttribute("for").getValue();
         parent.getAttributes().put(attributeName, value);
     }
 

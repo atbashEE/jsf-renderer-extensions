@@ -58,6 +58,7 @@ public class MetaDataExtractor {
         if (!(object instanceof UIInput)) {
             return null;
         }
+
         UIComponent uiComponent = (UIComponent) object;
 
         if (logger.isTraceEnabled()) {
