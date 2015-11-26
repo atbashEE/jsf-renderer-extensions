@@ -1,0 +1,54 @@
+<!--
+ * Copyright 2014-2015 Rudy De Busscher
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Jerry example</title>
+
+    <style>
+        .requiredDropdown label {
+            background-color: #B04A4A;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h1>SelectOneMenu Interceptor example (Jerry)</h1>
+    <p:messages/>
+    <h:form id="frm">
+        <p:outputLabel value="gender " for="gender"/>
+        <p:selectOneMenu id="gender">
+            <f:selectItem/>
+            <f:selectItem itemLabel="Male" itemValue="male"/>
+            <f:selectItem itemLabel="Female" itemValue="female"/>
+        </p:selectOneMenu>
+        <br/>
+        <p:commandButton value="Send" ajax="false"/>
+    </h:form>
+    be.rubus.web.jerry.example.interceptor.DropdownInitializer adds a styleClass so that we can colour the dropdown. See also CSS definition in this page.
+
+    <br/>
+    <br/>
+
+    Back to <a href="index.xhtml">index</a>.
+
+</h:body>
+
+
+</html>
