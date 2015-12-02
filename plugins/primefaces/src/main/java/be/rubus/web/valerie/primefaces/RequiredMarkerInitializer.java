@@ -21,7 +21,6 @@ import be.rubus.web.jerry.component.ComponentInitializerManager;
 import be.rubus.web.jerry.metadata.CommonMetaDataKeys;
 import be.rubus.web.jerry.ordering.InvocationOrder;
 import be.rubus.web.valerie.property.PropertyInformationManager;
-import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.outputlabel.OutputLabel;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -48,16 +47,16 @@ public class RequiredMarkerInitializer implements ComponentInitializer {
     public void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData) {
         if (uiComponent instanceof OutputLabel) {
             OutputLabel label = (OutputLabel) uiComponent;
-            UIComponent targetComponent = label.findComponent(label.getFor());
+            if (label.getFor() != null && !label.getFor().trim().isEmpty()) {
+                UIComponent targetComponent = label.findComponent(label.getFor());
 
-            informationManager.determineInformation(facesContext, targetComponent);
-            initializerManager.performInitialization(facesContext, targetComponent);
-
+                informationManager.determineInformation(facesContext, targetComponent);
+                initializerManager.performInitialization(facesContext, targetComponent);
+            }
         }
 
         if (uiComponent instanceof UIInput) {
             UIInput input = (UIInput) uiComponent;
-
 
             if (metaData.containsKey(CommonMetaDataKeys.REQUIRED.getKey())) {
                 input.setRequired(true);
