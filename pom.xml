@@ -29,7 +29,7 @@
         Parent project of the projects around the JSF renderer interceptor concept. Jerry which does the actual intercepting and Valerie which uses this mechanism to bring the
         validation annotations to the JSF Front-end.
     </description>
-    <version>0.2.2</version>
+    <version>0.3-SNAPSHOT</version>
     <url>https://github.com/rdebusscher/jsf-renderer-extensions</url>
 
     <distributionManagement>
