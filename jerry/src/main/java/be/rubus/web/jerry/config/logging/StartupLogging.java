@@ -38,7 +38,12 @@ public class StartupLogging {
 
     protected String separator = System.getProperty("line.separator");
 
+    private boolean allLoggingActivated;
+
     public void logAtStartApplication(@Observes StartupEvent event) {
+
+        checkAllLogging();
+
         List<ModuleConfig> configs = BeanProvider.getContextualReferences(ModuleConfig.class, false);
         StringBuilder configInfo = new StringBuilder();
         configInfo.append('\n');
@@ -46,6 +51,11 @@ public class StartupLogging {
             configInfo.append(getConfigInfo(config));
         }
         logger.info(configInfo.toString());
+    }
+
+    private void checkAllLogging() {
+        String jerryLogAllProperty = System.getProperty("jerry.log.all");
+        allLoggingActivated = "true".equalsIgnoreCase(jerryLogAllProperty);
     }
 
     //generic alternative to #toString to avoid an overriden #toString at custom implementations
@@ -101,7 +111,7 @@ public class StartupLogging {
                         info.append("   value:\tunknown - Method has no return value");
                     } else {
 
-                        executeMethodForConfigRetrieval(config, info, currentMethod);
+                        executeMethodForConfigRetrieval(config, info, currentMethod, configEntry.noLogging());
                     }
                 } else {
                     info.append("   value:\tunknown - Method has a parameter");
@@ -112,15 +122,19 @@ public class StartupLogging {
 
     }
 
-    private void executeMethodForConfigRetrieval(ModuleConfig config, StringBuilder info, Method currentMethod) {
+    private void executeMethodForConfigRetrieval(ModuleConfig config, StringBuilder info, Method currentMethod, boolean noLogging) {
         Object value;
         try {
             value = currentMethod.invoke(config);
-            info.append("   value:\t").append(value == null ? "null" : value.toString());
+            if (noLogging && !allLoggingActivated) {
+                info.append("   value:\t").append("No logging parameter active ").append(value == null ? "null" : "[non null value]");
+            } else {
+                info.append("   value:\t").append(value == null ? "null" : value.toString());
+            }
         } catch (IllegalAccessException e) {
             info.append("   value:\t[unknown]");
         } catch (InvocationTargetException e) {
-            info.append("   value: [unknown]");
+            info.append("   value:\t [unknown]");
         }
     }
 }

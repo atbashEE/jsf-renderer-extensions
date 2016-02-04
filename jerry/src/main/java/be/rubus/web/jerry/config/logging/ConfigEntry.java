@@ -41,4 +41,11 @@ public @interface ConfigEntry {
      * @return Type to be logged
      */
     Class<?> classResult() default Void.class;
+
+    /**
+     * When true, the valu of the ConfigEntry isn't logged (only marked if there is a value or not) except when the property -Djerry.log.all is set to true.
+     *
+     * @return
+     */
+    boolean noLogging() default false;
 }

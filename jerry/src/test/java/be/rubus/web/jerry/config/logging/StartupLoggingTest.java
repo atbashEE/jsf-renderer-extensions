@@ -18,11 +18,14 @@ package be.rubus.web.jerry.config.logging;
 
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StartupLoggingTest {
 
-    public static final String VALUE_SEPARATOR = "value:";
+    private static final String VALUE_SEPARATOR = "value:";
+    private static final String NO_LOGGING = "Nologgingparameteractive";
 
     @Test
     public void testGetConfigInfo() {
@@ -42,6 +45,39 @@ public class StartupLoggingTest {
         assertThat(data).doesNotContain("Should never be in log");
         assertThat(data).contains("getConfigValueWithParameter" + VALUE_SEPARATOR + "[ConfigWithparameter]");
         assertThat(data).contains("getClassResultConfigValue" + VALUE_SEPARATOR + "be.rubus.web.jerry.config.logging.StartupLoggingTest.MyConfigObject");
+    }
+
+    @Test
+    public void testGetConfigInfo_NoLogging() {
+        StartupLogging logging = new StartupLogging();
+        String info = logging.getConfigInfo(new NoLogConfig());
+
+        assertThat(info).isNotEmpty();
+        String data = info.replaceAll("\\s", "");
+
+        assertThat(data).contains("defineConfigValue" + VALUE_SEPARATOR + NO_LOGGING + "[nonnullvalue]");
+        assertThat(data).contains("defineNullConfigValue" + VALUE_SEPARATOR + NO_LOGGING + "null");
+
+    }
+
+    @Test
+    public void testGetConfigInfo_AllLogging() throws NoSuchFieldException, IllegalAccessException {
+        System.setProperty("jerry.log.all", "tRue");
+
+        StartupLogging logging = new StartupLogging();
+
+        Field allLoggingActivated = logging.getClass().getDeclaredField("allLoggingActivated");
+        allLoggingActivated.setAccessible(true);
+        allLoggingActivated.setBoolean(logging, Boolean.TRUE);
+
+        String info = logging.getConfigInfo(new NoLogConfig());
+
+        assertThat(info).isNotEmpty();
+        String data = info.replaceAll("\\s", "");
+
+        assertThat(data).contains("defineConfigValue" + VALUE_SEPARATOR + "SecretValue");
+        assertThat(data).doesNotContain("defineNullConfigValue" + VALUE_SEPARATOR + NO_LOGGING);
+
     }
 
     private static class TestModuleConfig implements ModuleConfig {
@@ -89,6 +125,19 @@ public class StartupLoggingTest {
             return null;
 
         }
+    }
+
+    private static class NoLogConfig implements ModuleConfig {
+        @ConfigEntry(noLogging = true)
+        public String defineConfigValue() {
+            return "Secret Value";
+        }
+
+        @ConfigEntry(noLogging = true)
+        public Long defineNullConfigValue() {
+            return null;
+        }
+
     }
 
     public static class MyConfigObject {
