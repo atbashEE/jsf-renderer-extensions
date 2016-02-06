@@ -184,7 +184,8 @@
                 <configuration>
                     <excludes>
                         <!-- don't check anything in target -->
-                        <exclude>target/*</exclude>
+                        <exclude>**/target/**/*</exclude>
+                        <exclude>**/documentation/**/*</exclude>
                         <!-- README files in markdown format -->
                         <exclude>README.md</exclude>
                     </excludes>
