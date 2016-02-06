@@ -66,6 +66,21 @@ In case you don't use maven, you can just download the jar file and put in the `
 
 . You are ready to use Jerry.
 
+= Releases
+
+v0.3
+
+. @ConfigEntry has a member +noLogging+ so that content isn't logged, except when -Djerry.log.all=true
+
+v0.2.2 (25/01/2016)
+
+. Bug fixing (#1)
+
+v0.2.1 (26/11/2015)
+
+. @DataRange has now the equalsAllowed member to indicate that start date can be equal to end date.
+. Bug fixing (#6)
+
 == Usage scenarios
 
 === Component Initializer
