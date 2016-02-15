@@ -1,6 +1,6 @@
 = JSF Renderer Interceptor (Jerry)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.2, 23/03/2015
+v0.3, ??/??/2016
 
 == Introduction
 
@@ -71,6 +71,10 @@ In case you don't use maven, you can just download the jar file and put in the `
 v0.3
 
 . @ConfigEntry has a member +noLogging+ so that content isn't logged, except when -Djerry.log.all=true
+
+v0.2.3 (15/02/2016)
+
+. Bug fixing (#8)
 
 v0.2.2 (25/01/2016)
 
