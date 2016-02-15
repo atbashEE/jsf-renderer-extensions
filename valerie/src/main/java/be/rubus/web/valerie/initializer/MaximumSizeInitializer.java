@@ -37,7 +37,8 @@ public class MaximumSizeInitializer implements ComponentInitializer {
         if (metaData.containsKey(CommonMetaDataKeys.SIZE.getKey())) {
             HtmlInputText inputText = (HtmlInputText) uiComponent;
             Integer maxSize = (Integer) metaData.get(CommonMetaDataKeys.SIZE.getKey());
-            if (maxSize < inputText.getMaxlength()) {
+            int maxLength = inputText.getMaxlength();
+            if (maxSize < maxLength || maxLength == Integer.MIN_VALUE) {
                 inputText.setMaxlength(maxSize);
             }
         }
