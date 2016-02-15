@@ -41,13 +41,15 @@ public class MaximumSizeInitializer implements ComponentInitializer {
             Integer maxSize = (Integer) metaData.get(CommonMetaDataKeys.SIZE.getKey());
             if (uiComponent instanceof InputText) {
                 InputText inputText = (InputText) uiComponent;
-                if (maxSize < inputText.getMaxlength()) {
+                int maxLength = inputText.getMaxlength();
+                if (maxSize < maxLength || maxLength == Integer.MIN_VALUE) {
                     inputText.setMaxlength(maxSize);
                 }
             }
             if (uiComponent instanceof InputTextarea) {
                 InputTextarea inputArea = (InputTextarea) uiComponent;
-                if (maxSize < inputArea.getMaxlength()) {
+                int maxLength = inputArea.getMaxlength();
+                if (maxSize < maxLength || maxLength == Integer.MIN_VALUE) {
                     inputArea.setMaxlength(maxSize);
                 }
             }
