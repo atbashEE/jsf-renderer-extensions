@@ -1,6 +1,6 @@
 = JSF Renderer Interceptor (Jerry)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.3, ??/??/2016
+v0.3, 08/03/2016
 
 == Introduction
 
@@ -68,7 +68,7 @@ In case you don't use maven, you can just download the jar file and put in the `
 
 = Releases
 
-v0.3
+v0.3 (08/03/2016)
 
 . @ConfigEntry has a member +noLogging+ so that content isn't logged, except when -Djerry.log.all=true
 
@@ -130,8 +130,6 @@ The metaData parameter is filled up by Valerie, the (Bean) validation companion 
 === Startup Event
 
 You can use the CDI event StartupEvent to perform any initialization when your application is deployed and ready on the server.
-
-<<<
 
 .Log some message when application is ready
 [source,java]
