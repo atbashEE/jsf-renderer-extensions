@@ -17,7 +17,6 @@
 package be.rubus.web.valerie.recording;
 
 import be.rubus.web.jerry.provider.BeanProvider;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
