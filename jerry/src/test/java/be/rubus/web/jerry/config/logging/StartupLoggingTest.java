@@ -16,6 +16,8 @@
  */
 package be.rubus.web.jerry.config.logging;
 
+import be.rubus.web.jerry.config.DynamicConfigValueHelper;
+import be.rubus.web.jerry.util.TestReflectionUtils;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -28,8 +30,10 @@ public class StartupLoggingTest {
     private static final String NO_LOGGING = "Nologgingparameteractive";
 
     @Test
-    public void testGetConfigInfo() {
+    public void testGetConfigInfo() throws NoSuchFieldException, IllegalAccessException {
         StartupLogging logging = new StartupLogging();
+        TestReflectionUtils.setFieldValue(logging, "valueHelper", new DynamicConfigValueHelper());
+
         String info = logging.getConfigInfo(new TestModuleConfig());
 
         assertThat(info).isNotEmpty();
@@ -65,6 +69,7 @@ public class StartupLoggingTest {
         System.setProperty("jerry.log.all", "tRue");
 
         StartupLogging logging = new StartupLogging();
+        TestReflectionUtils.setFieldValue(logging, "valueHelper", new DynamicConfigValueHelper());
 
         Field allLoggingActivated = logging.getClass().getDeclaredField("allLoggingActivated");
         allLoggingActivated.setAccessible(true);

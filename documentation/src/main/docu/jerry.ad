@@ -1,6 +1,6 @@
 = JSF Renderer Interceptor (Jerry)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.3, 08/03/2016
+v0.4, ??/??/2016
 
 == Introduction
 
@@ -67,6 +67,10 @@ In case you don't use maven, you can just download the jar file and put in the `
 . You are ready to use Jerry.
 
 = Releases
+
+v0.4 (??/??/2016)
+
+. Helper for dynamic configuration values (DynamicConfigValueHelper)
 
 v0.3 (08/03/2016)
 

@@ -16,6 +16,7 @@
  */
 package be.rubus.web.jerry.config.logging;
 
+import be.rubus.web.jerry.config.DynamicConfigValueHelper;
 import be.rubus.web.jerry.provider.BeanProvider;
 import be.rubus.web.jerry.startup.StartupEvent;
 import be.rubus.web.jerry.utils.ProxyUtils;
@@ -23,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -39,6 +41,9 @@ public class StartupLogging {
     protected String separator = System.getProperty("line.separator");
 
     private boolean allLoggingActivated;
+
+    @Inject
+    private DynamicConfigValueHelper valueHelper;
 
     public void logAtStartApplication(@Observes StartupEvent event) {
 
@@ -119,7 +124,6 @@ public class StartupLogging {
             }
         }
 
-
     }
 
     private void executeMethodForConfigRetrieval(ModuleConfig config, StringBuilder info, Method currentMethod, boolean noLogging) {
@@ -129,7 +133,13 @@ public class StartupLogging {
             if (noLogging && !allLoggingActivated) {
                 info.append("   value:\t").append("No logging parameter active ").append(value == null ? "null" : "[non null value]");
             } else {
-                info.append("   value:\t").append(value == null ? "null" : value.toString());
+                info.append("   value:\t");
+                if (value == null) {
+                    info.append("null");
+                } else {
+                    info.append(valueHelper.getTruncatedConfigValue(value.toString()));
+                }
+
             }
         } catch (IllegalAccessException e) {
             info.append("   value:\t[unknown]");

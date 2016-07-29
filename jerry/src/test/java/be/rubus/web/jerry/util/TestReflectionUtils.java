@@ -56,4 +56,30 @@ public final class TestReflectionUtils {
         field.set(target, null);
     }
 
+    public static void setFieldValue(Object target, String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
+
+        Class<?> targetClass = target.getClass();
+        Field field = findField(targetClass, fieldName);
+        while (field == null && !Object.class.equals(targetClass)) {
+            targetClass = targetClass.getSuperclass();
+            field = findField(targetClass, fieldName);
+        }
+
+        if (field == null) {
+            throw new NoSuchFieldException("Field " + fieldName + " not found");
+        }
+
+        field.setAccessible(true);
+        field.set(target, value);
+    }
+
+    private static Field findField(Class<?> targetClass, String fieldName) {
+        Field result = null;
+        for (Field field : targetClass.getDeclaredFields()) {
+            if (fieldName.equals(field.getName())) {
+                result = field;
+            }
+        }
+        return result;
+    }
 }
