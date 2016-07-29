@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>be.rubus.web.valerie</groupId>
-    <artifactId>primefaces</artifactId>
+    <artifactId>valerie-primefaces</artifactId>
     <packaging>jar</packaging>
     <name>PrimeFaces specific extension for Valerie</name>
     <description>
