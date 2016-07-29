@@ -1,6 +1,6 @@
 = Bean validation for JSF Components (Valerie)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.3, ??/??/2016
+v0.4, ??/??/2016
 
 == Introduction
 
@@ -39,6 +39,12 @@ Valerie allows the integration of your custom annotations.
 +
 With the help of the @RecordValue we are able to perform class level bean validations in the Process Validations JSF Phase.  And this without placing the screen values in the bean.
 
+== Releases
+
+v0.4 (??/??/2016)
+
+. Renamed the PrimeFaces plugin of valerie to artifact-id valerie-primefaces
+
 == Configure your project
 
 In case you don't use maven, you can just download the jar file and put in the `lib` folder of your project.
@@ -76,8 +82,8 @@ There is a plugin of Valerie which supports the PrimeFaces components.  You only
 ----
 <dependency>
     <groupId>be.rubus.web.valerie</groupId>
-    <artifactId>primefaces</artifactId>
-    <version>0.3</version>
+    <artifactId>valerie-primefaces</artifactId>
+    <version>0.4</version>
 </dependency>
 
 ----

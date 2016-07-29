@@ -59,7 +59,7 @@ In case you don't use maven, you can just download the jar file and put in the `
 <dependency>
     <groupId>be.rubus.web</groupId>
     <artifactId>jerry</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
 </dependency>
 
 ----
