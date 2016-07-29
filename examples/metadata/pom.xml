@@ -42,7 +42,7 @@
         </dependency>
         <dependency>
             <groupId>be.rubus.web.valerie</groupId>
-            <artifactId>primefaces</artifactId>
+            <artifactId>valerie-primefaces</artifactId>
             <version>${project.version}</version>
         </dependency>
 
