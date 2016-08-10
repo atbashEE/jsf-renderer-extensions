@@ -22,6 +22,7 @@ import be.rubus.web.jerry.metadata.CommonMetaDataKeys;
 import be.rubus.web.jerry.ordering.InvocationOrder;
 import be.rubus.web.valerie.property.PropertyInformationManager;
 import org.primefaces.component.outputlabel.OutputLabel;
+import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -43,6 +44,9 @@ public class RequiredMarkerInitializer implements ComponentInitializer {
     @Inject
     private PropertyInformationManager informationManager;
 
+    @Inject
+    private Logger logger;
+
     @Override
     public void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData) {
         if (uiComponent instanceof OutputLabel) {
@@ -50,8 +54,12 @@ public class RequiredMarkerInitializer implements ComponentInitializer {
             if (label.getFor() != null && !label.getFor().trim().isEmpty()) {
                 UIComponent targetComponent = label.findComponent(label.getFor());
 
-                informationManager.determineInformation(facesContext, targetComponent);
-                initializerManager.performInitialization(facesContext, targetComponent);
+                if (targetComponent != null) {
+                    informationManager.determineInformation(facesContext, targetComponent);
+                    initializerManager.performInitialization(facesContext, targetComponent);
+                } else {
+                    logger.warn("target component specified in for ('" + label.getFor() + "') not found from component " + label.getClientId(facesContext));
+                }
             }
         }
 
