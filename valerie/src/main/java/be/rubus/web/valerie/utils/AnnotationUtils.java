@@ -12,7 +12,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 package be.rubus.web.valerie.utils;
 
@@ -170,6 +169,7 @@ public final class AnnotationUtils {
     }
 
     // TODO Remove as it is not used
+
     /**
      * Extracts the value of the given annotation.
      *
@@ -205,6 +205,7 @@ public final class AnnotationUtils {
         return result;
 
     }
+
     public static List<Class<? extends ConstraintValidator<?, ?>>> getBeanConstraintValidator(String annotationName) {
         List<Class<? extends ConstraintValidator<?, ?>>> result = new ArrayList<>();
         try {

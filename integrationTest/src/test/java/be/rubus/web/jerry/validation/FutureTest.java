@@ -12,7 +12,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 package be.rubus.web.jerry.validation;
 
@@ -56,7 +55,7 @@ public class FutureTest {
 
         return ShrinkWrap
                 .create(WebArchive.class, ARCHIVE_NAME + ".war")
-                        // We don't do transitive dependencies, so manually adding them
+                // We don't do transitive dependencies, so manually adding them
                 .addAsLibraries(MavenDependencyUtil.valerieFiles())
                 .addAsLibraries(MavenDependencyUtil.valeriePrimeFacesFiles())
                 .addAsLibraries(MavenDependencyUtil.jerryFiles())

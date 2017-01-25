@@ -12,7 +12,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 package be.rubus.web.valerie.validation;
 
@@ -20,9 +19,7 @@ import be.rubus.web.jerry.metadata.MetaDataEntry;
 import be.rubus.web.valerie.utils.AnnotationUtils;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.validation.ConstraintValidator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
