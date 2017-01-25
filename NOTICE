@@ -1,0 +1,7 @@
+JSF renderer interceptor - Intercepting the Rendering phases of JSF (Jerry) and adding Bean validation automatically to components (Valerie)
+
+Copyright 2014 - 2016 by Rudy De Busscher
+
+------------------------------------------------------------------------
+See the file LICENSE
+------------------------------------------------------------------------

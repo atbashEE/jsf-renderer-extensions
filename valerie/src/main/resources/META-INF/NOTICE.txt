@@ -1,0 +1,9 @@
+Valerie, Transfer Bean validation rulz to JSF components
+Copyright 2014-2016 Rudy De Busscher
+
+This product includes software developed by
+The Apache Software Foundation (http://www.apache.org/).
+
+------------------------------------------------------------------------
+See the file LICENSE.txt
+------------------------------------------------------------------------

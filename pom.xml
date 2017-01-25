@@ -26,11 +26,26 @@
     <packaging>pom</packaging>
     <name>JSF Renderer extensions</name>
     <description>
-        Parent project of the projects around the JSF renderer interceptor concept. Jerry which does the actual intercepting and Valerie which uses this mechanism to bring the
+        Parent project of the projects around the JSF renderer interceptor concept. Jerry which does the actual
+        intercepting and Valerie which uses this mechanism to bring the
         validation annotations to the JSF Front-end.
     </description>
     <version>0.4.1-SNAPSHOT</version>
     <url>https://github.com/rdebusscher/jsf-renderer-extensions</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Rudy De Busscher</name>
+    </organization>
+    <inceptionYear>2014</inceptionYear>
 
     <distributionManagement>
         <repository>
@@ -217,6 +232,45 @@
             <modules>
                 <module>documentation</module>
             </modules>
+        </profile>
+
+        <profile>
+            <id>license</id>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <version>3.0</version>
+                        <configuration>
+                            <header>header_template.tpl</header>
+                            <properties>
+                                <owner>Rudy De Busscher</owner>
+                                <year>2016</year>
+                                <aggregate>true</aggregate>
+                            </properties>
+                            <excludes>
+                                <exclude>**/README</exclude>
+                                <exclude>**/LICENSE.txt</exclude>
+                                <exclude>**/NOTICE.txt</exclude>
+                                <exclude>**/NOTICE</exclude>
+                            </excludes>
+                            <mapping>
+                                <java>SLASHSTAR_STYLE</java>
+                            </mapping>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
         </profile>
     </profiles>
 
