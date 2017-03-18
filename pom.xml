@@ -54,6 +54,13 @@
             <name>OpenSource Nexus of C4J</name>
             <url>http://nexus-osc4j.rhcloud.com/content/repositories/releases</url>
         </repository>
+        <!--
+        <repository>
+            <id>bintray-rdebusscher-Octopus</id>
+            <name>rdebusscher-Octopus</name>
+            <url>https://api.bintray.com/maven/rdebusscher/Octopus/renderer-extensions/;publish=1</url>
+        </repository>
+        -->
         <snapshotRepository>
             <id>nexus_C4J</id>
             <name>OpenSource Nexus of C4J</name>
