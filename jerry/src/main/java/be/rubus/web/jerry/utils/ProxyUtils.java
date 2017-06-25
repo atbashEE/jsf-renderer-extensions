@@ -41,7 +41,8 @@ public final class ProxyUtils {
         return currentClass.getName().contains("$$EnhancerByCGLIB$$") ||
                 currentClass.getName().contains("$$FastClassByCGLIB$$") ||
                 currentClass.getName().contains("_$$_javassist") ||
-                currentClass.getName().contains("$Proxy$_$$_Weld");
+                currentClass.getName().contains("$Proxy$_$$_Weld")||
+                currentClass.getName().contains("$$Owb");
     }
 
 }
