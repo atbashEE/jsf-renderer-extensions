@@ -31,7 +31,7 @@
         intercepting and Valerie which uses this mechanism to bring the
         validation annotations to the JSF Front-end.
     </description>
-    <version>0.4.1-SNAPSHOT</version>
+    <version>0.4.1</version>
     <url>https://github.com/rdebusscher/jsf-renderer-extensions</url>
 
     <licenses>
