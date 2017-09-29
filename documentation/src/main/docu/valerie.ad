@@ -12,6 +12,15 @@ Besides some features which are available in ExtVal, some other nice features ar
 
 Since Valerie is solely targeted to the Java EE ecosystem, only Bean Validation annotations are considered in this framework (this in contrast to ExtVal). But a plugin can be created to support other annotations as well.
 
+=== Atbash migration
+
+Mapping between the old and the new maven artifacts.
+|======================
+|Rubus artifact |Atbash Artifact
+|<groupId>be.rubus.web</groupId>
+ <artifactId>valerie</artifactId>        |<groupId>be.atbash.ee.jsf</groupId>
+                                                    <artifactId>valerie</artifactId>
+|======================
 
 === Features
 

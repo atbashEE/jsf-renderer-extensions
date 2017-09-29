@@ -22,7 +22,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>be.rubus.web</groupId>
+    <groupId>be.atbash.ee.jsf</groupId>
     <artifactId>renderer-extensions</artifactId>
     <packaging>pom</packaging>
     <name>JSF Renderer extensions</name>
@@ -31,8 +31,8 @@
         intercepting and Valerie which uses this mechanism to bring the
         validation annotations to the JSF Front-end.
     </description>
-    <version>0.5.0-SNAPSHOT</version>
-    <url>https://github.com/rdebusscher/jsf-renderer-extensions</url>
+    <version>0.9.0-SNAPSHOT</version>
+    <url>https://github.com/atbashEE/jsf-renderer-extensions</url>
 
     <licenses>
         <license>
@@ -44,28 +44,24 @@
     </licenses>
 
     <organization>
-        <name>Rudy De Busscher</name>
+        <name>Atbash</name>
+        <url>https://www.atbash.be</url>
     </organization>
     <inceptionYear>2014</inceptionYear>
 
     <distributionManagement>
-        <repository>
-            <id>nexus_C4J</id>
-            <name>OpenSource Nexus of C4J</name>
-            <url>http://nexus-osc4j.rhcloud.com/content/repositories/releases</url>
-        </repository>
-        <!--
+
         <repository>
             <id>bintray-rdebusscher-Octopus</id>
             <name>rdebusscher-Octopus</name>
             <url>https://api.bintray.com/maven/rdebusscher/Octopus/renderer-extensions/;publish=1</url>
         </repository>
-        -->
-        <snapshotRepository>
+        <!-- FIXME Use Github as snapshot repository -->
+        <!--snapshotRepository>
             <id>nexus_C4J</id>
             <name>OpenSource Nexus of C4J</name>
             <url>http://nexus-osc4j.rhcloud.com/content/repositories/snapshots</url>
-        </snapshotRepository>
+        </snapshotRepository-->
     </distributionManagement>
 
     <modules>
@@ -87,36 +83,10 @@
     </properties>
 
     <dependencies>
-        <!--dependency>
-        Not useable for tests
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>6.0</version>
-            <scope>provided</scope>
-        </dependency-->
-
-        <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>2.0.14</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>1.0-SP4</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>2.2</version>
+            <version>7.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -227,13 +197,14 @@
     </build>
 
     <profiles>
-        <profile>
+        <!--profile>
             <id>integrationTest</id>
             <modules>
-
+                // FIXME Use the 'Atbash Web tester'
+                // FIXME Make separate project since 'Atbash Web tester' is alpha and should not block this release.
                 <module>integrationTest</module>
             </modules>
-        </profile>
+        </profile-->
 
         <profile>
             <id>documentation</id>
@@ -281,12 +252,5 @@
 
         </profile>
     </profiles>
-
-
-    <repositories>
-
-
-    </repositories>
-
 
 </project>

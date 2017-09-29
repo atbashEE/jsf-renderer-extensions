@@ -13,6 +13,16 @@ Jerry is the basis for http://javaeesquad.blogspot.be/2014/03/octopus-framework.
 
 Since there are a lot of lookups done into the CDI bean management system, I copied some classes from https://deltaspike.apache.org[*Apache DeltaSpike*] (the https://deltaspike.apache.org/documentation/core.html#_beanprovider[BeanProvider]) to make it easier to lookup the beans.
 
+=== Atbash migration
+
+Mapping between the old and the new maven artifacts.
+|======================
+|Rubus artifact |Atbash Artifact
+|<groupId>be.rubus.web</groupId>
+ <artifactId>jerry</artifactId>        |<groupId>be.atbash.ee.jsf</groupId>
+                                                    <artifactId>jerry</artifactId>
+|======================
+
 === Features
 
 . RendererInterceptor

@@ -20,22 +20,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
-        <groupId>be.rubus.web</groupId>
+        <groupId>be.atbash.ee.jsf</groupId>
         <artifactId>renderer-extensions</artifactId>
-        <version>0.5.0-SNAPSHOT</version>
+        <version>0.9.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>be.rubus.web.renderer-extensions</groupId>
+    <groupId>be.atbash.ee.jsf.renderer-extensions</groupId>
     <artifactId>plugins</artifactId>
     <packaging>pom</packaging>
     <name>plugin extensions for Jerry and Valerie</name>
     <description>
         Specific plugins for Jerry and/or Valerie for certain frameworks like PrimeFaces.
     </description>
-    <url>https://github.com/rdebusscher/jsf-renderer-extensions</url>
+    <url>https://github.com/atbashEE/jsf-renderer-extensions</url>
 
     <modules>
         <module>primefaces</module>
