@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/atbashEE/jsf-renderer-extensions.svg?branch=master)](https://travis-ci.org/atbashEE/jsf-renderer-extensions)
+
 jsf-renderer-extensions
 =======================
 
