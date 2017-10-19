@@ -22,7 +22,7 @@
     <!-- We are using 2.0 as we like to use Jerry in Java EE 6 / 7 -->
 
     <lifecycle>
-        <phase-listener>be.rubus.web.valerie.recording.RecordingInfoPhaseListener</phase-listener>
+        <phase-listener>be.atbash.ee.jsf.valerie.recording.RecordingInfoPhaseListener</phase-listener>
     </lifecycle>
 
 </faces-config>

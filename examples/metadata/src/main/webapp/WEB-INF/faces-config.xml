@@ -21,6 +21,6 @@
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
     <lifecycle>
-        <phase-listener>be.rubus.web.jerry.example.DummyLifeCycleListener</phase-listener>
+        <phase-listener>be.atbash.ee.jsf.jerry.example.DummyLifeCycleListener</phase-listener>
     </lifecycle>
 </faces-config>

@@ -1,6 +1,6 @@
 = Bean validation for JSF Components (Valerie)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.4, 17/12/2016
+v0.9, ??/??/2017
 
 == Introduction
 
@@ -50,7 +50,11 @@ With the help of the @RecordValue we are able to perform class level bean valida
 
 == Releases
 
-v0.4 (??/??/2016)
+v0.9 (??/??/2017)
+
+. Migrate to Atbash namespace (Mvn artefact and package names)
+
+v0.4 (17/12/2016)
 
 . Renamed the PrimeFaces plugin of valerie to artifact-id valerie-primefaces
 
@@ -59,13 +63,13 @@ v0.4 (??/??/2016)
 In case you don't use maven, you can just download the jar file and put in the `lib` folder of your project.
 
 . Open the project `pom.xml` file for editing.
-. Add the C4J/JavaEESquad Maven repository where the dependency can be found.
+. Add the JCenter Maven repository where the dependency can be found.
 +
 [source,xml]
 ----
 <repository>
-       <id>nexus_C4J</id>
-       <url>http://nexus-osc4j.rhcloud.com/content/groups/public/</url>
+    <id>Bintray_JCenter</id>
+    <url>https://jcenter.bintray.com</url>
 </repository>
 ----
 
@@ -74,9 +78,9 @@ In case you don't use maven, you can just download the jar file and put in the `
 [source,xml]
 ----
 <dependency>
-    <groupId>be.rubus.web</groupId>
+    <groupId>be.atbash.ee.jsf</groupId>
     <artifactId>valerie</artifactId>
-    <version>0.3</version>
+    <version>0.9</version>
 </dependency>
 
 ----
@@ -90,9 +94,9 @@ There is a plugin of Valerie which supports the PrimeFaces components.  You only
 [source,xml]
 ----
 <dependency>
-    <groupId>be.rubus.web.valerie</groupId>
+    <groupId>be.atbash.ee.jsf.valerie</groupId>
     <artifactId>valerie-primefaces</artifactId>
-    <version>0.4</version>
+    <version>0.9</version>
 </dependency>
 
 ----

@@ -16,4 +16,4 @@
 #
 #####################################################################################
 
-be.rubus.web.jerry.provider.BeanManagerProvider
+be.atbash.ee.jsf.jerry.provider.BeanManagerProvider

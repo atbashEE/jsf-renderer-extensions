@@ -22,13 +22,13 @@
     <!-- We are using 2.0 as we like to use Jerry in Java EE 6 / 7 -->
 
     <factory>
-        <render-kit-factory>be.rubus.web.jerry.renderkit.JerryRenderKitFactory</render-kit-factory>
+        <render-kit-factory>be.atbash.ee.jsf.jerry.renderkit.JerryRenderKitFactory</render-kit-factory>
     </factory>
 
     <application>
         <!-- Application is started -->
         <system-event-listener>
-            <system-event-listener-class>be.rubus.web.jerry.startup.SystemStartup</system-event-listener-class>
+            <system-event-listener-class>be.atbash.ee.jsf.jerry.startup.SystemStartup</system-event-listener-class>
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
         </system-event-listener>
     </application>
