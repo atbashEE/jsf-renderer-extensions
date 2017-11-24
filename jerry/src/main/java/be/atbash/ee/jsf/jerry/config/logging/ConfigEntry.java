@@ -23,6 +23,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Methods annotated with ConfigEntry will be shown in the log file during startup of the container.
+ * FIXME Moved to Atbash Configuration
  */
 @Target({METHOD})
 @Retention(RUNTIME)

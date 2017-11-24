@@ -18,7 +18,7 @@ package be.atbash.ee.jsf.jerry.config;
 import javax.enterprise.context.ApplicationScoped;
 
 /**
- *
+ * FIXME Moved to Atbash Configuration
  */
 @ApplicationScoped
 public class DynamicConfigValueHelper {

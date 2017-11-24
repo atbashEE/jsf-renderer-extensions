@@ -16,7 +16,8 @@
 package be.atbash.ee.jsf.jerry.config.logging;
 
 /**
- * Marker for configuration
+ * Marker for configuration.
+ * FIXME Moved to Atbash Configuration
  */
 public interface ModuleConfig {
 }
