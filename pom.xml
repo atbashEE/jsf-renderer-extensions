@@ -197,14 +197,6 @@
     </build>
 
     <profiles>
-        <!--profile>
-            <id>integrationTest</id>
-            <modules>
-                // FIXME Use the 'Atbash Web tester'
-                // FIXME Make separate project since 'Atbash Web tester' is alpha and should not block this release.
-                <module>integrationTest</module>
-            </modules>
-        </profile-->
 
         <profile>
             <id>documentation</id>
