@@ -37,4 +37,11 @@
     </description>
     <url>https://github.com/atbashEE/jsf-renderer-extensions</url>
 
+    <dependencies>
+        <dependency>
+            <groupId>be.atbash.config</groupId>
+            <artifactId>atbash-config</artifactId>
+            <version>0.9</version>
+        </dependency>
+    </dependencies>
 </project>

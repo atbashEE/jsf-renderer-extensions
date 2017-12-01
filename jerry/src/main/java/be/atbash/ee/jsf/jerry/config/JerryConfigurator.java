@@ -15,8 +15,8 @@
  */
 package be.atbash.ee.jsf.jerry.config;
 
-import be.atbash.ee.jsf.jerry.config.logging.ConfigEntry;
-import be.atbash.ee.jsf.jerry.config.logging.ModuleConfig;
+import be.atbash.config.logging.ConfigEntry;
+import be.atbash.config.logging.ModuleConfig;
 import be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit;
 import be.atbash.ee.jsf.jerry.startup.StartupEvent;
 
