@@ -18,7 +18,6 @@ package be.atbash.ee.jsf.jerry.utils;
 import be.atbash.ee.jsf.jerry.component.ComponentInitializer;
 import be.atbash.ee.jsf.jerry.interceptor.RendererInterceptor;
 import be.atbash.ee.jsf.jerry.ordering.InvocationOrderComparator;
-import be.atbash.ee.jsf.jerry.provider.BeanProvider;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,9 +36,8 @@ public final class InvocationOrderedArtifactsProvider {
     private InvocationOrderedArtifactsProvider() {
     }
 
-
     private void prepareRendererInterceptors() {
-        rendererInterceptors = BeanProvider.getContextualReferences(RendererInterceptor.class, true, false);
+        rendererInterceptors = CDIUtils.retrieveInstances(RendererInterceptor.class);
         Collections.sort(rendererInterceptors, new InvocationOrderComparator<RendererInterceptor>());
     }
 
@@ -53,7 +51,7 @@ public final class InvocationOrderedArtifactsProvider {
     }
 
     private void prepareInitializers() {
-        initializers = BeanProvider.getContextualReferences(ComponentInitializer.class, true, false);
+        initializers = CDIUtils.retrieveInstances(ComponentInitializer.class);
         Collections.sort(initializers, new InvocationOrderComparator<ComponentInitializer>());
     }
 

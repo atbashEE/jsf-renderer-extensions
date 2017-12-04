@@ -17,7 +17,7 @@ package be.atbash.ee.jsf.valerie.utils;
 
 import be.atbash.ee.jsf.jerry.config.JerryConfigurator;
 import be.atbash.ee.jsf.jerry.producer.LogProducer;
-import be.atbash.ee.jsf.jerry.provider.BeanProvider;
+import be.atbash.ee.jsf.jerry.utils.CDIUtils;
 import be.atbash.ee.jsf.valerie.storage.PropertyStorage;
 import org.slf4j.Logger;
 
@@ -77,7 +77,8 @@ public class ReflectionUtils {
 
     private static boolean useBeanInfo() {
         if (USE_BEANINFO == null) {
-            USE_BEANINFO = BeanProvider.getContextualReference(JerryConfigurator.class).useBeanInfo();
+            USE_BEANINFO = CDIUtils.retrieveInstance(JerryConfigurator.class).useBeanInfo();
+
         }
         return USE_BEANINFO;
     }
@@ -145,7 +146,6 @@ public class ReflectionUtils {
     private static boolean isCachedField(PropertyStorage storage, Class entity, String property) {
         return storage.containsField(entity, property);
     }
-
 
     private static Field getCachedField(PropertyStorage storage, Class entity, String property) {
         return storage.getField(entity, property);

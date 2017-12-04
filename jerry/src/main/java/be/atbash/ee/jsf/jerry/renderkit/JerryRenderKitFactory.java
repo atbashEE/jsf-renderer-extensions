@@ -16,7 +16,7 @@
 package be.atbash.ee.jsf.jerry.renderkit;
 
 import be.atbash.ee.jsf.jerry.config.JerryConfigurator;
-import be.atbash.ee.jsf.jerry.provider.BeanProvider;
+import be.atbash.ee.jsf.jerry.utils.CDIUtils;
 
 import javax.enterprise.inject.Typed;
 import javax.faces.context.FacesContext;
@@ -40,7 +40,7 @@ public class JerryRenderKitFactory extends RenderKitFactory {
     public JerryRenderKitFactory(RenderKitFactory wrapped) {
         this.wrapped = wrapped;
         renderKitMap = new HashMap<>();
-        configurator = BeanProvider.getContextualReference(JerryConfigurator.class);
+        configurator = CDIUtils.retrieveInstance(JerryConfigurator.class);
     }
 
     @Override

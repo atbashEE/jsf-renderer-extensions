@@ -1,3 +1,4 @@
+[![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Build Status](https://travis-ci.org/atbashEE/jsf-renderer-extensions.svg?branch=master)](https://travis-ci.org/atbashEE/jsf-renderer-extensions)
 
 jsf-renderer-extensions
@@ -9,11 +10,23 @@ Extensions on the JSF renderer to have security and advanced validation.
 * Centered around CDI
 * Based on concepts of MyFaces ExtVal
 
-Contains a few classes copied from DeltaSpike (As we don't need the full core)
-
 Compiled for Java 1.7.
 
+Release Notes
+====
 
-29/9/2017
+This 0.9 release contains some changes which aren't backwards compatible.
 
-Starting the integration to Atbash organization.
+1. Package names are changed, in general from **be.rubus.web.** to **be.atbash.ee.jsf**.
+
+2. Since it is targeted as Java EE 7+, it makes use of the _CDI.select_ construct and no longer the _BeanManagerProvider_ and BeanProvider_ classes which where copied from the _Apache DeltaSpike_ project.
+So these are no longer available when used in your own application code. Alternatives are
+
+- **CDI.select().getBeanManager()** to have access to the bean manager.
+- **CDIUtils** class to retrieve individual beans or all implementations of a certain interface.
+
+The usage of _BeanManagerFake_ within test classes is unchanged.
+
+3. The logging of the configuration is moved from the _Jerry_ project to the _Atbash Config_ project. 
+
+   

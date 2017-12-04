@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.jsf.jerry.util;
+package be.atbash.ee.jsf.jerry.util.cdi;
 
 import be.atbash.ee.jsf.jerry.literal.AnyLiteral;
-import be.atbash.ee.jsf.jerry.provider.BeanManagerProvider;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import java.lang.reflect.Field;
 import java.util.*;
 
 import static org.mockito.Matchers.anySet;
@@ -40,10 +38,9 @@ public class BeanManagerFake {
     public BeanManagerFake() {
         beanManagerMock = mock(BeanManager.class);
 
-        BeanManagerProvider provider = new BeanManagerProvider();
-        provider.setBeanManager(null, beanManagerMock);
-
         registeredObjects = new HashMap<>();
+
+        new FakeCDI(beanManagerMock, registeredObjects);
     }
 
     public void registerBean(Object instance, Class<?> typeToRegister) {
@@ -77,11 +74,11 @@ public class BeanManagerFake {
             }
         }).when(beanManagerMock).resolve(anySet());
 
-
     }
 
     public void deregistration() {
 
+        /*
         try {
             Field field = BeanManagerProvider.class.getDeclaredField("bmpSingleton");
             field.setAccessible(true);
@@ -89,6 +86,7 @@ public class BeanManagerFake {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
+        */
 
         reset(beanManagerMock);
         beanManagerMock = null;

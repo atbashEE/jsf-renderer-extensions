@@ -15,7 +15,7 @@
  */
 package be.atbash.ee.jsf.valerie.recording;
 
-import be.atbash.ee.jsf.jerry.provider.BeanProvider;
+import be.atbash.ee.jsf.jerry.utils.CDIUtils;
 
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
@@ -27,7 +27,7 @@ import javax.faces.event.PhaseListener;
 public class RecordingInfoPhaseListener implements PhaseListener {
     @Override
     public void afterPhase(PhaseEvent event) {
-        RecordingInfoManager recordingInfoManager = BeanProvider.getContextualReference(RecordingInfoManager.class);
+        RecordingInfoManager recordingInfoManager = CDIUtils.retrieveInstance(RecordingInfoManager.class);
         if (!recordingInfoManager.processClassLevelConstraints(event.getFacesContext())) {
             event.getFacesContext().renderResponse();
         }

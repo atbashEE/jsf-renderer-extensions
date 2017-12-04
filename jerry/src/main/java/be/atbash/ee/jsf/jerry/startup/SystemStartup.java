@@ -15,7 +15,7 @@
  */
 package be.atbash.ee.jsf.jerry.startup;
 
-import be.atbash.ee.jsf.jerry.provider.BeanManagerProvider;
+import be.atbash.ee.jsf.jerry.utils.CDIUtils;
 
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
@@ -27,7 +27,8 @@ import javax.faces.event.SystemEventListener;
 public class SystemStartup implements SystemEventListener {
     @Override
     public void processEvent(SystemEvent systemEvent) throws AbortProcessingException {
-        BeanManagerProvider.getInstance().getBeanManager().fireEvent(new StartupEvent());
+        // FIXME Replace to use CDI ApplicationScoped event (also remove faces-config.xml)  ??
+        CDIUtils.fireEvent(new StartupEvent());
     }
 
     @Override

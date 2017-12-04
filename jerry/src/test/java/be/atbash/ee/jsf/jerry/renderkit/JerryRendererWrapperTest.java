@@ -18,8 +18,8 @@ package be.atbash.ee.jsf.jerry.renderkit;
 import be.atbash.ee.jsf.jerry.interceptor.RendererInterceptor;
 import be.atbash.ee.jsf.jerry.renderkit.model.InterceptorCalls;
 import be.atbash.ee.jsf.jerry.renderkit.model.SpyRendererInterceptor;
-import be.atbash.ee.jsf.jerry.util.BeanManagerFake;
 import be.atbash.ee.jsf.jerry.util.TestReflectionUtils;
+import be.atbash.ee.jsf.jerry.util.cdi.BeanManagerFake;
 import be.atbash.ee.jsf.jerry.utils.InvocationOrderedArtifactsProvider;
 import org.junit.After;
 import org.junit.Before;
@@ -268,7 +268,6 @@ public class JerryRendererWrapperTest {
         assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
 
     }
-
 
     // decode
     @Test

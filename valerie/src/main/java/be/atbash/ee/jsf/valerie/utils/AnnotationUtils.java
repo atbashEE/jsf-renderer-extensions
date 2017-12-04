@@ -18,7 +18,7 @@ package be.atbash.ee.jsf.valerie.utils;
 import be.atbash.ee.jsf.jerry.metadata.MetaDataEntry;
 import be.atbash.ee.jsf.jerry.metadata.PropertyInformationKeys;
 import be.atbash.ee.jsf.jerry.producer.LogProducer;
-import be.atbash.ee.jsf.jerry.provider.BeanProvider;
+import be.atbash.ee.jsf.jerry.utils.CDIUtils;
 import be.atbash.ee.jsf.valerie.property.DefaultPropertyInformation;
 import be.atbash.ee.jsf.valerie.property.PropertyDetails;
 import be.atbash.ee.jsf.valerie.property.PropertyInformation;
@@ -68,7 +68,7 @@ public final class AnnotationUtils {
         PropertyInformation propertyInformation = new DefaultPropertyInformation();
         propertyInformation.setInformation(PropertyInformationKeys.PROPERTY_DETAILS, propertyDetails);
 
-        PropertyStorage storage = BeanProvider.getContextualReference(PropertyStorage.class);
+        PropertyStorage storage = CDIUtils.retrieveInstance(PropertyStorage.class);
 
         while (!Object.class.getName().equals(entityClass.getName())) {
             addPropertyAccessAnnotations(storage, entityClass, propertyDetails.getProperty(), propertyInformation);

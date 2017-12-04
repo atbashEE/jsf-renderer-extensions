@@ -15,7 +15,7 @@
  */
 package be.atbash.ee.jsf.valerie.provider;
 
-import be.atbash.ee.jsf.jerry.provider.BeanProvider;
+import be.atbash.ee.jsf.jerry.utils.CDIUtils;
 
 import java.util.Date;
 
@@ -33,7 +33,7 @@ public final class DateProducer {
     }
 
     private static Date tryFromProvider() {
-        DateProvider provider = BeanProvider.getContextualReference(DateProvider.class, true);
+        DateProvider provider = CDIUtils.retrieveOptionalInstance(DateProvider.class);
         Date result = null;
         if (provider != null) {
             result = provider.now();

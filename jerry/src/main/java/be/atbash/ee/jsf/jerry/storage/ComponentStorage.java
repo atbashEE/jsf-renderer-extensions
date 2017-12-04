@@ -16,7 +16,7 @@
 package be.atbash.ee.jsf.jerry.storage;
 
 import be.atbash.ee.jsf.jerry.metadata.*;
-import be.atbash.ee.jsf.jerry.provider.BeanProvider;
+import be.atbash.ee.jsf.jerry.utils.CDIUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -37,8 +37,8 @@ public class ComponentStorage {
 
     @PostConstruct
     public void init() {
-        transformers = BeanProvider.getContextualReferences(MetaDataTransformer.class, true, false);
-        enhancers = BeanProvider.getContextualReferences(MetaDataEnhancer.class, true, false);
+        transformers = CDIUtils.retrieveInstances(MetaDataTransformer.class);
+        enhancers = CDIUtils.retrieveInstances(MetaDataEnhancer.class);
     }
 
     public boolean containsEntry(String viewId, String clientId, Class<? extends MetaDataHolder> key) {

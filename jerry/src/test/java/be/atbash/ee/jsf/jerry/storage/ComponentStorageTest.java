@@ -18,14 +18,13 @@ package be.atbash.ee.jsf.jerry.storage;
 import be.atbash.ee.jsf.jerry.metadata.MetaDataEntry;
 import be.atbash.ee.jsf.jerry.metadata.MetaDataHolder;
 import be.atbash.ee.jsf.jerry.metadata.MetaDataTransformer;
-import be.atbash.ee.jsf.jerry.util.BeanManagerFake;
+import be.atbash.ee.jsf.jerry.util.cdi.BeanManagerFake;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 public class ComponentStorageTest {
 
@@ -52,7 +51,6 @@ public class ComponentStorageTest {
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
-
 
         assertThat(componentStorage.containsEntry(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
     }
@@ -235,7 +233,6 @@ public class ComponentStorageTest {
             return new MetaDataEntry[0];
         }
     }
-
 
     private static class DummyMetaDataTransformer implements MetaDataTransformer {
 
