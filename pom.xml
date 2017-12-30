@@ -27,8 +27,7 @@
     <name>JSF Renderer extensions</name>
     <description>
         Parent project of the projects around the JSF renderer interceptor concept. Jerry which does the actual
-        intercepting and Valerie which uses this mechanism to bring the
-        validation annotations to the JSF Front-end.
+        intercepting and Valerie which uses this mechanism to bring the validation annotations to the JSF Front-end.
     </description>
     <version>0.9.0-SNAPSHOT</version>
     <url>https://github.com/atbashEE/jsf-renderer-extensions</url>
@@ -48,6 +47,14 @@
     </organization>
     <inceptionYear>2014</inceptionYear>
 
+    <repositories>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases><enabled>false</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+    </repositories>
     <distributionManagement>
 
         <repository>
