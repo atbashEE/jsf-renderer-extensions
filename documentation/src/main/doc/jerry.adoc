@@ -76,7 +76,7 @@ In case you don't use maven, you can just download the jar file and put in the `
 
 . You are ready to use Jerry.
 
-= Releases
+== Releases
 
 v0.9 (??/??/2017)
 
