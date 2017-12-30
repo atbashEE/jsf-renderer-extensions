@@ -62,12 +62,7 @@
             <name>rdebusscher-Octopus</name>
             <url>https://api.bintray.com/maven/rdebusscher/Octopus/renderer-extensions/;publish=1</url>
         </repository>
-        <!-- FIXME Use Github as snapshot repository -->
-        <!--snapshotRepository>
-            <id>nexus_C4J</id>
-            <name>OpenSource Nexus of C4J</name>
-            <url>http://nexus-osc4j.rhcloud.com/content/repositories/snapshots</url>
-        </snapshotRepository-->
+
     </distributionManagement>
 
     <modules>
@@ -88,10 +83,18 @@
     </properties>
 
     <dependencies>
+        <!-- Too make sure we only use CDI and JSF stuff and nothing else from Java EE 7 -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.2.15</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -128,6 +131,26 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>animal-sniffer-maven-plugin</artifactId>
+                <version>1.16</version>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <signature>
+                                <groupId>org.codehaus.mojo.signature</groupId>
+                                <artifactId>java17</artifactId>
+                                <version>1.0</version>
+                            </signature>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>com.mycila</groupId>
