@@ -1,17 +1,15 @@
 = JSF Renderer Interceptor (Jerry)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.9, ??/??/2017
+v0.9, ??/??/2018
 
 == Introduction
 
 === Origin
 
-On various occasions, I needed the #RendererInterceptor# concept of Apache MyFaces extensions Validation framework. I didn't need the great validation features of the framework, so I found it an overhead, in terms of performance and memory consumption.
+On various occasions, I needed the _RendererInterceptor_ concept of Apache MyFaces extensions Validation framework. I did not always need the great validation features of the framework, so I found it an overhead, in terms of performance and memory consumption.
 
 So I extracted that interface and the required classes and transformed it to use CDI to have the benefits of it.  That is how Jerry (JSF Renderer Interceptor, JRI) was started.
 Jerry is the basis for http://javaeesquad.blogspot.be/2014/03/octopus-framework.html[*Octopus*] from version 0.9.5 on but has also some usage scenarios on his own.
-
-Since there are a lot of lookups done into the CDI bean management system, I copied some classes from https://deltaspike.apache.org[*Apache DeltaSpike*] (the https://deltaspike.apache.org/documentation/core.html#_beanprovider[BeanProvider]) to make it easier to lookup the beans.
 
 === Atbash migration
 
@@ -27,11 +25,11 @@ Mapping between the old and the new maven artifacts.
 
 . RendererInterceptor
 +
-With the #RendererInterceptor# you have a before and after method for every major method in a Renderer which is `decode`, `encodeBegin`, `encodeChildren`, `encodeEnd` and `getConvertedValue`.
+With the **RendererInterceptor** you have a before and after method for every major method in a Renderer which is `decode`, `encodeBegin`, `encodeChildren`, `encodeEnd` and `getConvertedValue`.
 
 . ComponentInitializer
 +
-With #ComponentInitializer# it becomes easier to adjust the JSF components. They use a RendererInterceptor in the background and work is done in the `beforeEncodeBegin` phase.
+With **ComponentInitializer** it becomes easier to adjust the JSF components. They use a _RendererInterceptor_ in the background and work is done in the `beforeEncodeBegin` phase.
 
 There are some other small CDI features which are useful in any project
 
@@ -43,26 +41,13 @@ CDI event when the application is ready (JSF subsystem is ready)
 +
 You can inject SLF4J Logger.
 
-. BeanProvider from Apache DeltaSpike
-+
-Easier programmatically retrieval of CDI beans in code.
-
 == Configure your project
 
 In case you don't use maven, you can just download the jar file and put in the `lib` folder of your project.
 
 . Open the project `pom.xml` file for editing.
-. Add the JCenter Maven repository where the dependency can be found.
-+
-[source,xml]
-----
-<repository>
-    <id>Bintray_JCenter</id>
-    <url>https://jcenter.bintray.com</url>
-</repository>
-----
 
-. Add the Jerry module to the list of dependencies.
+. Add the _Jerry_ module to the list of dependencies.
 +
 [source,xml]
 ----
@@ -78,9 +63,11 @@ In case you don't use maven, you can just download the jar file and put in the `
 
 == Releases
 
-v0.9 (??/??/2017)
+v0.9 (??/??/2018)
 
-. Migrate to Atbash namespace (Mvn artefact and package names)
+. Migrate to Atbash namespace (Mvn artefact and package names).
+. Use other Atbash projects.
+. Remove Java EE 6 compliance.
 
 v0.4.1 (25/06/2017)
 
@@ -185,28 +172,15 @@ Jerry uses SLF4J as logging facade. You can inject such loggers by creating a si
 
 The type of logger is `org.slf4j.Logger`.
 
-=== BeanProvider
+== Configuration
 
-The BeanProvider class, copied from Apache DeltaSpike, makes it very easy to retrieve a CDI Bean.
+In very rare situations you need to change the configuration of Jerry. The values can be specified in files with the basename _jerry_ or defined in other configuration files as long as they are known to the Atbash configuration system.
 
-If your project isn't using DeltaSpike, but is using Jerry (or Octopus), you can use the `BeanProvider` which is provided with it.
+=== jerry.renderkit.wrapper.class
 
+Defines the RenderKitWrapper which is responsible for creating custom __Renderer__s so that we can 'intercept' the calls to `decode`, `encodeBegin`, `encodeChildren`, `encodeEnd` and `getConvertedValue`.
 
-.Examples of BeanProvider.
-[source,java]
-----
-
-  BeanProvider.getContextualReference(DateProvider.class, true);
-
-  BeanProvider.getContextualReferences(ComponentInitializer.class, true, false);
-
-----
-
-The first statement retrieve the CDI bean implementing the DateProvider interface.  The second parameter indicates that the bean can be optional and thus when no bean is found, null is returned (An exception will be thrown in the case when no bean was found and false was specified as value).
-
-The second statement retrieves all CDI beans, as a list, that implement the ComponentInitializer interface.  The true indicate the optionality again (empty list when no beans found). The second boolean is used to indicate if default scoped beans (beans without an annotation) should be included.
-
-IMPORTANT: Methods work also with a concrete class, not only with interfaces. And it will honour all CDI rules like for instance @Specializes and @Alternative.
+If you need your own custom version of these __Renderer__s, another wrapper is not an issue we are discussing the situation where you ant to replace the functionality within the _JerryRendererWrapper_, you can specify the class name of the RenderKitWrapper with this parameter.
 
 == Advanced usages
 

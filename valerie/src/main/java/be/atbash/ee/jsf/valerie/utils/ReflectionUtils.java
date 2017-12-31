@@ -15,9 +15,9 @@
  */
 package be.atbash.ee.jsf.valerie.utils;
 
-import be.atbash.ee.jsf.jerry.config.JerryConfigurator;
 import be.atbash.ee.jsf.jerry.producer.LogProducer;
 import be.atbash.ee.jsf.jerry.utils.CDIUtils;
+import be.atbash.ee.jsf.valerie.config.ValerieConfiguration;
 import be.atbash.ee.jsf.valerie.storage.PropertyStorage;
 import org.slf4j.Logger;
 
@@ -77,7 +77,7 @@ public class ReflectionUtils {
 
     private static boolean useBeanInfo() {
         if (USE_BEANINFO == null) {
-            USE_BEANINFO = CDIUtils.retrieveInstance(JerryConfigurator.class).useBeanInfo();
+            USE_BEANINFO = CDIUtils.retrieveInstance(ValerieConfiguration.class).useBeanInfo();
 
         }
         return USE_BEANINFO;

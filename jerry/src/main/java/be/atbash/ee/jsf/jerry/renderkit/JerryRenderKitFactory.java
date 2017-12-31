@@ -15,8 +15,9 @@
  */
 package be.atbash.ee.jsf.jerry.renderkit;
 
-import be.atbash.ee.jsf.jerry.config.JerryConfigurator;
+import be.atbash.ee.jsf.jerry.config.JerryConfiguration;
 import be.atbash.ee.jsf.jerry.utils.CDIUtils;
+import be.atbash.ee.jsf.jerry.utils.ClassUtils;
 
 import javax.enterprise.inject.Typed;
 import javax.faces.context.FacesContext;
@@ -33,14 +34,19 @@ import java.util.Map;
 public class JerryRenderKitFactory extends RenderKitFactory {
     private RenderKitFactory wrapped;
 
-    private JerryConfigurator configurator;
+    private JerryConfiguration configurator;
 
     private Map<String, RenderKit> renderKitMap;
+    private Class wrapperClass;
 
     public JerryRenderKitFactory(RenderKitFactory wrapped) {
         this.wrapped = wrapped;
         renderKitMap = new HashMap<>();
-        configurator = CDIUtils.retrieveInstance(JerryConfigurator.class);
+
+        configurator = CDIUtils.retrieveInstance(JerryConfiguration.class);
+
+        String renderKitWrapperClass = configurator.getRenderKitWrapperClass();
+        wrapperClass = ClassUtils.forName(renderKitWrapperClass);
     }
 
     @Override
@@ -57,7 +63,8 @@ public class JerryRenderKitFactory extends RenderKitFactory {
         }
         if (result == null) {
             RenderKit renderKit = wrapped.getRenderKit(context, renderKitId);
-            result = configurator.getRenderKitWrapper(renderKit);
+
+            result = (RenderKit) ClassUtils.newInstance(wrapperClass, renderKit);
             renderKitMap.put(renderKitId, result);
         }
         return result;

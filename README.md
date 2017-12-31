@@ -19,7 +19,7 @@ This 0.9 release contains some changes which aren't backwards compatible.
 
 1. Package names are changed, in general from **be.rubus.web.** to **be.atbash.ee.jsf**.
 
-2. Since it is targeted as Java EE 7+, it makes use of the _CDI.select_ construct and no longer the _BeanManagerProvider_ and BeanProvider_ classes which where copied from the _Apache DeltaSpike_ project.
+2. Since it is targeted as Java EE 7+, it makes use of the _CDI.select_ construct and no longer the _BeanManagerProvider_ and _BeanProvider_ classes which where copied from the _Apache DeltaSpike_ project.
 So these are no longer available when used in your own application code. Alternatives are
 
 - **CDI.select().getBeanManager()** to have access to the bean manager.
@@ -29,4 +29,5 @@ The usage of _BeanManagerFake_ within test classes is unchanged.
 
 3. The logging of the configuration is moved from the _Jerry_ project to the _Atbash Config_ project. 
 
+4. Jerry configuration is now using the _Atbash Config_ project reading parameters from _jerry_ base name configuration files. So no need to create a _@Specialized_ CDI bean of class _JerryConfigurator_.
    

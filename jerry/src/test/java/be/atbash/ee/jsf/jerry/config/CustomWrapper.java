@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.jsf.jerry.example.jerry;
+package be.atbash.ee.jsf.jerry.config;
 
-import be.atbash.ee.jsf.jerry.config.JerryConfigurator;
-import be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit;
-
-import javax.enterprise.inject.Specializes;
 import javax.faces.render.RenderKit;
+import javax.faces.render.RenderKitWrapper;
 
 /**
- * TODO This is still here until it is documented.
+ *
  */
-@Specializes
-public class CustomConfigurator extends JerryConfigurator {
+
+public class CustomWrapper extends RenderKitWrapper {
+
+    public CustomWrapper(RenderKit wrapped) {
+    }
+
     @Override
-    public JerryRenderKit getRenderKitWrapper(RenderKit renderKit) {
-        // We can here return our custom implementation"
-        return super.getRenderKitWrapper(renderKit);
+    public RenderKit getWrapped() {
+        return null;
     }
 }

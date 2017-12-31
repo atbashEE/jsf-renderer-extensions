@@ -13,41 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.jsf.jerry.config;
+package be.atbash.ee.jsf.valerie.config;
 
+import be.atbash.config.AbstractConfiguration;
 import be.atbash.config.logging.ConfigEntry;
 import be.atbash.config.logging.ModuleConfig;
-import be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit;
-import be.atbash.ee.jsf.jerry.startup.StartupEvent;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.faces.render.RenderKit;
 
 /**
  *
  */
 @ApplicationScoped
-public class JerryConfigurator implements ModuleConfig {
-
-    private boolean jsfReady = false;
-
-    public void onStartup(@Observes StartupEvent startupEvent) {
-        jsfReady = true;
-    }
-
-    @ConfigEntry(classResult = JerryRenderKit.class)
-    public JerryRenderKit getRenderKitWrapper(RenderKit renderKit) {
-
-        return new JerryRenderKit(renderKit);
-    }
+public class ValerieConfiguration extends AbstractConfiguration implements ModuleConfig {
 
     @ConfigEntry
     public boolean useBeanInfo() {
-        return true;
+        return getOptionalValue("valerie.use.beaninfo", Boolean.FALSE, Boolean.class);
     }
 
-    public boolean isJsfReady() {
-        return jsfReady;
-    }
 }

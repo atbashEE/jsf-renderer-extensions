@@ -41,7 +41,15 @@
         <dependency>
             <groupId>be.atbash.config</groupId>
             <artifactId>atbash-config</artifactId>
-            <version>0.9.1-SNAPSHOT</version>
+            <version>${atbash.config.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>be.atbash.config</groupId>
+            <artifactId>atbash-config-test</artifactId>
+            <version>${atbash.config.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 </project>

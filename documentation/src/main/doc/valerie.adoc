@@ -1,6 +1,6 @@
 = Bean validation for JSF Components (Valerie)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.9, ??/??/2017
+v0.9, ??/??/2018
 
 == Introduction
 
@@ -50,9 +50,10 @@ With the help of the @RecordValue we are able to perform class level bean valida
 
 == Releases
 
-v0.9 (??/??/2017)
+v0.9 (??/??/2018)
 
-. Migrate to Atbash namespace (Mvn artefact and package names)
+. Migrate to Atbash namespace (Mvn artefact and package names).
+. Use other Atbash projects.
 
 v0.4 (17/12/2016)
 
@@ -63,15 +64,6 @@ v0.4 (17/12/2016)
 In case you don't use maven, you can just download the jar file and put in the `lib` folder of your project.
 
 . Open the project `pom.xml` file for editing.
-. Add the JCenter Maven repository where the dependency can be found.
-+
-[source,xml]
-----
-<repository>
-    <id>Bintray_JCenter</id>
-    <url>https://jcenter.bintray.com</url>
-</repository>
-----
 
 . Add the Valerie module to the list of dependencies.
 +
@@ -103,6 +95,13 @@ There is a plugin of Valerie which supports the PrimeFaces components.  You only
 
 This plugin just contains a few Component Initializers to put the correct information on the JSF PrimeFaces components.
 
+== Configuration
+
+In rare situations you need to change the configuration of Valerie. The values can be specified in files with the basename _jerry_ or defined in other configuration files as long as they are known to the Atbash configuration system.
+
+=== valerie.use.beaninfo
+
+TODO
 
 == Usage scenarios
 
