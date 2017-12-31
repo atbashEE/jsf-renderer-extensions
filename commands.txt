@@ -1,0 +1,12 @@
+# local development
+
+mvn clean install
+
+
+# local development, skip Documentation creation
+
+mvn clean install -DskipDocumentation=true
+
+or
+
+mvn clean install -PskipDocumentation
