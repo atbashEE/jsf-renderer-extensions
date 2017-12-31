@@ -18,12 +18,14 @@ package be.atbash.ee.jsf.jerry.producer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
 /**
  *
  */
+@ApplicationScoped  // Only annotated classes as defined in beans.xml
 public class LogProducer {
 
     @Produces
