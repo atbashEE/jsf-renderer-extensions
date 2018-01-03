@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package be.atbash.ee.jsf.valerie.initializer;
 import be.atbash.ee.jsf.jerry.component.ComponentInitializer;
 import be.atbash.ee.jsf.jerry.metadata.CommonMetaDataKeys;
 import be.atbash.ee.jsf.jerry.ordering.InvocationOrder;
+import be.atbash.ee.jsf.jerry.utils.ComponentUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -36,7 +37,7 @@ public class MaximumSizeInitializer implements ComponentInitializer {
         if (metaData.containsKey(CommonMetaDataKeys.SIZE.getKey())) {
             HtmlInputText inputText = (HtmlInputText) uiComponent;
             Integer maxSize = (Integer) metaData.get(CommonMetaDataKeys.SIZE.getKey());
-            int maxLength = inputText.getMaxlength();
+            int maxLength = ComponentUtils.getMaxLength(inputText, facesContext);
             if (maxSize < maxLength || maxLength == Integer.MIN_VALUE) {
                 inputText.setMaxlength(maxSize);
             }

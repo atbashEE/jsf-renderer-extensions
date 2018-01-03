@@ -31,6 +31,10 @@ With the **RendererInterceptor** you have a before and after method for every ma
 +
 With **ComponentInitializer** it becomes easier to adjust the JSF components. They use a _RendererInterceptor_ in the background and work is done in the `beforeEncodeBegin` phase.
 
+. RepeatableComponentInitializer
++
+A **RepeatableComponentInitializer** is like a _ComponentInitializer_ but the initializer is executed every time the component is rendered. This in contrast with _componentInitializer_ which is only executed once for each component. See also Initializers executions further on.
+
 There are some other small CDI features which are useful in any project
 
 . StartupEvent
@@ -94,6 +98,49 @@ v0.2.1 (26/11/2015)
 
 . @DataRange has now the equalsAllowed member to indicate that start date can be equal to end date.
 . Bug fixing (#6)
+
+== Initializers executions
+
+**ComponentInitializer** and **RepeatableComponentInitializer** are executed once or every time the component is rendered according to the following rules.
+
+A _ComponentInitializer_ is in general only executed once. So when the component due to AJAX functionality is executed a second time, the initializer is not executed again.
+
+The exception is when the component, on which the initializer is executing, is placed within the facelets repeat component (ui:repeat) or a component based on _UIData_ like h:datatable. Then it is also executed multiple times to ensure proper functionality within that repeating component.
+
+A _RepeatableComponentInitializer_ is by default always executed when the component is rendered within a repeating component or not.
+
+== ValueExpression usage
+
+Developers must be aware that setting _properties_, like UIComponent.setValue for a label, will make the EL expression no longer used. This is especially important when the initializer is executed multiple times (within a repeating component or the  _RepeatableComponentInitializer_
+
+For example, we have following label definition
+
+[source,java]
+----
+<h:label value="#{msg['label.key']}" for="inputField" />
+----
+
+When you add an __*__ at the end of the label to indicate it is required, you could do something like this
+
+[source,java]
+----
+label.setValue(label.getValue() + " * ");
+----
+
+However, when this snippet is executed multiple times, each time an asteriks is added at the end, also when the value of the label is defined as an EL expression.
+
+This is because the setValue sets a 'hardcoded' value, just as we do it within the JSF XHTML page which will ignore the EL expression.
+
+For retrieving the correct vale of the attribute, one can use the methods provided in the **ComponentUtils** class. It checks first for an EL Expression and then for a fixed, hardcoded value.
+
+However, the developer is still responsible for checking the value within the _ComponentInitializer_ because
+
+[source,java]
+----
+label.setValue(ComponentUtils.getValue(label, facesContext) + " * ");
+----
+
+still results in multiple asteriks when a fixed value si defined in the value attribute of the label.
 
 == Usage scenarios
 

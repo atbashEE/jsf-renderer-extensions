@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package be.atbash.ee.jsf.jerry.example.interceptor;
 
 import be.atbash.ee.jsf.jerry.component.ComponentInitializer;
+import be.atbash.ee.jsf.jerry.utils.ComponentUtils;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -31,11 +32,13 @@ public class DropdownInitializer implements ComponentInitializer {
     @Override
     public void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData) {
         SelectOneMenu selectOneMenu = (SelectOneMenu) uiComponent;
-        String style = selectOneMenu.getStyleClass();
+        String style = ComponentUtils.getStyleClass(selectOneMenu, facesContext);
         if (style == null) {
             style = "";
         }
-        selectOneMenu.setStyleClass(style + " requiredDropdown");
+        if (!style.contains("requiredDropdown")) {
+            selectOneMenu.setStyleClass(style + " requiredDropdown");
+        }
     }
 
     @Override

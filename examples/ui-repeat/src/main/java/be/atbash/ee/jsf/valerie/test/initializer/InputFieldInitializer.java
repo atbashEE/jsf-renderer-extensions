@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.jsf.jerry.example.interceptor;
+package be.atbash.ee.jsf.valerie.test.initializer;
 
 import be.atbash.ee.jsf.jerry.component.ComponentInitializer;
+import be.atbash.ee.jsf.jerry.ordering.InvocationOrder;
 import be.atbash.ee.jsf.jerry.utils.ComponentUtils;
 import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.outputlabel.OutputLabel;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -29,35 +29,25 @@ import java.util.Map;
  *
  */
 @ApplicationScoped
-public class DummyInitializer implements ComponentInitializer {
+@InvocationOrder(1002)
+public class InputFieldInitializer implements ComponentInitializer {
     @Override
     public void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData) {
-        if (uiComponent instanceof OutputLabel) {
-            OutputLabel label = (OutputLabel) uiComponent;
-            Object value = ComponentUtils.getValue(label, facesContext);
-            label.setValue((value == null ? "" : value.toString()) + "Hijacked");
+        InputText inputField = (InputText) uiComponent;
+
+        String style = ComponentUtils.getStyle(inputField, facesContext);
+        if (style == null) {
+            style = "";
         }
+        if (inputField.isRequired()) {
 
-        if (uiComponent instanceof InputText) {
-            InputText inputText = (InputText) uiComponent;
-            inputText.setPlaceholder("Interceptor :)");
-
-            if (inputText.isRequired()) {
-                String style = ComponentUtils.getStyle(inputText, facesContext);
-                if (style == null) {
-                    style = "";
-                }
-                if (!style.contains("background-color: #B04A4A;")) {
-                    inputText.setStyle(style + " background-color: #B04A4A;");
-                }
-
-            }
+            inputField.setStyle(style + " background-color: #B04A4A;");
         }
 
     }
 
     @Override
     public boolean isSupportedComponent(UIComponent uiComponent) {
-        return uiComponent instanceof OutputLabel || uiComponent instanceof InputText;
+        return uiComponent instanceof InputText;
     }
 }

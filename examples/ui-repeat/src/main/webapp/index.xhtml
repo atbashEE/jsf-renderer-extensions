@@ -1,0 +1,67 @@
+<!--
+
+    Copyright 2014-2018 Rudy De Busscher
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>ui:repeat test</title>
+</h:head>
+
+<h:body>
+    <h1>ui:repeat test application</h1>
+    <p:messages/>
+    <h:form id="frm">
+        <h2>Non repeating</h2>
+        <h:outputLabel value="Optional" for="parameter1"/>
+        <p:inputText id="parameter1" style="#{dataParameterBean.stringValue}"
+                     styleClass="#{dataParameterBean.stringValue}"
+                     maxlength="#{dataParameterBean.intValue}"/>
+        <br/>
+
+        <h:outputLabel value="Required" for="parameter2"/>
+        <p:inputText id="parameter2" required="true"/>
+
+        <h2>ui:repeat</h2>
+        <ui:repeat value="#{dataParameterBean.parameters}" var="_parameter">
+            <h:outputLabel value="#{_parameter.label}" for="parameter"/>
+            <p:inputText value="#{dataParameterBean.parameterValues[_parameter.key]}" id="parameter"
+                         required="#{_parameter.required}"/>
+
+            <br/>
+        </ui:repeat>
+
+        <h2>h:datatable</h2>
+        <h:dataTable value="#{dataParameterBean.parameters}" var="_parameter">
+            <h:column>
+                <h:outputLabel value="#{_parameter.label}" for="parameterTable"/>
+            </h:column>
+
+            <h:column>
+                <p:inputText value="#{dataParameterBean.parameterValues[_parameter.key]}" id="parameterTable"
+                             required="#{_parameter.required}"/>
+            </h:column>
+        </h:dataTable>
+        <p:commandButton value="Send" ajax="false"/>
+    </h:form>
+
+</h:body>
+
+
+</html>

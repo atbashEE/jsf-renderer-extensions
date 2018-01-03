@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package be.atbash.ee.jsf.valerie.primefaces;
 import be.atbash.ee.jsf.jerry.component.ComponentInitializer;
 import be.atbash.ee.jsf.jerry.metadata.CommonMetaDataKeys;
 import be.atbash.ee.jsf.jerry.ordering.InvocationOrder;
+import be.atbash.ee.jsf.jerry.utils.ComponentUtils;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.inputtextarea.InputTextarea;
 
@@ -40,14 +41,14 @@ public class MaximumSizeInitializer implements ComponentInitializer {
             Integer maxSize = (Integer) metaData.get(CommonMetaDataKeys.SIZE.getKey());
             if (uiComponent instanceof InputText) {
                 InputText inputText = (InputText) uiComponent;
-                int maxLength = inputText.getMaxlength();
+                int maxLength = ComponentUtils.getMaxLength(inputText, facesContext);
                 if (maxSize < maxLength || maxLength == Integer.MIN_VALUE) {
                     inputText.setMaxlength(maxSize);
                 }
             }
             if (uiComponent instanceof InputTextarea) {
                 InputTextarea inputArea = (InputTextarea) uiComponent;
-                int maxLength = inputArea.getMaxlength();
+                int maxLength = ComponentUtils.getMaxLength(inputArea, facesContext);
                 if (maxSize < maxLength || maxLength == Integer.MIN_VALUE) {
                     inputArea.setMaxlength(maxSize);
                 }
