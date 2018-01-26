@@ -16,7 +16,7 @@
 package be.atbash.ee.jsf.jerry.component;
 
 import be.atbash.ee.jsf.jerry.storage.ComponentStorage;
-import be.atbash.ee.jsf.jerry.util.TestReflectionUtils;
+import be.atbash.util.TestReflectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2014-2017 Rudy De Busscher
+    Copyright 2014-2018 Rudy De Busscher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -42,6 +42,12 @@
             <groupId>be.atbash.config</groupId>
             <artifactId>atbash-config</artifactId>
             <version>${atbash.config.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>be.atbash.utils</groupId>
+            <artifactId>utils-jsf</artifactId>
+            <version>0.9.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

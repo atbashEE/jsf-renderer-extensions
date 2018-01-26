@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package be.atbash.ee.jsf.valerie.recording;
 
-import be.atbash.ee.jsf.jerry.utils.CDIUtils;
+import be.atbash.util.CDIUtils;
 
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;

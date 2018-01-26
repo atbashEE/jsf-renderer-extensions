@@ -16,7 +16,7 @@
 package be.atbash.ee.jsf.jerry.example.interceptor;
 
 import be.atbash.ee.jsf.jerry.component.ComponentInitializer;
-import be.atbash.ee.jsf.jerry.utils.ComponentUtils;
+import be.atbash.util.ComponentUtils;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.outputlabel.OutputLabel;
 

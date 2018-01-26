@@ -18,8 +18,8 @@ package be.atbash.ee.jsf.valerie.test.initializer;
 import be.atbash.ee.jsf.jerry.component.ComponentInitializer;
 import be.atbash.ee.jsf.jerry.component.ComponentInitializerManager;
 import be.atbash.ee.jsf.jerry.ordering.InvocationOrder;
-import be.atbash.ee.jsf.jerry.utils.ComponentUtils;
 import be.atbash.ee.jsf.valerie.property.PropertyInformationManager;
+import be.atbash.util.ComponentUtils;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;

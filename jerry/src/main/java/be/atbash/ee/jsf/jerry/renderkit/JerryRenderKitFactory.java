@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 package be.atbash.ee.jsf.jerry.renderkit;
 
 import be.atbash.ee.jsf.jerry.config.JerryConfiguration;
-import be.atbash.ee.jsf.jerry.utils.CDIUtils;
-import be.atbash.ee.jsf.jerry.utils.ClassUtils;
+import be.atbash.util.CDIUtils;
+import be.atbash.util.reflection.ClassUtils;
 
 import javax.enterprise.inject.Typed;
 import javax.faces.context.FacesContext;
@@ -64,7 +64,7 @@ public class JerryRenderKitFactory extends RenderKitFactory {
         if (result == null) {
             RenderKit renderKit = wrapped.getRenderKit(context, renderKitId);
 
-            result = (RenderKit) ClassUtils.newInstance(wrapperClass, renderKit);
+            result = ClassUtils.newInstance(wrapperClass, renderKit);
             renderKitMap.put(renderKitId, result);
         }
         return result;

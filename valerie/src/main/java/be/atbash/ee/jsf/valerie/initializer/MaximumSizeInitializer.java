@@ -18,7 +18,7 @@ package be.atbash.ee.jsf.valerie.initializer;
 import be.atbash.ee.jsf.jerry.component.ComponentInitializer;
 import be.atbash.ee.jsf.jerry.metadata.CommonMetaDataKeys;
 import be.atbash.ee.jsf.jerry.ordering.InvocationOrder;
-import be.atbash.ee.jsf.jerry.utils.ComponentUtils;
+import be.atbash.util.ComponentUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;

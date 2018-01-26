@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ package be.atbash.ee.jsf.jerry.renderkit;
 import be.atbash.ee.jsf.jerry.interceptor.RendererInterceptor;
 import be.atbash.ee.jsf.jerry.renderkit.model.InterceptorCalls;
 import be.atbash.ee.jsf.jerry.renderkit.model.SpyRendererInterceptor;
-import be.atbash.ee.jsf.jerry.util.TestReflectionUtils;
-import be.atbash.ee.jsf.jerry.util.cdi.BeanManagerFake;
 import be.atbash.ee.jsf.jerry.utils.InvocationOrderedArtifactsProvider;
+import be.atbash.util.BeanManagerFake;
+import be.atbash.util.TestReflectionUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

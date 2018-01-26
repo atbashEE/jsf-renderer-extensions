@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ import be.atbash.config.logging.ConfigEntry;
 import be.atbash.config.logging.ModuleConfig;
 import be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit;
 import be.atbash.ee.jsf.jerry.startup.StartupEvent;
-import be.atbash.ee.jsf.jerry.utils.ClassUtils;
-import be.atbash.ee.jsf.jerry.utils.UnknownClassException;
+import be.atbash.util.reflection.ClassUtils;
+import be.atbash.util.reflection.UnknownClassException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
