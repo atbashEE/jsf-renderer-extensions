@@ -83,6 +83,7 @@
         <maven.compiler.target>1.7</maven.compiler.target>
 
         <atbash.config.version>0.9.1-SNAPSHOT</atbash.config.version>
+        <atbash.utils.version>0.9.0</atbash.utils.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
@@ -107,13 +108,13 @@
         <dependency>
             <groupId>be.atbash.utils</groupId>
             <artifactId>utils-se</artifactId>
-            <version>0.9.0-SNAPSHOT</version>
+            <version>${atbash.utils.version}</version>
         </dependency>
 
         <dependency>
             <groupId>be.atbash.utils</groupId>
             <artifactId>utils-cdi</artifactId>
-            <version>0.9.0-SNAPSHOT</version>
+            <version>${atbash.utils.version}</version>
         </dependency>
 
         <!-- logging -->
@@ -141,7 +142,7 @@
         <dependency>
             <groupId>be.atbash.utils</groupId>
             <artifactId>utils-se</artifactId>
-            <version>0.9.0-SNAPSHOT</version>
+            <version>${atbash.utils.version}</version>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
@@ -149,7 +150,7 @@
         <dependency>
             <groupId>be.atbash.utils</groupId>
             <artifactId>utils-cdi</artifactId>
-            <version>0.9.0-SNAPSHOT</version>
+            <version>${atbash.utils.version}</version>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>

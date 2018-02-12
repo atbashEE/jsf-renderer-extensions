@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package be.atbash.ee.jsf.jerry.config;
 
+import be.atbash.config.converter.ClassConverter;
 import be.atbash.config.exception.ConfigurationException;
 import be.atbash.config.test.TestConfig;
 import org.junit.After;
@@ -34,6 +35,7 @@ public class JerryConfigurationTest {
     @BeforeClass
     public static void setupTestClass() {
         TestConfig.registerDefaultConverters();
+        TestConfig.registerConverter(new ClassConverter());
     }
 
     @After
@@ -43,13 +45,13 @@ public class JerryConfigurationTest {
 
     @Test
     public void getRenderKitWrapperClass() {
-        assertThat(configuration.getRenderKitWrapperClass()).isEqualTo("be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit");
+        assertThat(configuration.getRenderKitWrapperClass().getName()).isEqualTo("be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit");
     }
 
     @Test
     public void getRenderKitWrapperClass_customClass() {
         TestConfig.addConfigValue("jerry.renderkit.wrapper.class", CustomWrapper.class.getName());
-        assertThat(configuration.getRenderKitWrapperClass()).isEqualTo(CustomWrapper.class.getName());
+        assertThat(configuration.getRenderKitWrapperClass().getName()).isEqualTo(CustomWrapper.class.getName());
     }
 
     @Test(expected = ConfigurationException.class)

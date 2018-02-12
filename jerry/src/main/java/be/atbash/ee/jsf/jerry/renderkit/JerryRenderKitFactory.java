@@ -23,6 +23,7 @@ import javax.enterprise.inject.Typed;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
+import javax.faces.render.RenderKitWrapper;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class JerryRenderKitFactory extends RenderKitFactory {
     private JerryConfiguration configurator;
 
     private Map<String, RenderKit> renderKitMap;
-    private Class wrapperClass;
+    private Class<? extends RenderKitWrapper> wrapperClass;
 
     public JerryRenderKitFactory(RenderKitFactory wrapped) {
         this.wrapped = wrapped;
@@ -45,8 +46,7 @@ public class JerryRenderKitFactory extends RenderKitFactory {
 
         configurator = CDIUtils.retrieveInstance(JerryConfiguration.class);
 
-        String renderKitWrapperClass = configurator.getRenderKitWrapperClass();
-        wrapperClass = ClassUtils.forName(renderKitWrapperClass);
+        wrapperClass = configurator.getRenderKitWrapperClass();
     }
 
     @Override

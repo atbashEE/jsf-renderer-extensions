@@ -21,7 +21,6 @@ import be.atbash.config.logging.ConfigEntry;
 import be.atbash.config.logging.ModuleConfig;
 import be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit;
 import be.atbash.ee.jsf.jerry.startup.StartupEvent;
-import be.atbash.util.reflection.ClassUtils;
 import be.atbash.util.reflection.UnknownClassException;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -41,19 +40,19 @@ public class JerryConfiguration extends AbstractConfiguration implements ModuleC
     }
 
     @ConfigEntry
-    public String getRenderKitWrapperClass() {
-        String renderKitWrapperClassName = getOptionalValue("jerry.renderkit.wrapper.class", JerryRenderKit.class.getName(), String.class);
+    public Class<? extends RenderKitWrapper> getRenderKitWrapperClass() {
+        Class<? extends RenderKitWrapper> renderKitWrapperClass;
         try {
-            Class renderKitWrapperClass = ClassUtils.forName(renderKitWrapperClassName);
+            renderKitWrapperClass = getOptionalValue("jerry.renderkit.wrapper.class", JerryRenderKit.class, Class.class);
 
             if (!RenderKitWrapper.class.isAssignableFrom(renderKitWrapperClass)) {
                 throw new ConfigurationException("Class specified in parameter 'jerry.renderkit.wrapper.class' must be extending from javax.faces.render.RenderKitWrapper");
             }
         } catch (UnknownClassException e) {
-            throw new ConfigurationException(String.format("Class specified in parameter 'jerry.renderkit.wrapper.class' not found '%s'", renderKitWrapperClassName));
+            throw new ConfigurationException(String.format("Class specified in parameter 'jerry.renderkit.wrapper.class' not found '%s'", "jerry.renderkit.wrapper.class"));
         }
 
-        return renderKitWrapperClassName;
+        return renderKitWrapperClass;
     }
 
     public boolean isJsfReady() {
