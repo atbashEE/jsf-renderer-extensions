@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package be.atbash.ee.jsf.valerie.config;
 import be.atbash.config.AbstractConfiguration;
 import be.atbash.config.logging.ConfigEntry;
 import be.atbash.config.logging.ModuleConfig;
+import be.atbash.config.logging.ModuleConfigName;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -25,6 +26,7 @@ import javax.enterprise.context.ApplicationScoped;
  *
  */
 @ApplicationScoped
+@ModuleConfigName("Valerie Configuration")
 public class ValerieConfiguration extends AbstractConfiguration implements ModuleConfig {
 
     @ConfigEntry

@@ -19,6 +19,7 @@ import be.atbash.config.AbstractConfiguration;
 import be.atbash.config.exception.ConfigurationException;
 import be.atbash.config.logging.ConfigEntry;
 import be.atbash.config.logging.ModuleConfig;
+import be.atbash.config.logging.ModuleConfigName;
 import be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit;
 import be.atbash.ee.jsf.jerry.startup.StartupEvent;
 import be.atbash.util.reflection.UnknownClassException;
@@ -31,6 +32,7 @@ import javax.faces.render.RenderKitWrapper;
  *
  */
 @ApplicationScoped
+@ModuleConfigName("Jerry Configuration")
 public class JerryConfiguration extends AbstractConfiguration implements ModuleConfig {
 
     private boolean jsfReady = false;
