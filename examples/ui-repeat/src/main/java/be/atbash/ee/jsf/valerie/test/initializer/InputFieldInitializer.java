@@ -42,6 +42,8 @@ public class InputFieldInitializer implements ComponentInitializer {
         if (inputField.isRequired()) {
 
             inputField.setStyle(style + " background-color: #B04A4A;");
+        } else {
+            inputField.setStyle(style.replaceAll("background-color: #B04A4A;", ""));
         }
 
     }
