@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package be.atbash.ee.jsf.jerry.ordering;
 
+import be.atbash.util.PublicAPI;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -22,12 +24,7 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target(TYPE)
-@Retention(RUNTIME)
-@Documented
-/**
- * allowed to use for classes which implement interfaces which have the marker @InvocationOrderSupport
- *
+/*
  * suggested ranges (mainly for name-mappers):
  * negative values for "extreme" cases
  *
@@ -42,9 +39,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * but a 2nd name-mapper shouldn't have priority 100
  *
  */
+@Target(TYPE)
+@Retention(RUNTIME)
+@Documented
+@PublicAPI
 public @interface InvocationOrder {
     /**
-     * default priority for custom artifacts (if they should get added after the internal versions
+     * default priority for custom artifacts (if they should get added after the internal versions)
      *
      * @return the priority of an artifact annotated with this annotation
      */

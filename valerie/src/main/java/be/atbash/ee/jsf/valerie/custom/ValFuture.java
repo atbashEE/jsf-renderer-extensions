@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package be.atbash.ee.jsf.valerie.custom;
+
+import be.atbash.util.PublicAPI;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -31,6 +33,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = {ValFutureValidator.class})
+@PublicAPI
 public @interface ValFuture {
     String message() default "{javax.validation.constraints.Future.message}";
 

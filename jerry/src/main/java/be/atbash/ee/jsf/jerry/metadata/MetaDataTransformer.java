@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package be.atbash.ee.jsf.jerry.metadata;
+
+import be.atbash.util.PublicAPI;
 
 import java.util.Map;
 
@@ -32,6 +34,7 @@ import java.util.Map;
  * {@link be.atbash.ee.jsf.jerry.metadata.CommonMetaDataKeys} provides the keys used by Jerry and Valerie.
  */
 //*Transformer instead of *Converter to avoid naming confusion
+@PublicAPI
 public interface MetaDataTransformer {
     /**
      * Converts the information of a {@link MetaDataEntry} into an independent format.

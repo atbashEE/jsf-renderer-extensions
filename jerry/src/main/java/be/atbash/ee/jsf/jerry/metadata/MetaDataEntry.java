@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package be.atbash.ee.jsf.jerry.metadata;
 
 import be.atbash.ee.jsf.jerry.producer.LogProducer;
+import be.atbash.util.PublicAPI;
 import org.slf4j.Logger;
 
 import javax.enterprise.inject.Typed;
@@ -26,6 +27,7 @@ import java.util.Map;
  * Data holder which stores the meta-data and some information where the meta-data was found.
  */
 @Typed()
+@PublicAPI
 public class MetaDataEntry {
     protected final Logger logger = LogProducer.getLogger(this.getClass());
 

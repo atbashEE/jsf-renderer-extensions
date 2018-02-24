@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,12 @@
  */
 package be.atbash.ee.jsf.jerry.metadata;
 
+import be.atbash.util.PublicAPI;
+
 /**
  *
  */
+@PublicAPI
 public enum CommonMetaDataKeys {
     REQUIRED("required"), SIZE("size"), PAST("past"), FUTURE("future");
 

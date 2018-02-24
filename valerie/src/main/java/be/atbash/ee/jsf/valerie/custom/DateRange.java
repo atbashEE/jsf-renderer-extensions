@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package be.atbash.ee.jsf.valerie.custom;
 
 import be.atbash.ee.jsf.valerie.recording.RecordValue;
+import be.atbash.util.PublicAPI;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -36,6 +37,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {DateRangeValidator.class})
 @RecordValue
 @Documented
+@PublicAPI
 public @interface DateRange {
     String start();
 

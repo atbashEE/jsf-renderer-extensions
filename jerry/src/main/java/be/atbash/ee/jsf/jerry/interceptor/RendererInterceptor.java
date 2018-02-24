@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package be.atbash.ee.jsf.jerry.interceptor;
 import be.atbash.ee.jsf.jerry.interceptor.exception.SkipAfterInterceptorsException;
 import be.atbash.ee.jsf.jerry.interceptor.exception.SkipBeforeInterceptorsException;
 import be.atbash.ee.jsf.jerry.interceptor.exception.SkipRendererDelegationException;
+import be.atbash.util.PublicAPI;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -30,6 +31,7 @@ import java.io.IOException;
  * It's the base mechanism of Jerry which enables most of the concepts provided by the framework.
  * Furthermore, it allows to add custom concepts.
  */
+@PublicAPI
 public interface RendererInterceptor {
 
     /*

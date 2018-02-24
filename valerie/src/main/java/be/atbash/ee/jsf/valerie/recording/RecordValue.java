@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package be.atbash.ee.jsf.valerie.recording;
 
+import be.atbash.util.PublicAPI;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -29,6 +31,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Documented
+@PublicAPI
 public @interface RecordValue {
     Class<?>[] value() default {};
 }

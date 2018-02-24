@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package be.atbash.ee.jsf.jerry.component;
+
+import be.atbash.util.PublicAPI;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,6 +36,7 @@ import java.util.Map;
  * {@link ComponentInitializer}
  * per JSF component lib.
  */
+@PublicAPI
 public interface ComponentInitializer {
     /**
      * Initialize components with information from the meta-data.

@@ -15,9 +15,12 @@
  */
 package be.atbash.ee.jsf.jerry.component;
 
+import be.atbash.util.PublicAPI;
+
 /**
  * For those situations where you need a {@link ComponentInitializer} which is executed every time the view is rendered.
  * A standard initializer is only executed once, except for those components which are within a ui:repeat or UIData component (like h:datatable).
  */
+@PublicAPI
 public interface RepeatableComponentInitializer extends ComponentInitializer {
 }
