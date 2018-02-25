@@ -22,7 +22,7 @@
     <parent>
         <groupId>be.atbash.ee.jsf</groupId>
         <artifactId>renderer-extensions</artifactId>
-        <version>0.9.0-SNAPSHOT</version>
+        <version>0.9.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -36,6 +36,26 @@
         encodeBegin, encodeChildren, encodeEnd and getConvertedValue.
     </description>
     <url>https://github.com/atbashEE/jsf-renderer-extensions</url>
+
+
+    <developers>
+        <developer>
+            <id>rubus</id>
+            <name>Rudy De Busscher</name>
+            <email>rdebusscher@gmail.com</email>
+            <organization>Atbash, Belgium</organization>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
 
     <dependencies>
         <dependency>
