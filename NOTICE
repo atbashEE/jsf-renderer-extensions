@@ -1,7 +1,12 @@
 JSF renderer interceptor - Intercepting the Rendering phases of JSF (Jerry) and adding Bean validation automatically to components (Valerie)
 
-Copyright 2014 - 2016 by Rudy De Busscher
+Copyright 2014 - 2018 by Rudy De Busscher
 
 ------------------------------------------------------------------------
 See the file LICENSE
 ------------------------------------------------------------------------
+
+Some classes or methods of this software are based on the following:
+* MyFaces extval
+  http://myfaces.apache.org/extensions/validator/
+  under Apache License, v2.0
