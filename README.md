@@ -1,6 +1,10 @@
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Build Status](https://travis-ci.org/atbashEE/jsf-renderer-extensions.svg?branch=master)](https://travis-ci.org/atbashEE/jsf-renderer-extensions)
 
+Jerry : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/be.atbash.ee.jsf/jerry/badge.svg)](https://maven-badges.herokuapp.com/maven-central/be.atbash.ee.jsf/jerry)
+Valerie : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/be.atbash.ee.jsf/valerie/badge.svg)](https://maven-badges.herokuapp.com/maven-central/be.atbash.ee.jsf/valerie)
+
+
 jsf-renderer-extensions
 =======================
 
@@ -30,4 +34,5 @@ The usage of _BeanManagerFake_ within test classes is unchanged.
 3. The logging of the configuration is moved from the _Jerry_ project to the _Atbash Config_ project. 
 
 4. Jerry configuration is now using the _Atbash Config_ project reading parameters from _jerry_ base name configuration files. So no need to create a _@Specialized_ CDI bean of class _JerryConfigurator_.
-   
+
+If you have an application based on Jerry and/or Valerie 0.4.1, you can use the Atbash Migrator to help it migrate https://github.com/atbashEE/Atbash_Migrator
