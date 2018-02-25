@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,13 @@
 package be.atbash.ee.jsf.valerie.primefaces;
 
 import be.atbash.ee.jsf.jerry.component.ComponentInitializer;
-import be.atbash.ee.jsf.jerry.component.ComponentInitializerManager;
 import be.atbash.ee.jsf.jerry.metadata.CommonMetaDataKeys;
 import be.atbash.ee.jsf.jerry.ordering.InvocationOrder;
-import be.atbash.ee.jsf.valerie.property.PropertyInformationManager;
 import org.primefaces.component.calendar.Calendar;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import java.util.Date;
 import java.util.Map;
 
@@ -35,12 +32,6 @@ import java.util.Map;
 @ApplicationScoped
 @InvocationOrder(61)
 public class CalendarInitializer implements ComponentInitializer {
-
-    @Inject
-    private ComponentInitializerManager initializerManager;
-
-    @Inject
-    private PropertyInformationManager informationManager;
 
     @Override
     public void configureComponent(FacesContext facesContext, UIComponent uiComponent, Map<String, Object> metaData) {

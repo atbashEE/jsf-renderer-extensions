@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package be.atbash.ee.jsf.valerie.recording;
 
 import be.atbash.ee.jsf.jerry.metadata.PropertyInformationKeys;
+import be.atbash.util.exception.AtbashUnexpectedException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
@@ -40,7 +41,6 @@ public class RecordingInfoManager {
 
     @Inject
     private Validator validator;
-
 
     public void keepInfo(FacesContext facesContext, RecordValueInfo recordValueInfo, Object data) {
 
@@ -118,24 +118,18 @@ public class RecordingInfoManager {
         try {
             handle.invokeWithArguments(target, data);
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            throw new AtbashUnexpectedException(throwable);
         }
     }
 
     private Object createValueObject(RecordValueInfo.Key key) {
-        Object result = null;
-        Constructor<?> constructor = null;
+        Object result;
+        Constructor<?> constructor;
         try {
-            constructor = key.getTargetClass().getConstructor(new Class[]{});
+            constructor = key.getTargetClass().getConstructor(new Class[]{}); // TODO Verify if we can remove the class Array parameter
             result = constructor.newInstance();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            throw new AtbashUnexpectedException(e);
         }
         return result;
     }
@@ -163,6 +157,5 @@ public class RecordingInfoManager {
         }
         return null;
     }
-
 
 }

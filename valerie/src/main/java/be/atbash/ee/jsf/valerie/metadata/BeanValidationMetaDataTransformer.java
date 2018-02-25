@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * MetaDataTransformer for BeanValidation annotations. Picked up by CDI.
  */
 @ApplicationScoped
 public class BeanValidationMetaDataTransformer implements MetaDataTransformer {

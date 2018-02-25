@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,8 @@ import be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit;
 import javax.faces.render.RenderKit;
 
 /**
- * TODO This is still here until it is documented.
+ *
  */
-
 public class CustomRenderKitWrapper extends JerryRenderKit {
 
     public CustomRenderKitWrapper(RenderKit wrapped) {

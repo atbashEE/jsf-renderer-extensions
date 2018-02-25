@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
  */
 package be.atbash.ee.jsf.valerie.custom;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.lang.invoke.MethodHandle;
@@ -27,6 +30,7 @@ import java.util.Date;
  */
 public class DateRangeValidator implements ConstraintValidator<DateRange, Object> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DateRangeValidator.class);
     private static final MethodType DATE_GETTER = MethodType.methodType(Date.class);
 
     private String start;
@@ -56,11 +60,9 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
                 }
             }
         } catch (Throwable throwable) {
-            // TODO proper logging
-            throwable.printStackTrace();
+            LOGGER.warn("Unexpected exception: ", throwable);
             result = false;
         }
-
 
         return result;
     }
@@ -77,8 +79,7 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
         try {
             return MethodHandles.lookup().findVirtual(target, getAccessorMethodName(property), DATE_GETTER);
         } catch (NoSuchMethodException | IllegalAccessException e) {
-            // TODO proper logging
-            e.printStackTrace();
+            LOGGER.warn(String.format("Unable to find/access the Date property %s of class %s", property, target.getName()), e);
         }
         return null;
     }

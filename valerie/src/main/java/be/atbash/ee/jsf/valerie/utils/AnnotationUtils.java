@@ -168,31 +168,6 @@ public final class AnnotationUtils {
         return entry;
     }
 
-    // TODO Remove as it is not used
-
-    /**
-     * Extracts the value of the given annotation.
-     *
-     * @param annotation  The target annotation
-     * @param targetClass Type of the value-property
-     * @param <T>         Result class
-     * @return value of the value-property
-     */
-    public static <T> T extractValueOf(Annotation annotation, Class<T> targetClass) {
-        // Since we can't be sure of the type, we can't use the
-        // annotation.annotationType().getDeclaredMethod(String, Class...) method.
-        for (Method annotationMethod : annotation.annotationType().getDeclaredMethods()) {
-            if ("value".equals(annotationMethod.getName())) {
-                try {
-                    return (T) annotationMethod.invoke(annotation);
-                } catch (Exception e) {
-                    //do nothing
-                }
-            }
-        }
-        return null;
-    }
-
     public static boolean isBeanConstraint(String annotationName) {
         boolean result = false;
         try {
@@ -200,19 +175,7 @@ public final class AnnotationUtils {
             result = annotationClass.getAnnotation(Constraint.class) != null;
 
         } catch (ClassNotFoundException e) {
-            ; // TODO At least log this, probably some class loading issue that we have to solve
-        }
-        return result;
-
-    }
-
-    public static List<Class<? extends ConstraintValidator<?, ?>>> getBeanConstraintValidator(String annotationName) {
-        List<Class<? extends ConstraintValidator<?, ?>>> result = new ArrayList<>();
-        try {
-            Class<?> annotationClass = Class.forName(annotationName);
-            result = getBeanConstraintValidator(annotationClass);
-        } catch (ClassNotFoundException e) {
-            ; // TODO At least log this, probably some class loading issue that we have to solve
+            LOGGER.warn(String.format("ClassNotFound %s", annotationName));
         }
         return result;
 
