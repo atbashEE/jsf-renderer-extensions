@@ -1,6 +1,6 @@
 = JSF Renderer Interceptor (Jerry)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.9.0, 25/02/2018
+v0.9.1, ??/??/2018
 
 == Introduction
 
@@ -61,6 +61,8 @@ In case you don't use maven, you can just download the jar file and put in the `
 . You are ready to use Jerry.
 
 == Releases
+
+v0.9.1 (??/??/2018)
 
 v0.9.0 (25/02/2018)
 

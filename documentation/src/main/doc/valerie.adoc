@@ -1,6 +1,6 @@
 = Bean validation for JSF Components (Valerie)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.9.0, 25/02/2018
+v0.9.1, ??/??/2018
 
 == Introduction
 
@@ -51,6 +51,8 @@ Valerie allows the integration of your custom annotations.
 With the help of the @RecordValue we are able to perform class level bean validations in the Process Validations JSF Phase.  And this without placing the screen values in the bean.
 
 == Releases
+
+v0.9.1 (??/??/2018)
 
 v0.9.0 (25/02/2018)
 
