@@ -17,7 +17,6 @@ package be.atbash.ee.jsf.valerie.utils;
 
 import be.atbash.ee.jsf.jerry.metadata.MetaDataEntry;
 import be.atbash.ee.jsf.jerry.metadata.PropertyInformationKeys;
-import be.atbash.ee.jsf.jerry.producer.LogProducer;
 import be.atbash.ee.jsf.valerie.property.DefaultPropertyInformation;
 import be.atbash.ee.jsf.valerie.property.PropertyDetails;
 import be.atbash.ee.jsf.valerie.property.PropertyInformation;
@@ -25,6 +24,7 @@ import be.atbash.ee.jsf.valerie.recording.RecordValueInfo;
 import be.atbash.ee.jsf.valerie.storage.PropertyStorage;
 import be.atbash.util.CDIUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
@@ -43,7 +43,7 @@ import java.util.List;
  */
 public final class AnnotationUtils {
 
-    private static final Logger LOGGER = LogProducer.getLogger(AnnotationUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AnnotationUtils.class);
 
     private static List<Class<?>> excludedAnnotations = new ArrayList<>();
 

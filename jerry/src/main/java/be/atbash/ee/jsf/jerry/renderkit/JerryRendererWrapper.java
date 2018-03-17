@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ import be.atbash.ee.jsf.jerry.interceptor.RendererInterceptor;
 import be.atbash.ee.jsf.jerry.interceptor.exception.SkipAfterInterceptorsException;
 import be.atbash.ee.jsf.jerry.interceptor.exception.SkipBeforeInterceptorsException;
 import be.atbash.ee.jsf.jerry.interceptor.exception.SkipRendererDelegationException;
-import be.atbash.ee.jsf.jerry.producer.LogProducer;
 import be.atbash.ee.jsf.jerry.utils.InvocationOrderedArtifactsProvider;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,7 +34,7 @@ import java.util.List;
  *
  */
 public class JerryRendererWrapper extends Renderer {
-    protected Logger logger = LogProducer.getLogger(this.getClass());
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected Renderer wrapped;
     private List<RendererInterceptor> rendererInterceptors;
@@ -169,7 +169,6 @@ public class JerryRendererWrapper extends Renderer {
             }
         }
 
-
     }
 
     @Override
@@ -249,9 +248,9 @@ public class JerryRendererWrapper extends Renderer {
                 logger.trace("beforeDecode interceptors canceled", e);
             }
         }
-            /*
-             * delegate
-             */
+        /*
+         * delegate
+         */
         if (delegateToWrappedRenderer) {
             convertedObject = wrapped.getConvertedValue(facesContext, uiComponent, o);
         }
@@ -265,7 +264,6 @@ public class JerryRendererWrapper extends Renderer {
                 logger.trace("afterGetConvertedValue interceptors canceled", e);
             }
         }
-
 
         return convertedObject;
     }

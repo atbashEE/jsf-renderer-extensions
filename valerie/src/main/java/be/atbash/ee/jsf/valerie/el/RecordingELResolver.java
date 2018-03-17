@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 package be.atbash.ee.jsf.valerie.el;
 
-import be.atbash.ee.jsf.jerry.producer.LogProducer;
 import be.atbash.ee.jsf.jerry.utils.ProxyUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
@@ -32,7 +32,7 @@ import java.util.Map;
  *
  */
 public class RecordingELResolver extends ELResolver {
-    protected final Logger logger = LogProducer.getLogger(RecordingELResolver.class);
+    protected final Logger logger = LoggerFactory.getLogger(RecordingELResolver.class);
 
     private ELResolver wrapped;
 

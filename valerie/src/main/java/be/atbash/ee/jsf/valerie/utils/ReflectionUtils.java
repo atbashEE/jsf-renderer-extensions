@@ -15,11 +15,11 @@
  */
 package be.atbash.ee.jsf.valerie.utils;
 
-import be.atbash.ee.jsf.jerry.producer.LogProducer;
 import be.atbash.ee.jsf.valerie.config.ValerieConfiguration;
 import be.atbash.ee.jsf.valerie.storage.PropertyStorage;
 import be.atbash.util.CDIUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -35,7 +35,7 @@ public class ReflectionUtils {
 
     private static Boolean USE_BEANINFO = null;
 
-    private static final Logger LOGGER = LogProducer.getLogger(ReflectionUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReflectionUtils.class);
 
     public static Method tryToGetMethodOfProperty(PropertyStorage storage, Class entity, String property) {
 

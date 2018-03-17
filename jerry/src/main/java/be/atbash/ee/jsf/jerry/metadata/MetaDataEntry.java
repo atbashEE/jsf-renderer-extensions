@@ -15,9 +15,9 @@
  */
 package be.atbash.ee.jsf.jerry.metadata;
 
-import be.atbash.ee.jsf.jerry.producer.LogProducer;
 import be.atbash.util.PublicAPI;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.inject.Typed;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ import java.util.Map;
 @Typed()
 @PublicAPI
 public class MetaDataEntry {
-    protected final Logger logger = LogProducer.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private String key;
     private Object value;

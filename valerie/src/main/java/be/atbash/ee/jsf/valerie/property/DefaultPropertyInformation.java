@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,9 @@
  */
 package be.atbash.ee.jsf.valerie.property;
 
-
 import be.atbash.ee.jsf.jerry.metadata.MetaDataEntry;
-import be.atbash.ee.jsf.jerry.producer.LogProducer;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.inject.Typed;
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ import java.util.Map;
  */
 @Typed()
 public class DefaultPropertyInformation implements PropertyInformation {
-    protected final Logger logger = LogProducer.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private Map<String, Object> informationMap = new HashMap<>();
     private List<MetaDataEntry> metaDataList = new ArrayList<>();
