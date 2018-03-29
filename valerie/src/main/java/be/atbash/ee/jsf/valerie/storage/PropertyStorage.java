@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2018 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package be.atbash.ee.jsf.valerie.storage;
 
-import be.atbash.ee.jsf.jerry.utils.ProxyUtils;
+import be.atbash.util.ProxyUtils;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;

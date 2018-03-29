@@ -15,7 +15,7 @@
  */
 package be.atbash.ee.jsf.valerie.el;
 
-import be.atbash.ee.jsf.jerry.utils.ProxyUtils;
+import be.atbash.util.ProxyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
