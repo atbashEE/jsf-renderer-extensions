@@ -76,15 +76,6 @@
             </snapshots>
         </repository>
     </repositories>
-    <distributionManagement>
-
-        <repository>
-            <id>bintray-rdebusscher-Octopus</id>
-            <name>rdebusscher-Octopus</name>
-            <url>https://api.bintray.com/maven/rdebusscher/Octopus/renderer-extensions/;publish=1</url>
-        </repository>
-
-    </distributionManagement>
 
     <modules>
         <module>jerry</module>
@@ -132,13 +123,6 @@
             <groupId>be.atbash.utils</groupId>
             <artifactId>utils-cdi</artifactId>
             <version>${atbash.utils.version}</version>
-        </dependency>
-
-        <!-- logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
         </dependency>
 
         <!-- testing -->
@@ -238,6 +222,28 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <version>2.8</version>
+                <configuration>
+                    <ignored>
+
+                        <difference>
+                            <!-- Moved to Atbash utils CDI -->
+                            <className>**//jerry/producer/LogProducer</className>
+                            <differenceType>8001</differenceType>
+                        </difference>
+                        <difference>
+                            <!-- Moved to Atbash utils SE -->
+                            <className>**//jerry/utils/ProxyUtils</className>
+                            <differenceType>8001</differenceType>
+                        </difference>
+
+                    </ignored>
+                </configuration>
             </plugin>
 
             <plugin>
