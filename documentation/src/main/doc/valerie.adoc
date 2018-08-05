@@ -1,6 +1,6 @@
 = Bean validation for JSF Components (Valerie)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.9.1, 01/05/2018
+v0.9.0.2, 05/08/2018
 
 == Introduction
 
@@ -52,7 +52,11 @@ With the help of the @RecordValue we are able to perform class level bean valida
 
 == Releases
 
-v0.9.1 (01/05/2018)
+v0.9.0.2 (05/08/2018)
+
+. No changes, version update of Atbash dependencies.
+
+v0.9.0.1 (01/05/2018)
 
 . Better integrate with Atbash utils
 

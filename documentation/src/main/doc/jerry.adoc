@@ -1,6 +1,6 @@
 = JSF Renderer Interceptor (Jerry)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.9.1, 01/05/2018
+v0.9.0.2, 05/08/2018
 
 == Introduction
 
@@ -62,7 +62,11 @@ In case you don't use maven, you can just download the jar file and put in the `
 
 == Releases
 
-v0.9.1 (01/05/2018)
+v0.9.0.2 (05/08/2018)
+
+. No changes, version update of Atbash dependencies.
+
+v0.9.0.1 (01/05/2018)
 
 . Better integrate with Atbash utils
 
