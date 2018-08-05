@@ -90,14 +90,15 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
 
-        <atbash.config.version>0.9.1.1</atbash.config.version>
-        <atbash.utils.version>0.9.1</atbash.utils.version>
+        <atbash.config.version>0.9.2</atbash.config.version>
+        <atbash.utils.version>0.9.2</atbash.utils.version>
+        <!-- Due to missing release of test jar of cdi !! -->
+        <atbash.utils.version.prev>0.9.1</atbash.utils.version.prev>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
 
     <dependencies>
-        <!-- Too make sure we only use CDI and JSF stuff and nothing else from Java EE 7 -->
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
@@ -151,7 +152,7 @@
         <dependency>
             <groupId>be.atbash.utils</groupId>
             <artifactId>utils-cdi</artifactId>
-            <version>${atbash.utils.version}</version>
+            <version>${atbash.utils.version.prev}</version>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
