@@ -30,4 +30,4 @@ mvn clean install -PskipDocumentation
 
 # Set version
 
-mvn versions:set -DnewVersion=0.9.0.2 -DgenerateBackupPoms=false
+mvn versions:set -DnewVersion=0.9.0.3-SNAPSHOT -DgenerateBackupPoms=false
