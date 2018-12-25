@@ -19,7 +19,7 @@ import be.atbash.config.converter.ClassConverter;
 import be.atbash.config.exception.ConfigurationException;
 import be.atbash.config.test.TestConfig;
 import org.junit.After;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,8 +32,8 @@ public class JerryConfigurationTest {
 
     private JerryConfiguration configuration = new JerryConfiguration();
 
-    @BeforeClass
-    public static void setupTestClass() {
+    @Before
+    public void setupTestClass() {
         TestConfig.registerDefaultConverters();
         TestConfig.registerConverter(new ClassConverter());
     }
