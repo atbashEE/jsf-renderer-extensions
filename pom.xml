@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2014-2018 Rudy De Busscher
+    Copyright 2014-2019 Rudy De Busscher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -90,8 +90,8 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
 
-        <atbash.config.version>0.9.3-SNAPSHOT</atbash.config.version>
-        <atbash.utils.version>0.9.3-SNAPSHOT</atbash.utils.version>
+        <atbash.config.version>0.9.3</atbash.config.version>
+        <atbash.utils.version>0.9.3</atbash.utils.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
