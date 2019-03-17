@@ -29,7 +29,7 @@
         Parent project of the projects around the JSF renderer interceptor concept. Jerry which does the actual
         intercepting and Valerie which uses this mechanism to bring the validation annotations to the JSF Front-end.
     </description>
-    <version>0.9.0.3-SNAPSHOT</version>
+    <version>0.9.0.3</version>
     <url>https://github.com/atbashEE/jsf-renderer-extensions</url>
 
 
@@ -91,7 +91,7 @@
         <maven.compiler.target>1.7</maven.compiler.target>
 
         <atbash.config.version>0.9.3</atbash.config.version>
-        <atbash.utils.version>0.9.3</atbash.utils.version>
+        <atbash.utils.version>0.9.3.1</atbash.utils.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
