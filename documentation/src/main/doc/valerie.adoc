@@ -1,6 +1,6 @@
 = Bean validation for JSF Components (Valerie)
 Rudy De Busscher <rdebusscher@gmail.com>
-v0.9.0.2, 05/08/2018
+v1.0.0, ??/??/2020
 
 == Introduction
 
@@ -51,6 +51,11 @@ Valerie allows the integration of your custom annotations.
 With the help of the @RecordValue we are able to perform class level bean validations in the Process Validations JSF Phase.  And this without placing the screen values in the bean.
 
 == Releases
+
+v1.0.0 (??/??/2020)
+
+. Drop support for Java 7. Only Java 8 and JDK 11 (classpath) supported.
+. Java EE 8 is a minimum.
 
 v0.9.0.2 (05/08/2018)
 
