@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class ValSizeValidator implements ConstraintValidator<ValSize, Object> {
         boolean result = value != null || sizeAnnotation.min() == 0;
         if (result) {
             if (sizeAnnotation.min() > 0) {
-                String data = value.toString();
+                String data = value.toString();  // FIXME value can be null
                 int length = data.length();
                 if (length < sizeAnnotation.min() || length > sizeAnnotation.max()) {
                     result = false;

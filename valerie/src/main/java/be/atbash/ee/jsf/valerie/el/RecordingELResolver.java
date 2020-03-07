@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,7 +103,7 @@ public class RecordingELResolver extends ELResolver {
 
             try {
                 if (base instanceof Map) {
-                    if (((Map) base).containsKey(property)) {
+                    if (((Map<?,?>) base).containsKey(property)) {
                         propertyExists = true;
                     }
                 } else if (ProxyUtils.getUnproxiedClass(base.getClass()).getMethod("get" + propertyName) != null) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.inject.Typed;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Data holder which stores the meta-data and some information where the meta-data was found.
@@ -146,13 +147,13 @@ public class MetaDataEntry {
 
         MetaDataEntry that = (MetaDataEntry) o;
 
-        if (key != null ? !key.equals(that.key) : that.key != null) {
+        if (!Objects.equals(key, that.key)) {
             return false;
         }
-        if (properties != null ? !properties.equals(that.properties) : that.properties != null) {
+        if (!Objects.equals(properties, that.properties)) {
             return false;
         }
-        return !(value != null ? !value.equals(that.value) : that.value != null);
+        return Objects.equals(value, that.value);
 
     }
 

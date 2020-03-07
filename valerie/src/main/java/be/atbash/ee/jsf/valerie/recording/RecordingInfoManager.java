@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,22 +55,18 @@ public class RecordingInfoManager {
     }
 
     public boolean processClassLevelConstraints(FacesContext facesContext) {
-        boolean result = true;
         List<RecordValueData> recordedData = (List<RecordValueData>) facesContext.getAttributes().get(PropertyInformationKeys.RECORDING_INFORMATION);
 
         if (recordedData == null) {
-            return result;
+            return true;
         }
+        boolean result = true;
 
         Map<RecordValueInfo.Key, List<RecordValueData>> grouped = new HashMap<>();
 
         for (RecordValueData recordValueData : recordedData) {
             RecordValueInfo.Key key = recordValueData.getRecordValueInfo().getKey();
-            List<RecordValueData> recordValueDatas = grouped.get(key);
-            if (recordValueDatas == null) {
-                recordValueDatas = new ArrayList<>();
-                grouped.put(key, recordValueDatas);
-            }
+            List<RecordValueData> recordValueDatas = grouped.computeIfAbsent(key, k -> new ArrayList<>());
             recordValueDatas.add(recordValueData);
         }
 
@@ -116,7 +112,7 @@ public class RecordingInfoManager {
         }
         MethodHandle handle = getHandle(target.getClass(), classProperty, data.getClass());
         try {
-            handle.invokeWithArguments(target, data);
+            handle.invokeWithArguments(target, data); // FIXME handle can be null
         } catch (Throwable throwable) {
             throw new AtbashUnexpectedException(throwable);
         }
@@ -138,10 +134,10 @@ public class RecordingInfoManager {
     // FIXME We should cache this.
 
     private String setAccessorMethodName(String property) {
-        StringBuilder builder = new StringBuilder("set");
-        builder.append(Character.toUpperCase(property.charAt(0)));
-        builder.append(property.substring(1));
-        return builder.toString();
+        String builder;
+        builder = "set" + Character.toUpperCase(property.charAt(0)) +
+                property.substring(1);
+        return builder;
     }
 
     private MethodHandle getHandle(Class<?> target, String property, Class<?> propertyType) {
@@ -150,10 +146,9 @@ public class RecordingInfoManager {
 
         try {
             return MethodHandles.lookup().findVirtual(target, setAccessorMethodName(property), methodType);
-        } catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            // FIXME
         }
         return null;
     }

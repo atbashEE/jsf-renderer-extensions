@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public class PropertyStorage {
     private Map<String, List<String>> fieldNotAvailableMap = new ConcurrentHashMap<>();
     private Map<String, List<String>> methodNotAvailableMap = new ConcurrentHashMap<>();
 
-    public void storeField(Class targetClass, String property, Field field) {
+    public void storeField(Class<?> targetClass, String property, Field field) {
         if (field != null) {
             getFieldMapForClass(targetClass).put(property, field);
         } else {
@@ -48,7 +48,7 @@ public class PropertyStorage {
         }
     }
 
-    public void storeMethod(Class targetClass, String property, Method method) {
+    public void storeMethod(Class<?> targetClass, String property, Method method) {
         if (method != null) {
             getMethodMapForClass(targetClass).put(property, method);
         } else {
@@ -56,17 +56,17 @@ public class PropertyStorage {
         }
     }
 
-    public Field getField(Class targetClass, String property) {
+    public Field getField(Class<?> targetClass, String property) {
         Map<String, Field> fieldMap = getFieldMapForClass(targetClass);
         return fieldMap.get(property);
     }
 
-    public Method getMethod(Class targetClass, String property) {
+    public Method getMethod(Class<?> targetClass, String property) {
         Map<String, Method> methodMap = getMethodMapForClass(targetClass);
         return methodMap.get(property);
     }
 
-    public boolean containsField(Class targetClass, String property) {
+    public boolean containsField(Class<?> targetClass, String property) {
         boolean result = getFieldMapForClass(targetClass).containsKey(property);
 
         if (!result) {
@@ -75,7 +75,7 @@ public class PropertyStorage {
         return result;
     }
 
-    public boolean containsMethod(Class targetClass, String property) {
+    public boolean containsMethod(Class<?> targetClass, String property) {
         boolean result = getMethodMapForClass(targetClass).containsKey(property);
 
         if (!result) {
@@ -84,34 +84,34 @@ public class PropertyStorage {
         return result;
     }
 
-    private Map<String, Field> getFieldMapForClass(Class target) {
+    private Map<String, Field> getFieldMapForClass(Class<?> target) {
         String key = ProxyUtils.getClassName(target);
         if (!this.fieldMap.containsKey(key)) {
-            this.fieldMap.put(key, new ConcurrentHashMap<String, Field>());
+            this.fieldMap.put(key, new ConcurrentHashMap<>());
         }
         return this.fieldMap.get(key);
     }
 
-    private List<String> getNotAvailableFieldListForClass(Class target) {
+    private List<String> getNotAvailableFieldListForClass(Class<?> target) {
         String key = ProxyUtils.getClassName(target);
         if (!this.fieldNotAvailableMap.containsKey(key)) {
-            this.fieldNotAvailableMap.put(key, new CopyOnWriteArrayList<String>());
+            this.fieldNotAvailableMap.put(key, new CopyOnWriteArrayList<>());
         }
         return this.fieldNotAvailableMap.get(key);
     }
 
-    private Map<String, Method> getMethodMapForClass(Class target) {
+    private Map<String, Method> getMethodMapForClass(Class<?> target) {
         String key = ProxyUtils.getClassName(target);
         if (!this.methodMap.containsKey(key)) {
-            this.methodMap.put(key, new ConcurrentHashMap<String, Method>());
+            this.methodMap.put(key, new ConcurrentHashMap<>());
         }
         return this.methodMap.get(key);
     }
 
-    private List<String> getNotAvailableMethodListForClass(Class target) {
+    private List<String> getNotAvailableMethodListForClass(Class<?> target) {
         String key = ProxyUtils.getClassName(target);
         if (!this.methodNotAvailableMap.containsKey(key)) {
-            this.methodNotAvailableMap.put(key, new CopyOnWriteArrayList<String>());
+            this.methodNotAvailableMap.put(key, new CopyOnWriteArrayList<>());
         }
         return this.methodNotAvailableMap.get(key);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import be.atbash.ee.jsf.jerry.ordering.InvocationOrderComparator;
 import be.atbash.util.CDIUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,7 +40,7 @@ public final class InvocationOrderedArtifactsProvider {
     private void prepareRendererInterceptors() {
         // CDIUtils.retrieveInstances returns unmodifiable List.
         rendererInterceptors = new ArrayList<>(CDIUtils.retrieveInstances(RendererInterceptor.class));
-        Collections.sort(rendererInterceptors, new InvocationOrderComparator<RendererInterceptor>());
+        rendererInterceptors.sort(new InvocationOrderComparator<>());
     }
 
     public static List<RendererInterceptor> getRendererInterceptors() {
@@ -56,7 +55,7 @@ public final class InvocationOrderedArtifactsProvider {
     private void prepareInitializers() {
         // CDIUtils.retrieveInstances returns unmodifiable List.
         initializers = new ArrayList<>(CDIUtils.retrieveInstances(ComponentInitializer.class));
-        Collections.sort(initializers, new InvocationOrderComparator<ComponentInitializer>());
+        initializers.sort(new InvocationOrderComparator<>());
     }
 
     public static List<ComponentInitializer> getComponentInitializers() {

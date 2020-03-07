@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,10 +46,11 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
     public boolean isValid(Object object,
                            ConstraintValidatorContext constraintValidatorContext) {
         boolean result = true;
-        Class clazz = object.getClass();
+        Class<?> clazz = object.getClass();
 
         MethodHandle handleStart = getHandle(clazz, start);
         MethodHandle handleEnd = getHandle(clazz, end);
+        // FIXME handleStart, handleEnd can be null.
         try {
             Date startDate = (Date) handleStart.invokeWithArguments(object);
             Date endDate = (Date) handleEnd.invokeWithArguments(object);
@@ -68,10 +69,8 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
     }
 
     private String getAccessorMethodName(String property) {
-        StringBuilder builder = new StringBuilder("get");
-        builder.append(Character.toUpperCase(property.charAt(0)));
-        builder.append(property.substring(1));
-        return builder.toString();
+        return "get" + Character.toUpperCase(property.charAt(0)) +
+                property.substring(1);
     }
 
     private MethodHandle getHandle(Class<?> target, String property) {

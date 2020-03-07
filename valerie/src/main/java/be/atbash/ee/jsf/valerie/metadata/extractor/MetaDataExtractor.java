@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ public class MetaDataExtractor {
         /*
          * get bean class and property name
          */
-        Class entityClass = ProxyUtils.getUnproxiedClass(propertyDetails.getBaseObject().getClass());
+        Class<?> entityClass = ProxyUtils.getUnproxiedClass(propertyDetails.getBaseObject().getClass());
 
         PropertyInformation propertyInformation = getPropertyInformation(entityClass, propertyDetails);
 
@@ -84,7 +84,7 @@ public class MetaDataExtractor {
         return propertyInformation;
     }
 
-    protected PropertyInformation getPropertyInformation(Class entityClass, PropertyDetails propertyDetails) {
+    protected PropertyInformation getPropertyInformation(Class<?> entityClass, PropertyDetails propertyDetails) {
 
         return AnnotationUtils.extractAnnotations(entityClass, propertyDetails);
 

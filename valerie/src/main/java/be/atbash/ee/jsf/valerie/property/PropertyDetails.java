@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package be.atbash.ee.jsf.valerie.property;
+
+import java.util.Objects;
 
 /**
  */
@@ -64,13 +66,13 @@ public class PropertyDetails {
 
         PropertyDetails that = (PropertyDetails) o;
 
-        if (baseObject != null ? !baseObject.equals(that.baseObject) : that.baseObject != null) {
+        if (!Objects.equals(baseObject, that.baseObject)) {
             return false;
         }
-        if (key != null ? !key.equals(that.key) : that.key != null) {
+        if (!Objects.equals(key, that.key)) {
             return false;
         }
-        return !(property != null ? !property.equals(that.property) : that.property != null);
+        return Objects.equals(property, that.property);
 
     }
 

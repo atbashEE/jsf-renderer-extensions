@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ public class RequiredMarkerInitializer implements ComponentInitializer {
         if (label.getFor() != null && !label.getFor().trim().isEmpty()) {
             UIComponent targetComponent = label.findComponent(label.getFor());
 
-            if (targetComponent != null && targetComponent instanceof UIInput) {
+            if (targetComponent instanceof UIInput) {
 
                 informationManager.determineInformation(facesContext, targetComponent);
                 initializerManager.performInitialization(facesContext, targetComponent);

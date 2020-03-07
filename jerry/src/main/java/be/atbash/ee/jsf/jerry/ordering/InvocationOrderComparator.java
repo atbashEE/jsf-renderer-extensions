@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,8 +30,8 @@ public class InvocationOrderComparator<T> implements Comparator<T>, Serializable
 
     public int compare(T nm1, T nm2) {
         if (hasPriority(nm1) && hasPriority(nm2)) {
-            InvocationOrder priority1 = (InvocationOrder) getUnproxiedClass(nm1).getAnnotation(InvocationOrder.class);
-            InvocationOrder priority2 = (InvocationOrder) getUnproxiedClass(nm2).getAnnotation(InvocationOrder.class);
+            InvocationOrder priority1 = getUnproxiedClass(nm1).getAnnotation(InvocationOrder.class);
+            InvocationOrder priority2 = getUnproxiedClass(nm2).getAnnotation(InvocationOrder.class);
             return isPriorityHigher(priority1, priority2);
         }
         if (!hasPriority(nm1) && !hasPriority(nm2)) {
@@ -52,7 +52,7 @@ public class InvocationOrderComparator<T> implements Comparator<T>, Serializable
         return getUnproxiedClass(nm).isAnnotationPresent(InvocationOrder.class);
     }
 
-    private Class getUnproxiedClass(Object nm) {
+    private Class<?> getUnproxiedClass(Object nm) {
         return ProxyUtils.getUnproxiedClass(nm.getClass());
     }
 }

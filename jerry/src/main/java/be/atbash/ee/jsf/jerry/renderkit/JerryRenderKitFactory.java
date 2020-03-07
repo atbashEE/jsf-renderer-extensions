@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,6 @@ import java.util.Map;
  */
 @Typed()
 public class JerryRenderKitFactory extends RenderKitFactory {
-    private RenderKitFactory wrapped;
 
     private JerryConfiguration configurator;
 
@@ -41,7 +40,7 @@ public class JerryRenderKitFactory extends RenderKitFactory {
     private Class<? extends RenderKitWrapper> wrapperClass;
 
     public JerryRenderKitFactory(RenderKitFactory wrapped) {
-        this.wrapped = wrapped;
+        super(wrapped);
         renderKitMap = new HashMap<>();
 
         configurator = CDIUtils.retrieveInstance(JerryConfiguration.class);
@@ -51,7 +50,7 @@ public class JerryRenderKitFactory extends RenderKitFactory {
 
     @Override
     public void addRenderKit(String renderKitId, RenderKit renderKit) {
-        wrapped.addRenderKit(renderKitId, renderKit);
+        getWrapped().addRenderKit(renderKitId, renderKit);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class JerryRenderKitFactory extends RenderKitFactory {
             result = renderKitMap.get(renderKitId);
         }
         if (result == null) {
-            RenderKit renderKit = wrapped.getRenderKit(context, renderKitId);
+            RenderKit renderKit = getWrapped().getRenderKit(context, renderKitId);
 
             result = ClassUtils.newInstance(wrapperClass, renderKit);
             renderKitMap.put(renderKitId, result);
@@ -72,11 +71,6 @@ public class JerryRenderKitFactory extends RenderKitFactory {
 
     @Override
     public Iterator<String> getRenderKitIds() {
-        return wrapped.getRenderKitIds();
-    }
-
-    @Override
-    public RenderKitFactory getWrapped() {
-        return wrapped;
+        return getWrapped().getRenderKitIds();
     }
 }

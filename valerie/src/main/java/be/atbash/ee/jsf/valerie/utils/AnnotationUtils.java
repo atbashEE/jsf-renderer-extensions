@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ public final class AnnotationUtils {
      * @param propertyDetails information about the property
      * @return a datastructure which contains all information about the target-property
      */
-    public static PropertyInformation extractAnnotations(Class entityClass, PropertyDetails propertyDetails) {
+    public static PropertyInformation extractAnnotations(Class<?> entityClass, PropertyDetails propertyDetails) {
         PropertyInformation propertyInformation = new DefaultPropertyInformation();
         propertyInformation.setInformation(PropertyInformationKeys.PROPERTY_DETAILS, propertyDetails);
 
@@ -92,7 +92,7 @@ public final class AnnotationUtils {
      * @param propertyInformation Where the MetaDataEntries for the annotations are added.
      */
     public static void addPropertyAccessAnnotations(PropertyStorage storage,
-                                                    Class entity,
+                                                    Class<?> entity,
                                                     String property,
                                                     PropertyInformation propertyInformation) {
         Method method = ReflectionUtils.tryToGetMethodOfProperty(storage, entity, property);
@@ -113,7 +113,7 @@ public final class AnnotationUtils {
      * @param propertyInformation Where the MetaDataEntries for the annotations are added.
      */
     public static void addFieldAccessAnnotations(PropertyStorage storage,
-                                                 Class entity,
+                                                 Class<?> entity,
                                                  String property,
                                                  PropertyInformation propertyInformation) {
         Field field = ReflectionUtils.tryToGetFieldOfProperty(storage, entity, property);
@@ -123,10 +123,10 @@ public final class AnnotationUtils {
         }
     }
 
-    private static void processInterfaces(PropertyStorage storage, Class currentClass,
+    private static void processInterfaces(PropertyStorage storage, Class<?> currentClass,
                                           PropertyDetails propertyDetails,
                                           PropertyInformation propertyInformation) {
-        for (Class currentInterface : currentClass.getInterfaces()) {
+        for (Class<?> currentInterface : currentClass.getInterfaces()) {
             addPropertyAccessAnnotations(storage, currentInterface, propertyDetails.getProperty(), propertyInformation);
 
             processInterfaces(storage, currentInterface, propertyDetails, propertyInformation);
@@ -181,8 +181,8 @@ public final class AnnotationUtils {
 
     }
 
-    private static List<Class<? extends ConstraintValidator<?, ?>>> getBeanConstraintValidator(Class annotationClass) {
-        Constraint annotation = (Constraint) annotationClass.getAnnotation(Constraint.class);
+    private static List<Class<? extends ConstraintValidator<?, ?>>> getBeanConstraintValidator(Class<?> annotationClass) {
+        Constraint annotation = annotationClass.getAnnotation(Constraint.class);
 
         List<Class<? extends ConstraintValidator<?, ?>>> result = new ArrayList<>();
         if (annotation != null) {
@@ -193,7 +193,7 @@ public final class AnnotationUtils {
 
     }
 
-    public static List<RecordValueInfo> getClassLevelBeanValidationInfo(Class clazz) {
+    public static List<RecordValueInfo> getClassLevelBeanValidationInfo(Class<?> clazz) {
         List<RecordValueInfo> result = new ArrayList<>();
 
         for (Annotation annotation : clazz.getDeclaredAnnotations()) {

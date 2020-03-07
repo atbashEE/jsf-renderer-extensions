@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,27 +25,21 @@ import javax.faces.render.Renderer;
  */
 @Typed()
 public class JerryRenderKit extends RenderKitWrapper {
-    protected RenderKit wrapped;
 
     public JerryRenderKit(RenderKit wrapped) {
-        this.wrapped = wrapped;
-    }
-
-    @Override
-    public RenderKit getWrapped() {
-        return wrapped;
+        super(wrapped);
     }
 
     public void addRenderer(String family, String rendererType, Renderer renderer) {
         if (renderer instanceof JerryRendererWrapper) {
-            wrapped.addRenderer(family, rendererType, renderer);
+            getWrapped().addRenderer(family, rendererType, renderer);
         } else {
-            wrapped.addRenderer(family, rendererType, createWrapper(renderer));
+            getWrapped().addRenderer(family, rendererType, createWrapper(renderer));
         }
     }
 
     public Renderer getRenderer(String family, String rendererType) {
-        Renderer renderer = wrapped.getRenderer(family, rendererType);
+        Renderer renderer = getWrapped().getRenderer(family, rendererType);
 
         if (renderer != null) {
             return renderer instanceof JerryRendererWrapper ? renderer : createWrapper(renderer);
