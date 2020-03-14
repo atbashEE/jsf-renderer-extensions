@@ -36,6 +36,7 @@ public class ValSizeValidator implements ConstraintValidator<ValSize, Object> {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         boolean result = value != null || sizeAnnotation.min() == 0;

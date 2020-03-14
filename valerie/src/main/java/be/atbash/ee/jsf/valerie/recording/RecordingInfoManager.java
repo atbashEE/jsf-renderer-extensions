@@ -16,6 +16,7 @@
 package be.atbash.ee.jsf.valerie.recording;
 
 import be.atbash.ee.jsf.jerry.metadata.PropertyInformationKeys;
+import be.atbash.ee.jsf.valerie.utils.MethodHandleUtils;
 import be.atbash.util.exception.AtbashUnexpectedException;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -27,8 +28,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.groups.Default;
 import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -110,9 +109,12 @@ public class RecordingInfoManager {
             // Nothing to do
             return;
         }
-        MethodHandle handle = getHandle(target.getClass(), classProperty, data.getClass());
+        MethodHandle handle = MethodHandleUtils.getSetterHandle(target.getClass(), classProperty, data.getClass());
+        if (handle == null) {
+            return; // getSetterHandle already logs warning
+        }
         try {
-            handle.invokeWithArguments(target, data); // FIXME handle can be null
+            handle.invokeWithArguments(target, data);
         } catch (Throwable throwable) {
             throw new AtbashUnexpectedException(throwable);
         }
@@ -128,29 +130,6 @@ public class RecordingInfoManager {
             throw new AtbashUnexpectedException(e);
         }
         return result;
-    }
-
-    // FIXME duplicated from DateRangeValidator
-    // FIXME We should cache this.
-
-    private String setAccessorMethodName(String property) {
-        String builder;
-        builder = "set" + Character.toUpperCase(property.charAt(0)) +
-                property.substring(1);
-        return builder;
-    }
-
-    private MethodHandle getHandle(Class<?> target, String property, Class<?> propertyType) {
-
-        MethodType methodType = MethodType.methodType(void.class, propertyType);
-
-        try {
-            return MethodHandles.lookup().findVirtual(target, setAccessorMethodName(property), methodType);
-        } catch (NoSuchMethodException | IllegalAccessException e) {
-            e.printStackTrace();
-            // FIXME
-        }
-        return null;
     }
 
 }

@@ -15,14 +15,13 @@
  */
 package be.atbash.ee.jsf.valerie.custom;
 
+import be.atbash.ee.jsf.valerie.utils.MethodHandleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
 import java.util.Date;
 
 /**
@@ -31,7 +30,6 @@ import java.util.Date;
 public class DateRangeValidator implements ConstraintValidator<DateRange, Object> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DateRangeValidator.class);
-    private static final MethodType DATE_GETTER = MethodType.methodType(Date.class);
 
     private String start;
     private String end;
@@ -48,11 +46,11 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
         boolean result = true;
         Class<?> clazz = object.getClass();
 
-        MethodHandle handleStart = getHandle(clazz, start);
+        MethodHandle handleStart = MethodHandleUtils.getGetterHandle(clazz, start);
         if (handleStart == null) {
             throw new DateRangeValidatorPropertyException(String.format("Unknown object property defined for 'start' : %s", start));
         }
-        MethodHandle handleEnd = getHandle(clazz, end);
+        MethodHandle handleEnd = MethodHandleUtils.getGetterHandle(clazz, end);
         if (handleEnd == null) {
             throw new DateRangeValidatorPropertyException(String.format("Unknown object property defined for 'end' : %s", end));
         }
@@ -73,18 +71,4 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
         return result;
     }
 
-    private String getAccessorMethodName(String property) {
-        return "get" + Character.toUpperCase(property.charAt(0)) +
-                property.substring(1);
-    }
-
-    private MethodHandle getHandle(Class<?> target, String property) {
-
-        try {
-            return MethodHandles.lookup().findVirtual(target, getAccessorMethodName(property), DATE_GETTER);
-        } catch (NoSuchMethodException | IllegalAccessException e) {
-            LOGGER.warn(String.format("Unable to find/access the Date property '%s' of class %s", property, target.getName()), e);
-        }
-        return null;
-    }
 }

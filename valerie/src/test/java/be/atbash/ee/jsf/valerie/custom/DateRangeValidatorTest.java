@@ -19,6 +19,7 @@ import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel1;
 import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel2;
 import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel3;
 import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel4;
+import be.atbash.ee.jsf.valerie.utils.MethodHandleUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class DateRangeValidatorTest {
 
     private DateRangeValidator validator;
 
-    private TestLogger logger = TestLoggerFactory.getTestLogger(DateRangeValidator.class);
+    private TestLogger logger = TestLoggerFactory.getTestLogger(MethodHandleUtils.class);
 
     @Before
     public void setup() throws ParseException {
