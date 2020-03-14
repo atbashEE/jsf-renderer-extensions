@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,13 @@ package be.atbash.ee.jsf.valerie.custom;
 
 import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel1;
 import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel2;
+import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel3;
+import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel4;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import uk.org.lidalia.slf4jtest.TestLogger;
+import uk.org.lidalia.slf4jtest.TestLoggerFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -38,6 +43,8 @@ public class DateRangeValidatorTest {
 
     private DateRangeValidator validator;
 
+    private TestLogger logger = TestLoggerFactory.getTestLogger(DateRangeValidator.class);
+
     @Before
     public void setup() throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -47,6 +54,11 @@ public class DateRangeValidatorTest {
 
         validator = new DateRangeValidator();
 
+    }
+
+    @After
+    public void teardown() {
+        logger.clearAll();
     }
 
     @Test
@@ -141,5 +153,39 @@ public class DateRangeValidatorTest {
 
         boolean valid = validator.isValid(model, null);
         assertThat(valid).isTrue();
+    }
+
+    @Test(expected = DateRangeValidatorPropertyException.class)
+    public void testIsValid_wrongStartDateProperty() {
+        DateRangeModel3 model = new DateRangeModel3();
+        model.setStartDate(date1);
+        model.setEndDate(date3);
+
+        validator.initialize(model.getClass().getAnnotation(DateRange.class));
+
+        try {
+            validator.isValid(model, null);
+        } finally {
+            assertThat(logger.getLoggingEvents()).hasSize(1);
+            assertThat(logger.getLoggingEvents().get(0).getMessage()).isEqualTo("Unable to find/access the Date property 'wrongStartDateProperty' of class be.atbash.ee.jsf.valerie.custom.model.DateRangeModel3");
+        }
+
+    }
+
+    @Test(expected = DateRangeValidatorPropertyException.class)
+    public void testIsValid_wrongEndDateProperty() {
+        DateRangeModel4 model = new DateRangeModel4();
+        model.setStartDate(date1);
+        model.setEndDate(date3);
+
+        validator.initialize(model.getClass().getAnnotation(DateRange.class));
+
+        try {
+            validator.isValid(model, null);
+        } finally {
+            assertThat(logger.getLoggingEvents()).hasSize(1);
+            assertThat(logger.getLoggingEvents().get(0).getMessage()).isEqualTo("Unable to find/access the Date property 'wrongEndDateProperty' of class be.atbash.ee.jsf.valerie.custom.model.DateRangeModel4");
+        }
+
     }
 }

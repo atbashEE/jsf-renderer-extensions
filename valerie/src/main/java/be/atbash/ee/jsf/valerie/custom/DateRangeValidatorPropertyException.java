@@ -13,19 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.jsf.jerry.example.startup;
+package be.atbash.ee.jsf.valerie.custom;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
+import be.atbash.util.exception.AtbashUnexpectedException;
 
-/**
- *
- */
-@ApplicationScoped
-public class Info {
+public class DateRangeValidatorPropertyException extends AtbashUnexpectedException {
 
-    public void onStartup(@Observes @Initialized(ApplicationScoped.class) Object init) {
-        System.out.println("Application is started");
+    public DateRangeValidatorPropertyException(String message) {
+        super(message);
     }
 }

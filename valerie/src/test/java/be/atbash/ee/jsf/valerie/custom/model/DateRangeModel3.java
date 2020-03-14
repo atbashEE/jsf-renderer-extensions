@@ -13,19 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.jsf.jerry.example.startup;
+package be.atbash.ee.jsf.valerie.custom.model;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
+import be.atbash.ee.jsf.valerie.custom.DateRange;
+
+import java.util.Date;
 
 /**
  *
  */
-@ApplicationScoped
-public class Info {
+@DateRange(start = "wrongStartDateProperty", end = "endDate")
+public class DateRangeModel3 {
 
-    public void onStartup(@Observes @Initialized(ApplicationScoped.class) Object init) {
-        System.out.println("Application is started");
+    private Date startDate;
+    private Date endDate;
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

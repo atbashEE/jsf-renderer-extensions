@@ -55,11 +55,8 @@ public class JerryRenderKitFactory extends RenderKitFactory {
 
     @Override
     public RenderKit getRenderKit(FacesContext context, String renderKitId) {
-        RenderKit result = null;
-        // We shouldn't cache when JSF is still settings thing up.  It will result in Exceptions.
-        if (configurator.isJsfReady()) {
-            result = renderKitMap.get(renderKitId);
-        }
+        RenderKit result =  renderKitMap.get(renderKitId);
+
         if (result == null) {
             RenderKit renderKit = getWrapped().getRenderKit(context, renderKitId);
 

@@ -49,8 +49,13 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
         Class<?> clazz = object.getClass();
 
         MethodHandle handleStart = getHandle(clazz, start);
+        if (handleStart == null) {
+            throw new DateRangeValidatorPropertyException(String.format("Unknown object property defined for 'start' : %s", start));
+        }
         MethodHandle handleEnd = getHandle(clazz, end);
-        // FIXME handleStart, handleEnd can be null.
+        if (handleEnd == null) {
+            throw new DateRangeValidatorPropertyException(String.format("Unknown object property defined for 'end' : %s", end));
+        }
         try {
             Date startDate = (Date) handleStart.invokeWithArguments(object);
             Date endDate = (Date) handleEnd.invokeWithArguments(object);
@@ -78,7 +83,7 @@ public class DateRangeValidator implements ConstraintValidator<DateRange, Object
         try {
             return MethodHandles.lookup().findVirtual(target, getAccessorMethodName(property), DATE_GETTER);
         } catch (NoSuchMethodException | IllegalAccessException e) {
-            LOGGER.warn(String.format("Unable to find/access the Date property %s of class %s", property, target.getName()), e);
+            LOGGER.warn(String.format("Unable to find/access the Date property '%s' of class %s", property, target.getName()), e);
         }
         return null;
     }
