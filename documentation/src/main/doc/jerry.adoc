@@ -64,8 +64,12 @@ In case you don't use maven, you can just download the jar file and put in the `
 
 v1.0.0 (??/??/2020)
 
-  . Drop support for Java 7. Only Java 8 and JDK 11 (classpath) supported.
-  . Java EE 8 is a minimum.
+. Drop support for Java 7. Only Java 8 and JDK 11 (classpath) supported.
+. Java EE 8 is a minimum.
+
+Breaking change
+
+  . Removed `StartupEvent`, please use `onStartup(@Observes @Initialized(ApplicationScoped.class) Object init);` on a ApplicationScoped CDI bean.
 
 v0.9.0.2 (05/08/2018)
 
@@ -192,22 +196,6 @@ This are the important aspects of the code.
 
 The metaData parameter is filled up by Valerie, the (Bean) validation companion of Jerry.  In the advanced use case scenarios, there is also an example how you can use it using only Jerry features.
  
-
-=== Startup Event
-
-You can use the CDI event StartupEvent to perform any initialization when your application is deployed and ready on the server.
-
-.Log some message when application is ready
-[source,java]
-----
-
-    public void onStartup(@Observes StartupEvent startupEvent) {
-       System.out.println("Ready to roll"); // Please use logger !
-    }
-
-----
-
-TIP: You can also using the startup EJB singleton beans to perform some initialization. This is preferred if the initialization does some database actions.
 
 === Injectable Logger
 

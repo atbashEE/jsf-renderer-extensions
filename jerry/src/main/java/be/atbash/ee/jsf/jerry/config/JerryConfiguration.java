@@ -21,11 +21,9 @@ import be.atbash.config.logging.ConfigEntry;
 import be.atbash.config.logging.ModuleConfig;
 import be.atbash.config.logging.ModuleConfigName;
 import be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit;
-import be.atbash.ee.jsf.jerry.startup.StartupEvent;
 import be.atbash.util.reflection.UnknownClassException;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
 import javax.faces.render.RenderKitWrapper;
 
 /**
@@ -34,12 +32,6 @@ import javax.faces.render.RenderKitWrapper;
 @ApplicationScoped
 @ModuleConfigName("Jerry Configuration")
 public class JerryConfiguration extends AbstractConfiguration implements ModuleConfig {
-
-    private boolean jsfReady = false;
-
-    public void onStartup(@Observes StartupEvent startupEvent) {
-        jsfReady = true;
-    }
 
     @ConfigEntry
     public Class<? extends RenderKitWrapper> getRenderKitWrapperClass() {
@@ -57,7 +49,4 @@ public class JerryConfiguration extends AbstractConfiguration implements ModuleC
         return renderKitWrapperClass;
     }
 
-    public boolean isJsfReady() {
-        return jsfReady;
-    }
 }
