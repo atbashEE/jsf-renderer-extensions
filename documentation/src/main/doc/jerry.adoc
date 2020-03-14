@@ -195,28 +195,7 @@ This are the important aspects of the code.
 . Perform the required functionality in the `configureComponent` method.
 
 The metaData parameter is filled up by Valerie, the (Bean) validation companion of Jerry.  In the advanced use case scenarios, there is also an example how you can use it using only Jerry features.
- 
 
-=== Injectable Logger
-
-Jerry uses SLF4J as logging facade. You can inject such loggers by creating a simple Producer method.  That method is available within Jerry and thus injectable loggers can be used.
-
-.Usage of injectable logger.
-[source,java]
-----
-
-  @Inject
-  private Logger logger;
-
-  public void doSomething() {
-     logger.info("Performed the doSomething");
-  }
-
-----
-
-The type of logger is `org.slf4j.Logger`.
-
-WARNING: This feature will be moved to Atbash-cdi project.
 
 == Configuration
 
