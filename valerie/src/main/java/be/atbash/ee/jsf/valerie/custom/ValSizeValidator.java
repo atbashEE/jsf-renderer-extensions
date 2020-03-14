@@ -28,6 +28,12 @@ public class ValSizeValidator implements ConstraintValidator<ValSize, Object> {
     public void initialize(ValSize constraintAnnotation) {
 
         sizeAnnotation = constraintAnnotation;
+        if (sizeAnnotation.min() < 0) {
+            throw new ValSizeValidatorException(String.format("'min' property for @ValSize must be 0 or more but is %s", sizeAnnotation.min()));
+        }
+        if (sizeAnnotation.min() > sizeAnnotation.max()) {
+            throw new ValSizeValidatorException(String.format("'min' property for @ValSize must be smaller or equal then 'max property; min = %s, max = %s", sizeAnnotation.min(), sizeAnnotation.max()));
+        }
     }
 
     @Override
@@ -35,7 +41,7 @@ public class ValSizeValidator implements ConstraintValidator<ValSize, Object> {
         boolean result = value != null || sizeAnnotation.min() == 0;
         if (result) {
             if (sizeAnnotation.min() > 0) {
-                String data = value.toString();  // FIXME value can be null
+                String data = value.toString();  // With validation in initialize value can never bu null here.
                 int length = data.length();
                 if (length < sizeAnnotation.min() || length > sizeAnnotation.max()) {
                     result = false;

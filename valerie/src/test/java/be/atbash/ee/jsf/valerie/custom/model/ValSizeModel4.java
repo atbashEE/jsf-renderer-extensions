@@ -13,13 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.atbash.ee.jsf.valerie.custom;
+package be.atbash.ee.jsf.valerie.custom.model;
 
-import be.atbash.util.exception.AtbashException;
+import be.atbash.ee.jsf.valerie.custom.ValSize;
 
-public class DateRangeValidatorPropertyException extends AtbashException {
+public class ValSizeModel4 {
 
-    public DateRangeValidatorPropertyException(String message) {
-        super(message);
+    @ValSize(min = 6, max = 5)
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

@@ -17,9 +17,9 @@ package be.atbash.ee.jsf.valerie.custom;
 
 import be.atbash.util.exception.AtbashException;
 
-public class DateRangeValidatorPropertyException extends AtbashException {
+public class ValSizeValidatorException extends AtbashException {
 
-    public DateRangeValidatorPropertyException(String message) {
+    public ValSizeValidatorException(String message) {
         super(message);
     }
 }
