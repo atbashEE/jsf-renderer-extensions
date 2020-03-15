@@ -19,7 +19,7 @@ import be.atbash.ee.jsf.jerry.metadata.MetaDataEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.inject.Typed;
+import javax.enterprise.inject.Vetoed;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  *
  */
-@Typed()
+@Vetoed
 public class DefaultPropertyInformation implements PropertyInformation {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 

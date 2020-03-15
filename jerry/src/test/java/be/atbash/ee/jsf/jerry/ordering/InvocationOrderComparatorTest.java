@@ -18,7 +18,6 @@ package be.atbash.ee.jsf.jerry.ordering;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +35,7 @@ public class InvocationOrderComparatorTest {
         d.add(new OrderDefault());
         d.add(new Order100());
 
-        Collections.sort(d, new InvocationOrderComparator<>());
+        d.sort(new InvocationOrderComparator<>());
         assertThat(d.get(0)).isExactlyInstanceOf(Order100.class);
         assertThat(d.get(1)).isExactlyInstanceOf(OrderDefault.class);
         assertThat(d.get(2)).isExactlyInstanceOf(Order10000.class);
@@ -48,7 +47,7 @@ public class InvocationOrderComparatorTest {
         d.add(new NoOrder(ID_X));
         d.add(new Order10000());
 
-        Collections.sort(d, new InvocationOrderComparator<>());
+        d.sort(new InvocationOrderComparator<>());
         assertThat(d.get(0)).isExactlyInstanceOf(Order10000.class);
         assertThat(d.get(1)).isExactlyInstanceOf(NoOrder.class);
 
@@ -60,7 +59,7 @@ public class InvocationOrderComparatorTest {
         d.add(new NoOrder(ID_X));
         d.add(new NoOrder(ID_Y));
 
-        Collections.sort(d, new InvocationOrderComparator<NoOrder>());
+        d.sort(new InvocationOrderComparator<NoOrder>());
         assertThat(d.get(0).getId()).isEqualTo(ID_X);
         assertThat(d.get(1).getId()).isEqualTo(ID_Y);
 

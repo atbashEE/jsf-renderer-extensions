@@ -19,7 +19,7 @@ import be.atbash.util.PublicAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.inject.Typed;
+import javax.enterprise.inject.Vetoed;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * Data holder which stores the meta-data and some information where the meta-data was found.
  */
-@Typed()
+@Vetoed
 @PublicAPI
 public class MetaDataEntry {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());

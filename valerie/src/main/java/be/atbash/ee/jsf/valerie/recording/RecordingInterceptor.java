@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ public class RecordingInterceptor extends AbstractRendererInterceptor {
     @Override
     public void afterGetConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object submittedValue, Object convertedValue,
                                        Renderer wrapped) throws ConverterException, SkipAfterInterceptorsException {
-        // FIXME We have this on various locations !!
+
         String viewId = facesContext.getViewRoot().getViewId();
         String clientId = uiComponent.getClientId(facesContext);
 

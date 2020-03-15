@@ -15,7 +15,7 @@
  */
 package be.atbash.ee.jsf.jerry.renderkit;
 
-import javax.enterprise.inject.Typed;
+import javax.enterprise.inject.Vetoed;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 import javax.faces.render.Renderer;
@@ -23,7 +23,7 @@ import javax.faces.render.Renderer;
 /**
  *
  */
-@Typed()
+@Vetoed
 public class JerryRenderKit extends RenderKitWrapper {
 
     public JerryRenderKit(RenderKit wrapped) {

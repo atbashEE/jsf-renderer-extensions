@@ -19,7 +19,7 @@ import be.atbash.ee.jsf.jerry.config.JerryConfiguration;
 import be.atbash.util.CDIUtils;
 import be.atbash.util.reflection.ClassUtils;
 
-import javax.enterprise.inject.Typed;
+import javax.enterprise.inject.Vetoed;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
@@ -31,10 +31,8 @@ import java.util.Map;
 /**
  *
  */
-@Typed()
+@Vetoed
 public class JerryRenderKitFactory extends RenderKitFactory {
-
-    private JerryConfiguration configurator;
 
     private Map<String, RenderKit> renderKitMap;
     private Class<? extends RenderKitWrapper> wrapperClass;
@@ -43,7 +41,7 @@ public class JerryRenderKitFactory extends RenderKitFactory {
         super(wrapped);
         renderKitMap = new HashMap<>();
 
-        configurator = CDIUtils.retrieveInstance(JerryConfiguration.class);
+        JerryConfiguration configurator = CDIUtils.retrieveInstance(JerryConfiguration.class);
 
         wrapperClass = configurator.getRenderKitWrapperClass();
     }

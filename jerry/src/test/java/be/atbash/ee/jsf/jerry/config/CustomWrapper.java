@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2020 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import javax.faces.render.RenderKitWrapper;
 public class CustomWrapper extends RenderKitWrapper {
 
     public CustomWrapper(RenderKit wrapped) {
+        super(wrapped);
     }
 
     @Override
