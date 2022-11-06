@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@ package be.atbash.ee.jsf.jerry.example.validation.metadata.view;
 
 import be.atbash.ee.jsf.valerie.custom.ValSize;
 
-import javax.enterprise.inject.Model;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.enterprise.inject.Model;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  *

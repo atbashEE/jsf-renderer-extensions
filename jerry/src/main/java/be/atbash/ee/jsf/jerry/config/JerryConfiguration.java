@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2020 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ import be.atbash.config.logging.ModuleConfigName;
 import be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit;
 import be.atbash.util.reflection.UnknownClassException;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.faces.render.RenderKitWrapper;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.render.RenderKitWrapper;
 
 /**
  *
@@ -40,7 +40,7 @@ public class JerryConfiguration extends AbstractConfiguration implements ModuleC
             renderKitWrapperClass = getOptionalValue("jerry.renderkit.wrapper.class", JerryRenderKit.class, Class.class);
 
             if (!RenderKitWrapper.class.isAssignableFrom(renderKitWrapperClass)) {
-                throw new ConfigurationException("Class specified in parameter 'jerry.renderkit.wrapper.class' must be extending from javax.faces.render.RenderKitWrapper");
+                throw new ConfigurationException("Class specified in parameter 'jerry.renderkit.wrapper.class' must be extending from jakarta.faces.render.RenderKitWrapper");
             }
         } catch (UnknownClassException e) {
             throw new ConfigurationException(String.format("Class specified in parameter 'jerry.renderkit.wrapper.class' not found '%s'", "jerry.renderkit.wrapper.class"));

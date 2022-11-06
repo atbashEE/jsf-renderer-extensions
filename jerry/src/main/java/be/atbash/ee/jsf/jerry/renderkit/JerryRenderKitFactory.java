@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2020 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import be.atbash.ee.jsf.jerry.config.JerryConfiguration;
 import be.atbash.util.CDIUtils;
 import be.atbash.util.reflection.ClassUtils;
 
-import javax.enterprise.inject.Vetoed;
-import javax.faces.context.FacesContext;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.render.RenderKitWrapper;
+import jakarta.enterprise.inject.Vetoed;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.RenderKitFactory;
+import jakarta.faces.render.RenderKitWrapper;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

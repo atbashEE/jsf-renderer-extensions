@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2014-2020 Rudy De Busscher
+    Copyright 2014-2022 Rudy De Busscher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
-        <groupId>be.atbash.ee.jsf.renderer-extensions</groupId>
+        <groupId>be.atbash.jakarta.jsf.renderer-extensions</groupId>
         <artifactId>plugins</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -28,7 +28,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>be.atbash.ee.jsf.valerie</groupId>
+    <groupId>be.atbash.jakarta.jsf.valerie</groupId>
     <artifactId>valerie-primefaces</artifactId>
     <packaging>jar</packaging>
     <name>PrimeFaces specific extension for Valerie</name>
@@ -41,11 +41,12 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>5.1</version>
+            <version>10.0.0</version>
             <scope>provided</scope>
+            <classifier>jakarta</classifier>
         </dependency>
         <dependency>
-            <groupId>be.atbash.ee.jsf</groupId>
+            <groupId>be.atbash.jakarta.jsf</groupId>
             <artifactId>valerie</artifactId>
             <version>${project.version}</version>
         </dependency>

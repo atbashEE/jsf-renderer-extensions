@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 package be.atbash.ee.jsf.jerry.example.view;
 
 
-import javax.enterprise.inject.Model;
+import jakarta.enterprise.inject.Model;
 
 /**
  *

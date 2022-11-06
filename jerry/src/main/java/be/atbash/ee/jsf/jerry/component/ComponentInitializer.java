@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,13 @@ package be.atbash.ee.jsf.jerry.component;
 
 import be.atbash.util.PublicAPI;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import java.util.Map;
 
 /**
  * Allows to initialize components before
- * {@link javax.faces.component.UIComponent#encodeBegin(javax.faces.context.FacesContext)}.<br/>
+ * {@link jakarta.faces.component.UIComponent#encodeBegin(jakarta.faces.context.FacesContext)}.<br/>
  * e.g.: you can add information for client-side validation mechanisms,...
  * {@link be.atbash.ee.jsf.jerry.metadata.MetaDataTransformer MetaDataTransformers}
  * are used to convert specific information of constraints to a generic representation.

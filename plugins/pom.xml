@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2014-2020 Rudy De Busscher
+    Copyright 2014-2022 Rudy De Busscher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
-        <groupId>be.atbash.ee.jsf</groupId>
+        <groupId>be.atbash.jakarta.jsf</groupId>
         <artifactId>renderer-extensions</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -28,7 +28,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>be.atbash.ee.jsf.renderer-extensions</groupId>
+    <groupId>be.atbash.jakarta.jsf.renderer-extensions</groupId>
     <artifactId>plugins</artifactId>
     <packaging>pom</packaging>
     <name>plugin extensions for Jerry and Valerie</name>

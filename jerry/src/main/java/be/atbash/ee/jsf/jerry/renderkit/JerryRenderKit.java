@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2020 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
  */
 package be.atbash.ee.jsf.jerry.renderkit;
 
-import javax.enterprise.inject.Vetoed;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitWrapper;
-import javax.faces.render.Renderer;
+import jakarta.enterprise.inject.Vetoed;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.RenderKitWrapper;
+import jakarta.faces.render.Renderer;
 
 /**
  *

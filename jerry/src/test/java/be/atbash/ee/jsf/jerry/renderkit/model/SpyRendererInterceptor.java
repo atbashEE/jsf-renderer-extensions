@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@ import be.atbash.ee.jsf.jerry.interceptor.exception.SkipBeforeInterceptorsExcept
 import be.atbash.ee.jsf.jerry.interceptor.exception.SkipRendererDelegationException;
 import be.atbash.ee.jsf.jerry.ordering.InvocationOrder;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
-import javax.faces.render.Renderer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.render.Renderer;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;

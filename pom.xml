@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2014-2020 Rudy De Busscher
+    Copyright 2014-2022 Rudy De Busscher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>be.atbash.ee.jsf</groupId>
+    <groupId>be.atbash.jakarta.jsf</groupId>
     <artifactId>renderer-extensions</artifactId>
     <packaging>pom</packaging>
     <name>JSF Renderer extensions</name>
@@ -87,27 +87,28 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
 
-        <atbash.config.version>1.0.0-SNAPSHOT</atbash.config.version>
-        <atbash.utils.version>1.0.0-SNAPSHOT</atbash.utils.version>
+        <atbash.config.version>1.0.0</atbash.config.version>
+        <atbash.utils.se.version>1.2.0</atbash.utils.se.version>
+        <atbash.utils.version>1.1.0</atbash.utils.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>javax.faces-api</artifactId>
-            <version>2.3</version>
+            <groupId>jakarta.faces</groupId>
+            <artifactId>jakarta.faces-api</artifactId>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>2.0</version>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -115,11 +116,11 @@
         <dependency>
             <groupId>be.atbash.utils</groupId>
             <artifactId>utils-se</artifactId>
-            <version>${atbash.utils.version}</version>
+            <version>${atbash.utils.se.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>be.atbash.utils</groupId>
+            <groupId>be.atbash.jakarta.utils</groupId>
             <artifactId>utils-cdi</artifactId>
             <version>${atbash.utils.version}</version>
         </dependency>
@@ -149,13 +150,13 @@
         <dependency>
             <groupId>be.atbash.utils</groupId>
             <artifactId>utils-se</artifactId>
-            <version>${atbash.utils.version}</version>
+            <version>${atbash.utils.se.version}</version>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>be.atbash.utils</groupId>
+            <groupId>be.atbash.jakarta.utils</groupId>
             <artifactId>utils-cdi</artifactId>
             <version>${atbash.utils.version}</version>
             <classifier>tests</classifier>
@@ -173,26 +174,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>animal-sniffer-maven-plugin</artifactId>
-                <version>1.16</version>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <signature>
-                                <groupId>org.codehaus.mojo.signature</groupId>
-                                <artifactId>java18</artifactId>
-                                <version>1.0</version>
-                            </signature>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
             <plugin>
                 <groupId>com.mycila</groupId>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ package be.atbash.ee.jsf.valerie.el;
 import be.atbash.ee.jsf.valerie.metadata.ValerieHandler;
 import be.atbash.ee.jsf.valerie.property.PropertyDetails;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.enterprise.context.ApplicationScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 /**
  * in order to centralize the jsf version dependency within the core
