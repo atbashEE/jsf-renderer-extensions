@@ -17,32 +17,27 @@ package be.atbash.ee.jsf.jerry.component;
 
 import be.atbash.ee.jsf.jerry.storage.ComponentStorage;
 import be.atbash.util.TestReflectionUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyMap;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
-
 /**
  * TODO Some more use cases.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class ComponentInitializerManagerTest {
+@ExtendWith(MockitoExtension.class)
+class ComponentInitializerManagerTest {
 
     @Mock
     private ComponentInitializer componentInitializerMock;
@@ -59,68 +54,68 @@ public class ComponentInitializerManagerTest {
     @Mock
     private FacesContext facesContextMock;
 
-    private Map<String, Object> componentAttributes;
+    private final Map<String, Object> componentAttributes = new HashMap<>();
 
     @InjectMocks
     private ComponentInitializerManager componentInitializerManager;
 
     @Test
-    public void performInitialization() throws Exception {
+    void performInitialization() throws Exception {
 
-        prepareMocks();
+        prepareMocks(false);
 
-        when(componentInitializerMock.isSupportedComponent(uiComponentMock)).thenReturn(true);
-        when(repeatableComponentInitializerMock.isSupportedComponent(uiComponentMock)).thenReturn(false);
+        Mockito.when(componentInitializerMock.isSupportedComponent(uiComponentMock)).thenReturn(true);
+        Mockito.when(repeatableComponentInitializerMock.isSupportedComponent(uiComponentMock)).thenReturn(false);
 
         componentInitializerManager.performInitialization(facesContextMock, uiComponentMock);
 
-        verify(componentInitializerMock).isSupportedComponent(uiComponentMock);
-        verify(repeatableComponentInitializerMock).isSupportedComponent(uiComponentMock);
+        Mockito.verify(componentInitializerMock).isSupportedComponent(uiComponentMock);
+        Mockito.verify(repeatableComponentInitializerMock).isSupportedComponent(uiComponentMock);
 
-        verify(componentInitializerMock).configureComponent(any(FacesContext.class), any(UIComponent.class), anyMap());
-        verify(repeatableComponentInitializerMock, never()).configureComponent(any(FacesContext.class), any(UIComponent.class), anyMap());
+        Mockito.verify(componentInitializerMock).configureComponent(Mockito.any(FacesContext.class), Mockito.any(UIComponent.class), Mockito.anyMap());
+        Mockito.verify(repeatableComponentInitializerMock, Mockito.never()).configureComponent(Mockito.any(FacesContext.class), Mockito.any(UIComponent.class), Mockito.anyMap());
 
-        assertThat(componentAttributes.keySet()).containsOnly(ComponentInitializer.class.getName());
+        Assertions.assertThat(componentAttributes.keySet()).containsOnly(ComponentInitializer.class.getName());
 
-        verify(componentStorageMock).getComponentInfo(anyString(), anyString()); // TODO Should we verify the correct values?
+        Mockito.verify(componentStorageMock).getComponentInfo(Mockito.anyString(), Mockito.anyString()); // TODO Should we verify the correct values?
     }
 
     @Test
-    public void performInitialization_AlreadyInitialized() throws Exception {
+    void performInitialization_AlreadyInitialized() throws Exception {
 
-        prepareMocks();
+        prepareMocks(true);
         componentAttributes.put(ComponentInitializer.class.getName(), Boolean.TRUE); // any value will do in fact.
 
         componentInitializerManager.performInitialization(facesContextMock, uiComponentMock);
 
-        verify(componentInitializerMock, never()).isSupportedComponent(uiComponentMock);
-        verify(componentInitializerMock, never()).configureComponent(any(FacesContext.class), any(UIComponent.class), anyMap());
-        verify(repeatableComponentInitializerMock, never()).configureComponent(any(FacesContext.class), any(UIComponent.class), anyMap());
+        Mockito.verify(componentInitializerMock, Mockito.never()).isSupportedComponent(uiComponentMock);
+        Mockito.verify(componentInitializerMock, Mockito.never()).configureComponent(Mockito.any(FacesContext.class), Mockito.any(UIComponent.class), Mockito.anyMap());
+        Mockito.verify(repeatableComponentInitializerMock, Mockito.never()).configureComponent(Mockito.any(FacesContext.class), Mockito.any(UIComponent.class), Mockito.anyMap());
 
-        assertThat(componentAttributes.keySet()).containsOnly(ComponentInitializer.class.getName());
+        Assertions.assertThat(componentAttributes.keySet()).containsOnly(ComponentInitializer.class.getName());
     }
 
     @Test
-    public void performInitialization_repeatable() throws Exception {
+    void performInitialization_repeatable() throws Exception {
 
-        prepareMocks();
+        prepareMocks(false);
 
-        when(componentInitializerMock.isSupportedComponent(uiComponentMock)).thenReturn(false);
-        when(repeatableComponentInitializerMock.isSupportedComponent(uiComponentMock)).thenReturn(true);
+        Mockito.when(componentInitializerMock.isSupportedComponent(uiComponentMock)).thenReturn(false);
+        Mockito.when(repeatableComponentInitializerMock.isSupportedComponent(uiComponentMock)).thenReturn(true);
 
         componentInitializerManager.performInitialization(facesContextMock, uiComponentMock);
 
-        verify(componentInitializerMock).isSupportedComponent(uiComponentMock);
-        verify(repeatableComponentInitializerMock).isSupportedComponent(uiComponentMock);
-        verify(repeatableComponentInitializerMock).configureComponent(any(FacesContext.class), any(UIComponent.class), anyMap());
-        verify(componentInitializerMock, never()).configureComponent(any(FacesContext.class), any(UIComponent.class), anyMap());
+        Mockito.verify(componentInitializerMock).isSupportedComponent(uiComponentMock);
+        Mockito.verify(repeatableComponentInitializerMock).isSupportedComponent(uiComponentMock);
+        Mockito.verify(repeatableComponentInitializerMock).configureComponent(Mockito.any(FacesContext.class), Mockito.any(UIComponent.class), Mockito.anyMap());
+        Mockito.verify(componentInitializerMock, Mockito.never()).configureComponent(Mockito.any(FacesContext.class), Mockito.any(UIComponent.class), Mockito.anyMap());
 
-        assertThat(componentAttributes.keySet()).containsOnly(RepeatableComponentInitializer.class.getName());
+        Assertions.assertThat(componentAttributes.keySet()).containsOnly(RepeatableComponentInitializer.class.getName());
 
-        verify(componentStorageMock).getComponentInfo(anyString(), anyString()); // TODO Should we verify the correct values?
+        Mockito.verify(componentStorageMock).getComponentInfo(Mockito.anyString(), Mockito.anyString()); // TODO Should we verify the correct values?
     }
 
-    private void prepareMocks() throws NoSuchFieldException, IllegalAccessException {
+    private void prepareMocks(boolean minimal) throws NoSuchFieldException {
 
         List<ComponentInitializer> initializers = new ArrayList<>();
         initializers.add(componentInitializerMock);
@@ -128,10 +123,17 @@ public class ComponentInitializerManagerTest {
         TestReflectionUtils.setFieldValue(componentInitializerManager, "initializers", initializers);
 
         UIViewRoot uiViewRootMock = Mockito.mock(UIViewRoot.class);
-        when(facesContextMock.getViewRoot()).thenReturn(uiViewRootMock);
 
-        componentAttributes = new HashMap<>();
-        when(uiComponentMock.getAttributes()).thenReturn(componentAttributes);
+        Mockito.when(uiComponentMock.getAttributes()).thenReturn(componentAttributes);
+
+        if (minimal) {
+            return;
+        }
+        Mockito.when(facesContextMock.getViewRoot()).thenReturn(uiViewRootMock);
+
+        Mockito.when(uiViewRootMock.getViewId()).thenReturn("theViewId");
+
+        Mockito.when(uiComponentMock.getClientId(facesContextMock)).thenReturn("theClientId");
     }
 
 }

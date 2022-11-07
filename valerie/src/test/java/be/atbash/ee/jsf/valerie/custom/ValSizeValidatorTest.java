@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2020 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,27 +19,26 @@ import be.atbash.ee.jsf.valerie.custom.model.ValSizeModel1;
 import be.atbash.ee.jsf.valerie.custom.model.ValSizeModel2;
 import be.atbash.ee.jsf.valerie.custom.model.ValSizeModel3;
 import be.atbash.ee.jsf.valerie.custom.model.ValSizeModel4;
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
-public class ValSizeValidatorTest {
+class ValSizeValidatorTest {
 
     private ValSizeValidator validator = new ValSizeValidator();
 
-    @Before
+    @BeforeEach
     public void setup() throws ParseException {
         validator = new ValSizeValidator();
 
     }
 
-
     @Test
-    public void isValid_correct() throws NoSuchFieldException {
+    void isValid_correct() throws NoSuchFieldException {
         ValSizeModel1 model = new ValSizeModel1();
 
         validator.initialize(model.getClass().getDeclaredField("value").getAnnotation(ValSize.class));
@@ -50,7 +49,7 @@ public class ValSizeValidatorTest {
     }
 
     @Test
-    public void isValid_tooSmall() throws NoSuchFieldException {
+    void isValid_tooSmall() throws NoSuchFieldException {
         ValSizeModel1 model = new ValSizeModel1();
 
         validator.initialize(model.getClass().getDeclaredField("value").getAnnotation(ValSize.class));
@@ -61,7 +60,7 @@ public class ValSizeValidatorTest {
     }
 
     @Test
-    public void isValid_tooLarge() throws NoSuchFieldException {
+    void isValid_tooLarge() throws NoSuchFieldException {
         ValSizeModel1 model = new ValSizeModel1();
 
         validator.initialize(model.getClass().getDeclaredField("value").getAnnotation(ValSize.class));
@@ -72,7 +71,7 @@ public class ValSizeValidatorTest {
     }
 
     @Test
-    public void isValid_null() throws NoSuchFieldException {
+    void isValid_null() throws NoSuchFieldException {
         ValSizeModel1 model = new ValSizeModel1();
 
         validator.initialize(model.getClass().getDeclaredField("value").getAnnotation(ValSize.class));
@@ -83,7 +82,7 @@ public class ValSizeValidatorTest {
     }
 
     @Test
-    public void isValid_nullWithMin0() throws NoSuchFieldException {
+    void isValid_nullWithMin0() throws NoSuchFieldException {
         ValSizeModel2 model = new ValSizeModel2();
 
         validator.initialize(model.getClass().getDeclaredField("value").getAnnotation(ValSize.class));
@@ -94,32 +93,21 @@ public class ValSizeValidatorTest {
     }
 
     @Test
-    public void invalidMinValue() throws NoSuchFieldException {
+    void invalidMinValue() {
         ValSizeModel3 model = new ValSizeModel3();
 
-        try {
-            validator.initialize(model.getClass().getDeclaredField("value").getAnnotation(ValSize.class));
-            fail("Must throw exception");
-        } catch (ValSizeValidatorException e) {
-            String message = e.getMessage();
-            assertThat(message).isEqualTo("'min' property for @ValSize must be 0 or more but is -1");
-        }
-
-
+        Assertions.assertThatThrownBy(() -> validator.initialize(model.getClass().getDeclaredField("value").getAnnotation(ValSize.class)))
+                .isInstanceOf(ValSizeValidatorException.class)
+                .hasMessage("'min' property for @ValSize must be 0 or more but is -1");
     }
 
     @Test
-    public void invalidMinMaxValue() throws NoSuchFieldException {
+    void invalidMinMaxValue(){
         ValSizeModel4 model = new ValSizeModel4();
 
-        try {
-            validator.initialize(model.getClass().getDeclaredField("value").getAnnotation(ValSize.class));
-            fail("Must throw exception");
-        } catch (ValSizeValidatorException e) {
-            String message = e.getMessage();
-            assertThat(message).isEqualTo("'min' property for @ValSize must be smaller or equal then 'max property; min = 6, max = 5");
-        }
-
+        Assertions.assertThatThrownBy(() -> validator.initialize(model.getClass().getDeclaredField("value").getAnnotation(ValSize.class)))
+                .isInstanceOf(ValSizeValidatorException.class)
+                .hasMessage("'min' property for @ValSize must be smaller or equal then 'max property; min = 6, max = 5");
 
     }
 

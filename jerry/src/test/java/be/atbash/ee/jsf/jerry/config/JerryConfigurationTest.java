@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@ package be.atbash.ee.jsf.jerry.config;
 import be.atbash.config.converter.ClassConverter;
 import be.atbash.config.exception.ConfigurationException;
 import be.atbash.config.test.TestConfig;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  *
@@ -32,39 +32,43 @@ public class JerryConfigurationTest {
 
     private JerryConfiguration configuration = new JerryConfiguration();
 
-    @Before
+    @BeforeEach
     public void setupTestClass() {
         TestConfig.registerDefaultConverters();
         TestConfig.registerConverter(new ClassConverter());
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         TestConfig.resetConfig();
     }
 
     @Test
-    public void getRenderKitWrapperClass() {
-        assertThat(configuration.getRenderKitWrapperClass().getName()).isEqualTo("be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit");
+    void getRenderKitWrapperClass() {
+        Assertions.assertThat(configuration.getRenderKitWrapperClass().getName()).isEqualTo("be.atbash.ee.jsf.jerry.renderkit.JerryRenderKit");
     }
 
     @Test
-    public void getRenderKitWrapperClass_customClass() {
+    void getRenderKitWrapperClass_customClass() {
         TestConfig.addConfigValue("jerry.renderkit.wrapper.class", CustomWrapper.class.getName());
-        assertThat(configuration.getRenderKitWrapperClass().getName()).isEqualTo(CustomWrapper.class.getName());
+        Assertions.assertThat(configuration.getRenderKitWrapperClass().getName()).isEqualTo(CustomWrapper.class.getName());
     }
 
-    @Test(expected = ConfigurationException.class)
-    public void getRenderKitWrapperClass_customClass_wrongType() {
+    @Test
+    void getRenderKitWrapperClass_customClass_wrongType() {
         TestConfig.addConfigValue("jerry.renderkit.wrapper.class", String.class.getName());
 
-        configuration.getRenderKitWrapperClass();
+        Assertions.assertThatThrownBy(() -> configuration.getRenderKitWrapperClass())
+                .isInstanceOf(ConfigurationException.class);
+
     }
 
-    @Test(expected = ConfigurationException.class)
-    public void getRenderKitWrapperClass_customClass_nonExistent() {
+    @Test
+    void getRenderKitWrapperClass_customClass_nonExistent() {
         TestConfig.addConfigValue("jerry.renderkit.wrapper.class", "org.foo.something");
 
-        configuration.getRenderKitWrapperClass();
+        Assertions.assertThatThrownBy(() -> configuration.getRenderKitWrapperClass())
+                .isInstanceOf(ConfigurationException.class);
+
     }
 }

@@ -15,53 +15,52 @@
  */
 package be.atbash.ee.jsf.jerry.ordering;
 
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
-
-public class InvocationOrderComparatorTest {
+class InvocationOrderComparatorTest {
 
     private static final String ID_X = "X";
     private static final String ID_Y = "Y";
 
     @Test
-    public void testCompare_BothAnnotated() {
+    void testCompare_BothAnnotated() {
         List<Object> d = new ArrayList<>();
         d.add(new Order10000());
         d.add(new OrderDefault());
         d.add(new Order100());
 
         d.sort(new InvocationOrderComparator<>());
-        assertThat(d.get(0)).isExactlyInstanceOf(Order100.class);
-        assertThat(d.get(1)).isExactlyInstanceOf(OrderDefault.class);
-        assertThat(d.get(2)).isExactlyInstanceOf(Order10000.class);
+        Assertions.assertThat(d.get(0)).isExactlyInstanceOf(Order100.class);
+        Assertions.assertThat(d.get(1)).isExactlyInstanceOf(OrderDefault.class);
+        Assertions.assertThat(d.get(2)).isExactlyInstanceOf(Order10000.class);
     }
 
     @Test
-    public void testCompare_NoAnnotationAtTheEnd() {
+    void testCompare_NoAnnotationAtTheEnd() {
         List<Object> d = new ArrayList<>();
         d.add(new NoOrder(ID_X));
         d.add(new Order10000());
 
         d.sort(new InvocationOrderComparator<>());
-        assertThat(d.get(0)).isExactlyInstanceOf(Order10000.class);
-        assertThat(d.get(1)).isExactlyInstanceOf(NoOrder.class);
+        Assertions.assertThat(d.get(0)).isExactlyInstanceOf(Order10000.class);
+        Assertions.assertThat(d.get(1)).isExactlyInstanceOf(NoOrder.class);
 
     }
 
     @Test
-    public void testCompare_NoAnnotationKeepOriginalOrder() {
+    void testCompare_NoAnnotationKeepOriginalOrder() {
         List<NoOrder> d = new ArrayList<>();
         d.add(new NoOrder(ID_X));
         d.add(new NoOrder(ID_Y));
 
         d.sort(new InvocationOrderComparator<NoOrder>());
-        assertThat(d.get(0).getId()).isEqualTo(ID_X);
-        assertThat(d.get(1).getId()).isEqualTo(ID_Y);
+        Assertions.assertThat(d.get(0).getId()).isEqualTo(ID_X);
+        Assertions.assertThat(d.get(1).getId()).isEqualTo(ID_Y);
 
     }
 

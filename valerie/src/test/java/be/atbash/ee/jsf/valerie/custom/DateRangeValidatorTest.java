@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2020 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,10 @@ import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel2;
 import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel3;
 import be.atbash.ee.jsf.valerie.custom.model.DateRangeModel4;
 import be.atbash.ee.jsf.valerie.utils.MethodHandleUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import uk.org.lidalia.slf4jtest.TestLogger;
 import uk.org.lidalia.slf4jtest.TestLoggerFactory;
 
@@ -31,12 +32,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
  *
  */
-public class DateRangeValidatorTest {
+class DateRangeValidatorTest {
 
     private Date date1;
     private Date date2;
@@ -46,7 +45,7 @@ public class DateRangeValidatorTest {
 
     private TestLogger logger = TestLoggerFactory.getTestLogger(MethodHandleUtils.class);
 
-    @Before
+    @BeforeEach
     public void setup() throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         date1 = dateFormat.parse("14/09/2015");
@@ -57,13 +56,13 @@ public class DateRangeValidatorTest {
 
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         logger.clearAll();
     }
 
     @Test
-    public void testIsValid() {
+    void testIsValid() {
         DateRangeModel1 model = new DateRangeModel1();
         model.setStartDate(date1);
         model.setEndDate(date2);
@@ -71,22 +70,22 @@ public class DateRangeValidatorTest {
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
         boolean valid = validator.isValid(model, null);
-        assertThat(valid).isTrue();
+        Assertions.assertThat(valid).isTrue();
     }
 
     @Test
-    public void testIsValid_endIsEmpty() {
+    void testIsValid_endIsEmpty() {
         DateRangeModel1 model = new DateRangeModel1();
         model.setStartDate(date1);
 
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
         boolean valid = validator.isValid(model, null);
-        assertThat(valid).isTrue();
+        Assertions.assertThat(valid).isTrue();
     }
 
     @Test
-    public void testIsValid_endBeforeStart() {
+    void testIsValid_endBeforeStart() {
         DateRangeModel1 model = new DateRangeModel1();
         model.setStartDate(date2);
         model.setEndDate(date1);
@@ -94,11 +93,11 @@ public class DateRangeValidatorTest {
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
         boolean valid = validator.isValid(model, null);
-        assertThat(valid).isFalse();
+        Assertions.assertThat(valid).isFalse();
     }
 
     @Test
-    public void testIsValid_sameDates() {
+    void testIsValid_sameDates() {
         DateRangeModel1 model = new DateRangeModel1();
         model.setStartDate(date1);
         model.setEndDate(date3);
@@ -106,11 +105,11 @@ public class DateRangeValidatorTest {
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
         boolean valid = validator.isValid(model, null);
-        assertThat(valid).isFalse();
+        Assertions.assertThat(valid).isFalse();
     }
 
     @Test
-    public void testIsValid_equalsAllowed() {
+    void testIsValid_equalsAllowed() {
         DateRangeModel2 model = new DateRangeModel2();
         model.setStartDate(date1);
         model.setEndDate(date2);
@@ -118,22 +117,22 @@ public class DateRangeValidatorTest {
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
         boolean valid = validator.isValid(model, null);
-        assertThat(valid).isTrue();
+        Assertions.assertThat(valid).isTrue();
     }
 
     @Test
-    public void testIsValid_equalsAllowed_endIsEmpty() {
+    void testIsValid_equalsAllowed_endIsEmpty() {
         DateRangeModel2 model = new DateRangeModel2();
         model.setStartDate(date1);
 
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
         boolean valid = validator.isValid(model, null);
-        assertThat(valid).isTrue();
+        Assertions.assertThat(valid).isTrue();
     }
 
     @Test
-    public void testIsValid_equalsAllowed_endBeforeStart() {
+    void testIsValid_equalsAllowed_endBeforeStart() {
         DateRangeModel2 model = new DateRangeModel2();
         model.setStartDate(date2);
         model.setEndDate(date1);
@@ -141,11 +140,11 @@ public class DateRangeValidatorTest {
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
         boolean valid = validator.isValid(model, null);
-        assertThat(valid).isFalse();
+        Assertions.assertThat(valid).isFalse();
     }
 
     @Test
-    public void testIsValid_equalsAllowed_sameDates() {
+    void testIsValid_equalsAllowed_sameDates() {
         DateRangeModel2 model = new DateRangeModel2();
         model.setStartDate(date1);
         model.setEndDate(date3);
@@ -153,10 +152,10 @@ public class DateRangeValidatorTest {
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
         boolean valid = validator.isValid(model, null);
-        assertThat(valid).isTrue();
+        Assertions.assertThat(valid).isTrue();
     }
 
-    @Test(expected = DateRangeValidatorPropertyException.class)
+    @Test
     public void testIsValid_wrongStartDateProperty() {
         DateRangeModel3 model = new DateRangeModel3();
         model.setStartDate(date1);
@@ -164,16 +163,14 @@ public class DateRangeValidatorTest {
 
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
-        try {
-            validator.isValid(model, null);
-        } finally {
-            assertThat(logger.getLoggingEvents()).hasSize(1);
-            assertThat(logger.getLoggingEvents().get(0).getMessage()).isEqualTo("Unable to find/access the Date property 'wrongStartDateProperty' of class be.atbash.ee.jsf.valerie.custom.model.DateRangeModel3");
-        }
+        Assertions.assertThatThrownBy(() -> validator.isValid(model, null))
+                .isInstanceOf(DateRangeValidatorPropertyException.class);
 
+        Assertions.assertThat(logger.getLoggingEvents()).hasSize(1);
+        Assertions.assertThat(logger.getLoggingEvents().get(0).getMessage()).isEqualTo("Unable to find/access the Date property 'wrongStartDateProperty' of class be.atbash.ee.jsf.valerie.custom.model.DateRangeModel3");
     }
 
-    @Test(expected = DateRangeValidatorPropertyException.class)
+    @Test
     public void testIsValid_wrongEndDateProperty() {
         DateRangeModel4 model = new DateRangeModel4();
         model.setStartDate(date1);
@@ -181,12 +178,11 @@ public class DateRangeValidatorTest {
 
         validator.initialize(model.getClass().getAnnotation(DateRange.class));
 
-        try {
-            validator.isValid(model, null);
-        } finally {
-            assertThat(logger.getLoggingEvents()).hasSize(1);
-            assertThat(logger.getLoggingEvents().get(0).getMessage()).isEqualTo("Unable to find/access the Date property 'wrongEndDateProperty' of class be.atbash.ee.jsf.valerie.custom.model.DateRangeModel4");
-        }
+        Assertions.assertThatThrownBy(() -> validator.isValid(model, null))
+                .isInstanceOf(DateRangeValidatorPropertyException.class);
+
+        Assertions.assertThat(logger.getLoggingEvents()).hasSize(1);
+        Assertions.assertThat(logger.getLoggingEvents().get(0).getMessage()).isEqualTo("Unable to find/access the Date property 'wrongEndDateProperty' of class be.atbash.ee.jsf.valerie.custom.model.DateRangeModel4");
 
     }
 }

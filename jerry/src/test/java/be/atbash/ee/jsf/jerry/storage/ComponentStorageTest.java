@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2018 Rudy De Busscher
+ * Copyright 2014-2022 Rudy De Busscher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,13 @@ import be.atbash.ee.jsf.jerry.metadata.MetaDataEntry;
 import be.atbash.ee.jsf.jerry.metadata.MetaDataHolder;
 import be.atbash.ee.jsf.jerry.metadata.MetaDataTransformer;
 import be.atbash.util.BeanManagerFake;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class ComponentStorageTest {
+class ComponentStorageTest {
 
     private static final String VIEW_ID = "viewId";
     private static final String CLIENT_ID = "clientId";
@@ -38,21 +37,20 @@ public class ComponentStorageTest {
     private static final String ENTRY_TRANS_KEY = "entryTransKey";
     private static final String ENTRY_VALUE = "entryValue";
     private static final String OTHER_ENTRY_KEY = "otherEntryKey";
-    private static final String OTHER_ENTRY_VALUE = "otherEntryValue";
 
     private BeanManagerFake beanManagerFake;
 
     private ComponentStorage componentStorage = new ComponentStorage();
 
     @Test
-    public void testContainsEntry() {
+    void testContainsEntry() {
         // So that enhancers get initialized with empty list
         initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
 
-        assertThat(componentStorage.containsEntry(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
+        Assertions.assertThat(componentStorage.containsEntry(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
     }
 
     private void initializeEmptyBeanManager() {
@@ -62,98 +60,98 @@ public class ComponentStorageTest {
     }
 
     @Test
-    public void testContainsEntry_NotSet() {
+    void testContainsEntry_NotSet() {
 
-        assertThat(componentStorage.containsEntry(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isFalse();
+        Assertions.assertThat(componentStorage.containsEntry(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isFalse();
     }
 
     @Test
-    public void testContainsEntry_OtherViewId() {
+    void testContainsEntry_OtherViewId() {
         // So that enhancers get initialized with empty list
         initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
 
-        assertThat(componentStorage.containsEntry(OTHER_VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isFalse();
+        Assertions.assertThat(componentStorage.containsEntry(OTHER_VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isFalse();
     }
 
     @Test
-    public void testContainsEntry_OtherClientId() {
+    void testContainsEntry_OtherClientId() {
         // So that enhancers get initialized with empty list
         initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
 
-        assertThat(componentStorage.containsEntry(VIEW_ID, OTHER_CLIENT_ID, TestMetaDataHolder.class)).isFalse();
+        Assertions.assertThat(componentStorage.containsEntry(VIEW_ID, OTHER_CLIENT_ID, TestMetaDataHolder.class)).isFalse();
     }
 
     @Test
-    public void testContainsEntry_OtherViewAndClientId() {
+    void testContainsEntry_OtherViewAndClientId() {
         // So that enhancers get initialized with empty list
         initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
 
-        assertThat(componentStorage.containsEntry(OTHER_VIEW_ID, OTHER_CLIENT_ID, TestMetaDataHolder.class)).isFalse();
+        Assertions.assertThat(componentStorage.containsEntry(OTHER_VIEW_ID, OTHER_CLIENT_ID, TestMetaDataHolder.class)).isFalse();
     }
 
     @Test
-    public void testContainsEntry_OtherMetaData() {
+    void testContainsEntry_OtherMetaData() {
         // So that enhancers get initialized with empty list
         initializeEmptyBeanManager();
 
         MetaDataHolder value = new TestMetaDataHolder(ENTRY_KEY, ENTRY_VALUE);
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
 
-        assertThat(componentStorage.containsEntry(VIEW_ID, CLIENT_ID, OtherTestMetaDataHolder.class)).isFalse();
+        Assertions.assertThat(componentStorage.containsEntry(VIEW_ID, CLIENT_ID, OtherTestMetaDataHolder.class)).isFalse();
     }
 
     @Test
-    public void testIsEntryPossibleFor() {
+    void testIsEntryPossibleFor() {
 
-        assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
+        Assertions.assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
     }
 
     @Test
-    public void testIsEntryPossibleFor_NotPossibleSet() {
+    void testIsEntryPossibleFor_NotPossibleSet() {
         componentStorage.setNotAvailable(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class);
 
-        assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isFalse();
+        Assertions.assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isFalse();
     }
 
     @Test
-    public void testIsEntryPossibleFor_NotPossibleSetOtherMetaData() {
+    void testIsEntryPossibleFor_NotPossibleSetOtherMetaData() {
         componentStorage.setNotAvailable(VIEW_ID, CLIENT_ID, OtherTestMetaDataHolder.class);
 
-        assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
+        Assertions.assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
     }
 
     @Test
-    public void testIsEntryPossibleFor_NotPossibleSetOtherView() {
+    void testIsEntryPossibleFor_NotPossibleSetOtherView() {
         componentStorage.setNotAvailable(OTHER_VIEW_ID, CLIENT_ID, TestMetaDataHolder.class);
 
-        assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
+        Assertions.assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
     }
 
     @Test
-    public void testIsEntryPossibleFor_NotPossibleSetOtherClient() {
+    void testIsEntryPossibleFor_NotPossibleSetOtherClient() {
         componentStorage.setNotAvailable(VIEW_ID, OTHER_CLIENT_ID, TestMetaDataHolder.class);
 
-        assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
+        Assertions.assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
     }
 
     @Test
-    public void testIsEntryPossibleFor_NotPossibleSetOtherViewAndClient() {
+    void testIsEntryPossibleFor_NotPossibleSetOtherViewAndClient() {
         componentStorage.setNotAvailable(OTHER_VIEW_ID, OTHER_CLIENT_ID, TestMetaDataHolder.class);
 
-        assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
+        Assertions.assertThat(componentStorage.isEntryPossibleFor(VIEW_ID, CLIENT_ID, TestMetaDataHolder.class)).isTrue();
     }
 
     @Test
-    public void testGetComponentInfo() {
+    void testGetComponentInfo() {
 
         beanManagerFake = new BeanManagerFake();
         beanManagerFake.registerBean(new DummyMetaDataTransformer(), MetaDataTransformer.class);
@@ -169,14 +167,14 @@ public class ComponentStorageTest {
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value2);
 
         Map<String, Object> componentInfo = componentStorage.getComponentInfo(VIEW_ID, CLIENT_ID);
-        assertThat(componentInfo).isNotNull();
-        assertThat(componentInfo.entrySet()).isNotEmpty();
+        Assertions.assertThat(componentInfo).isNotNull();
+        Assertions.assertThat(componentInfo.entrySet()).isNotEmpty();
 
-        assertThat(componentInfo.keySet()).containsExactly(ENTRY_TRANS_KEY);
+        Assertions.assertThat(componentInfo.keySet()).containsExactly(ENTRY_TRANS_KEY);
     }
 
     @Test
-    public void testGetComponentInfo_isCached() {
+    void testGetComponentInfo_isCached() {
 
         beanManagerFake = new BeanManagerFake();
         DummyMetaDataTransformer transformer = new DummyMetaDataTransformer();
@@ -189,21 +187,21 @@ public class ComponentStorageTest {
         componentStorage.storeEntry(VIEW_ID, CLIENT_ID, value);
 
         Map<String, Object> componentInfo = componentStorage.getComponentInfo(VIEW_ID, CLIENT_ID);
-        assertThat(componentInfo).isNotNull();
-        assertThat(componentInfo.entrySet()).isNotEmpty();
+        Assertions.assertThat(componentInfo).isNotNull();
+        Assertions.assertThat(componentInfo.entrySet()).isNotEmpty();
 
         componentInfo = componentStorage.getComponentInfo(VIEW_ID, CLIENT_ID);
-        assertThat(componentInfo).isNotNull();
-        assertThat(componentInfo.entrySet()).isNotEmpty();
-        assertThat(transformer.getExecuted()).isEqualTo(1);
+        Assertions.assertThat(componentInfo).isNotNull();
+        Assertions.assertThat(componentInfo.entrySet()).isNotEmpty();
+        Assertions.assertThat(transformer.getExecuted()).isEqualTo(1);
 
     }
 
     @Test
-    public void testGetComponentInfo_NoEntryStored() {
+    void testGetComponentInfo_NoEntryStored() {
         Map<String, Object> componentInfo = componentStorage.getComponentInfo(VIEW_ID, CLIENT_ID);
-        assertThat(componentInfo).isNotNull();
-        assertThat(componentInfo.entrySet()).isEmpty();
+        Assertions.assertThat(componentInfo).isNotNull();
+        Assertions.assertThat(componentInfo.entrySet()).isEmpty();
     }
 
     private static class TestMetaDataHolder implements MetaDataHolder {

@@ -21,23 +21,21 @@ import be.atbash.ee.jsf.jerry.renderkit.model.SpyRendererInterceptor;
 import be.atbash.ee.jsf.jerry.utils.InvocationOrderedArtifactsProvider;
 import be.atbash.util.BeanManagerFake;
 import be.atbash.util.TestReflectionUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.Renderer;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-
-@RunWith(MockitoJUnitRunner.class)
-public class JerryRendererWrapperTest {
+@ExtendWith(MockitoExtension.class)
+class JerryRendererWrapperTest {
 
     @Mock
     private Renderer rendererMock;
@@ -51,14 +49,14 @@ public class JerryRendererWrapperTest {
 
     private SpyRendererInterceptor rendererInterceptor2;
 
-    @Before
+    @BeforeEach
     public void setup() {
         rendererInterceptor1 = new SpyRendererInterceptor();
         rendererInterceptor2 = new SpyRendererInterceptor.Second();
 
     }
 
-    @After
+    @AfterEach
     public void teardown() throws NoSuchFieldException, IllegalAccessException {
         beanManagerFake.deregistration();
 
@@ -70,20 +68,20 @@ public class JerryRendererWrapperTest {
 
     // encodeBegin
     @Test
-    public void testEncodeBegin() throws IOException {
+    void testEncodeBegin() throws IOException {
         registerInterceptors(rendererInterceptor1);
 
         JerryRendererWrapper wrapper = new JerryRendererWrapper(rendererMock);
 
         wrapper.encodeBegin(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
-        verify(rendererMock).encodeBegin(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
+        Mockito.verify(rendererMock).encodeBegin(facesContextMock, null);
     }
 
     @Test
-    public void testEncodeBegin_CheckExceptionFlow() throws IOException {
+    void testEncodeBegin_CheckExceptionFlow() throws IOException {
         rendererInterceptor1.throwException(InterceptorCalls.BEFORE_ENCODE_BEGIN);
         rendererInterceptor1.throwException(InterceptorCalls.AFTER_ENCODE_BEGIN);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -92,16 +90,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.encodeBegin(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
-        verify(rendererMock).encodeBegin(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isFalse();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
+        Mockito.verify(rendererMock).encodeBegin(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isFalse();
 
     }
 
     @Test
-    public void testEncodeBegin_CheckRendererExceptionFlow() throws IOException {
+    void testEncodeBegin_CheckRendererExceptionFlow() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_ENCODE_BEGIN);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
 
@@ -109,16 +107,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.encodeBegin(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
-        verify(rendererMock, never()).encodeBegin(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).encodeBegin(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
 
     }
 
     @Test
-    public void testEncodeBegin_CheckRendererExceptionFlow2() throws IOException {
+    void testEncodeBegin_CheckRendererExceptionFlow2() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_ENCODE_BEGIN);
         rendererInterceptor1.setSkipOtherInterceptors();
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -127,30 +125,30 @@ public class JerryRendererWrapperTest {
 
         wrapper.encodeBegin(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
-        verify(rendererMock, never()).encodeBegin(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).encodeBegin(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_BEGIN)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_BEGIN)).isTrue();
 
     }
 
     // encodeChildren
     @Test
-    public void testEncodeChildren() throws IOException {
+    void testEncodeChildren() throws IOException {
         registerInterceptors(rendererInterceptor1);
 
         JerryRendererWrapper wrapper = new JerryRendererWrapper(rendererMock);
 
         wrapper.encodeChildren(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
-        verify(rendererMock).encodeChildren(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
+        Mockito.verify(rendererMock).encodeChildren(facesContextMock, null);
     }
 
     @Test
-    public void ttestEncodeChildren_CheckExceptionFlow() throws IOException {
+    void testEncodeChildren_CheckExceptionFlow() throws IOException {
         rendererInterceptor1.throwException(InterceptorCalls.BEFORE_ENCODE_CHILDREN);
         rendererInterceptor1.throwException(InterceptorCalls.AFTER_ENCODE_CHILDREN);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -159,16 +157,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.encodeChildren(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
-        verify(rendererMock).encodeChildren(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isFalse();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
+        Mockito.verify(rendererMock).encodeChildren(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isFalse();
 
     }
 
     @Test
-    public void testEncodeChildren_CheckRendererExceptionFlow() throws IOException {
+    void testEncodeChildren_CheckRendererExceptionFlow() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_ENCODE_CHILDREN);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
 
@@ -176,16 +174,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.encodeChildren(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
-        verify(rendererMock, never()).encodeChildren(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).encodeChildren(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
 
     }
 
     @Test
-    public void testEncodeChildren_CheckRendererExceptionFlow2() throws IOException {
+    void testEncodeChildren_CheckRendererExceptionFlow2() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_ENCODE_CHILDREN);
         rendererInterceptor1.setSkipOtherInterceptors();
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -194,30 +192,30 @@ public class JerryRendererWrapperTest {
 
         wrapper.encodeChildren(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
-        verify(rendererMock, never()).encodeChildren(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).encodeChildren(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_CHILDREN)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_CHILDREN)).isTrue();
 
     }
 
     // encodeEnd
     @Test
-    public void testEncodeEnd() throws IOException {
+    void testEncodeEnd() throws IOException {
         registerInterceptors(rendererInterceptor1);
 
         JerryRendererWrapper wrapper = new JerryRendererWrapper(rendererMock);
 
         wrapper.encodeEnd(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
-        verify(rendererMock).encodeEnd(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
+        Mockito.verify(rendererMock).encodeEnd(facesContextMock, null);
     }
 
     @Test
-    public void testEncodeEnd_CheckExceptionFlow() throws IOException {
+    void testEncodeEnd_CheckExceptionFlow() throws IOException {
         rendererInterceptor1.throwException(InterceptorCalls.BEFORE_ENCODE_END);
         rendererInterceptor1.throwException(InterceptorCalls.AFTER_ENCODE_END);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -226,16 +224,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.encodeEnd(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
-        verify(rendererMock).encodeEnd(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isFalse();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
+        Mockito.verify(rendererMock).encodeEnd(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isFalse();
 
     }
 
     @Test
-    public void testEncodeEnd_CheckRendererExceptionFlow() throws IOException {
+    void testEncodeEnd_CheckRendererExceptionFlow() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_ENCODE_END);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
 
@@ -243,16 +241,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.encodeEnd(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
-        verify(rendererMock, never()).encodeEnd(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).encodeEnd(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
 
     }
 
     @Test
-    public void testEncodeEnd_CheckRendererExceptionFlow2() throws IOException {
+    void testEncodeEnd_CheckRendererExceptionFlow2() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_ENCODE_END);
         rendererInterceptor1.setSkipOtherInterceptors();
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -261,30 +259,30 @@ public class JerryRendererWrapperTest {
 
         wrapper.encodeEnd(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
-        verify(rendererMock, never()).encodeEnd(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).encodeEnd(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_ENCODE_END)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_ENCODE_END)).isTrue();
 
     }
 
     // decode
     @Test
-    public void testDecode() throws IOException {
+    void testDecode() throws IOException {
         registerInterceptors(rendererInterceptor1);
 
         JerryRendererWrapper wrapper = new JerryRendererWrapper(rendererMock);
 
         wrapper.decode(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
-        verify(rendererMock).decode(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
+        Mockito.verify(rendererMock).decode(facesContextMock, null);
     }
 
     @Test
-    public void testDecode_CheckExceptionFlow() throws IOException {
+    void testDecode_CheckExceptionFlow() throws IOException {
         rendererInterceptor1.throwException(InterceptorCalls.BEFORE_DECODE);
         rendererInterceptor1.throwException(InterceptorCalls.AFTER_DECODE);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -293,16 +291,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.decode(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
-        verify(rendererMock).decode(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_DECODE)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_DECODE)).isFalse();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
+        Mockito.verify(rendererMock).decode(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_DECODE)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_DECODE)).isFalse();
 
     }
 
     @Test
-    public void testDecode_CheckRendererExceptionFlow() throws IOException {
+    void testDecode_CheckRendererExceptionFlow() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_DECODE);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
 
@@ -310,16 +308,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.decode(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
-        verify(rendererMock, never()).decode(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).decode(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
 
     }
 
     @Test
-    public void testDecode_CheckRendererExceptionFlow2() throws IOException {
+    void testDecode_CheckRendererExceptionFlow2() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_DECODE);
         rendererInterceptor1.setSkipOtherInterceptors();
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -328,31 +326,31 @@ public class JerryRendererWrapperTest {
 
         wrapper.decode(facesContextMock, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
-        verify(rendererMock, never()).decode(facesContextMock, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_DECODE)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_DECODE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).decode(facesContextMock, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_DECODE)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_DECODE)).isTrue();
 
     }
 
     // convertedValue
     // encodeBegin
     @Test
-    public void testGetConvertedValue() throws IOException {
+    void testGetConvertedValue() throws IOException {
         registerInterceptors(rendererInterceptor1);
 
         JerryRendererWrapper wrapper = new JerryRendererWrapper(rendererMock);
 
         wrapper.getConvertedValue(facesContextMock, null, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
-        verify(rendererMock).getConvertedValue(facesContextMock, null, null);
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
+        Mockito.verify(rendererMock).getConvertedValue(facesContextMock, null, null);
     }
 
     @Test
-    public void testGetConvertedValue_CheckExceptionFlow() throws IOException {
+    void testGetConvertedValue_CheckExceptionFlow() throws IOException {
         rendererInterceptor1.throwException(InterceptorCalls.BEFORE_CONVERTED_VALUE);
         rendererInterceptor1.throwException(InterceptorCalls.AFTER_CONVERTED_VALUE);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -361,16 +359,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.getConvertedValue(facesContextMock, null, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
-        verify(rendererMock).getConvertedValue(facesContextMock, null, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isFalse();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
+        Mockito.verify(rendererMock).getConvertedValue(facesContextMock, null, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isFalse();
 
     }
 
     @Test
-    public void testGetConvertedValue_CheckRendererExceptionFlow() throws IOException {
+    void testGetConvertedValue_CheckRendererExceptionFlow() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_CONVERTED_VALUE);
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
 
@@ -378,16 +376,16 @@ public class JerryRendererWrapperTest {
 
         wrapper.getConvertedValue(facesContextMock, null, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
-        verify(rendererMock, never()).getConvertedValue(facesContextMock, null, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).getConvertedValue(facesContextMock, null, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
 
     }
 
     @Test
-    public void testGetConvertedValue_CheckRendererExceptionFlow2() throws IOException {
+    void testGetConvertedValue_CheckRendererExceptionFlow2() throws IOException {
         rendererInterceptor1.throwRendererException(InterceptorCalls.BEFORE_CONVERTED_VALUE);
         rendererInterceptor1.setSkipOtherInterceptors();
         registerInterceptors(rendererInterceptor1, rendererInterceptor2);
@@ -396,11 +394,11 @@ public class JerryRendererWrapperTest {
 
         wrapper.getConvertedValue(facesContextMock, null, null);
 
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
-        assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
-        verify(rendererMock, never()).getConvertedValue(facesContextMock, null, null);
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isFalse();
-        assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isTrue();
+        Assertions.assertThat(rendererInterceptor1.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
+        Mockito.verify(rendererMock, Mockito.never()).getConvertedValue(facesContextMock, null, null);
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.BEFORE_CONVERTED_VALUE)).isFalse();
+        Assertions.assertThat(rendererInterceptor2.isCalled(InterceptorCalls.AFTER_CONVERTED_VALUE)).isTrue();
 
     }
 
